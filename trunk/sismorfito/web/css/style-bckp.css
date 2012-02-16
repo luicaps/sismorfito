@@ -1,0 +1,86 @@
+/* 
+    Document   : style
+    Created on : 21/01/2012, 22:42:10
+    Author     : Moises
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.body {
+    background: #2b842b;
+}
+
+.screen {
+    width: 80%;
+    height: 100%;
+    padding: 3% 0% 3% 10%;
+}
+
+.cabecalho {
+    min-height: 200px;
+    height: auto !important;
+    height: 200px;
+    background-image: url('../img/cumarrom.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-position-x: 100% !important;
+    background-color: #d4e2d3 !important;
+}
+
+.corpo {
+    min-height: 460px;
+    height: auto !important;
+    height: 460px;    
+    text-align: center !important;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
+    margin-top: 0px !important;
+}
+
+.conteudo {
+    background-color: #F4F0EC !important;
+    height: auto !important;
+}
+
+.rodape {
+    min-height: 100px;
+    height: auto !important;
+    height: 183px !important;
+}
+
+.loginBotao {
+    font-size: 13px !important;
+}
+.pJanela {
+    font-size: 14px;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.menu {
+    margin-top: 79px !important;
+    font-size: 12px !important;
+    width: 490px !important;
+}
+
+.menuAdmin {
+    margin-top: 79px !important;
+    font-size: 12px !important;
+    width: 230px !important;    
+}
+
+.welcome {
+    margin-top: 27px !important;
+}
+
+.erroLogin {
+    text-align: center !important;
+    text-shadow: inherit !important;
+    font-size: 20px !important;
+    font-family: sans-serif !important;
+    padding-top: 100px !important;
+    height: 200px;
+}

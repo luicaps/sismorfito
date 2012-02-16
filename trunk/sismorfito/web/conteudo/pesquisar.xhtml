@@ -1,0 +1,74 @@
+<ui:composition template="/template/template-principal.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <br/><br/>
+        <h:form id="form">
+
+            <p:growl id="msgs" showDetail="true"/>
+            <div style="margin-left: 35%;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:selectOneMenu id="filo" value="#{pesquisaManagedBean.filo}">
+                            <f:selectItem itemLabel="Filo" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listFilo}" />
+                            <p:ajax update="classe"
+                                    listener="#{pesquisaManagedBean.fetchAllClasses()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="classe" value="#{pesquisaManagedBean.classe}">
+                            <f:selectItem itemLabel="Classe" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listClasse}" />
+                            <p:ajax update="ordem"
+                                    listener="#{pesquisaManagedBean.fetchAllOrdens()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="ordem" value="#{pesquisaManagedBean.ordem}">
+                            <f:selectItem itemLabel="Ordem" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listOrdem}" />
+                            <p:ajax update="familia"
+                                    listener="#{pesquisaManagedBean.fetchAllFamilias()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="familia" value="#{pesquisaManagedBean.familia}">
+                            <f:selectItem itemLabel="Familia" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listFamilia}" />
+                            <p:ajax update="genero"
+                                    listener="#{pesquisaManagedBean.fetchAllGenero()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="genero" value="#{pesquisaManagedBean.genero}">
+                            <f:selectItem itemLabel="Genero" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listGenero}" />
+                            <p:ajax update="especie"
+                                    listener="#{pesquisaManagedBean.fetchAllEspecie()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="especie" value="#{pesquisaManagedBean.especie}">
+                            <f:selectItem itemLabel="Especie" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listEspecie}" />
+                            <p:ajax update="fitolito"
+                                    listener="#{pesquisaManagedBean.fetchAllFitolito()}" />
+                        </p:selectOneMenu>
+                        <br/>
+                        <p:selectOneMenu id="fitolito" value="#{pesquisaManagedBean.fitolito}">
+                            <f:selectItem itemLabel="Fitolito" itemValue="" />
+                            <f:selectItems value="#{pesquisaManagedBean.listFitolito}" />
+                            <p:ajax update="Submit" />
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+
+                    <p:separator />
+
+                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}"/>
+
+                </p:panel>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

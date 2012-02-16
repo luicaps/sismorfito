@@ -1,0 +1,22 @@
+
+<pretty-config xmlns="http://ocpsoft.com/prettyfaces/3.3.2" 
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+               xsi:schemaLocation="http://ocpsoft.com/prettyfaces/3.3.2
+                                   		http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-3.3.2.xsd">
+
+<!--    <url-mapping id="index">
+        <pattern value="/" />
+        <view-id value="/faces/index.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="sobre">
+        <pattern value="/" />
+        <view-id value="/faces/sobre.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="sobre-admin">
+        <pattern value="/" />
+        <view-id value="/faces/conteudo-admin/sobre-admin.xhtml" />
+    </url-mapping>-->
+
+</pretty-config>
