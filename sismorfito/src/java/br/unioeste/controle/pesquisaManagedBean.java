@@ -4,7 +4,9 @@
  */
 package br.unioeste.controle;
 
+import br.unioeste.modelo.*;
 import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -32,6 +34,8 @@ public class pesquisaManagedBean {
     ArrayList<String> listGenero;
     ArrayList<String> listEspecie;
     ArrayList<String> listFitolito;
+    
+    List<FitoP> listFitoP;
     //Controle
     boolean isReady;
     /**
@@ -53,6 +57,7 @@ public class pesquisaManagedBean {
         listGenero = new ArrayList();
         listEspecie = new ArrayList();
         listFitolito = new ArrayList();
+        listFitoP = new ArrayList<FitoP>();
         
         isReady = false;
         fetchAllFilos();
@@ -177,6 +182,14 @@ public class pesquisaManagedBean {
     public void setIsReady(boolean isReady) {
         this.isReady = isReady;
     }
+
+    public List<FitoP> getListFitoP() {
+        return listFitoP;
+    }
+
+    public void setListFitoP(List<FitoP> listFitoP) {
+        this.listFitoP = listFitoP;
+    }
     
     public void fetchAllFilos() {
         this.listFilo.add("Filo1");
@@ -227,5 +240,24 @@ public class pesquisaManagedBean {
         this.listFitolito.add("Fitolito4");
         isReady = true;
     }
-    
+
+    public String findFitoP(){
+        Filo f = new Filo();
+        Classe c = new Classe();
+        Ordem o = new Ordem();
+        Genero g = new Genero();
+        Familia fa = new Familia();
+        Especie e = new Especie();
+        f.setNome_filo(filo);
+        c.setNome_classe(classe);
+        o.setNome_ordem(ordem);
+        g.setNome_genero(genero);
+        fa.setNome_familia(familia);
+        e.setNome_especie(especie);
+        float valdelta = (float) 1.56;
+        e.setValdelta(valdelta);
+        
+        isReady = true;
+        return "resultado";
+    }
 }
