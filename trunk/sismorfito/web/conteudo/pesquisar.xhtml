@@ -64,11 +64,15 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}"/>
+                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" actionListener="#{pesquisaManagedBean.findFitoP()}" update="res.show()"/>
 
                 </p:panel>
             </div>
         </h:form>
-
+        <h:form>
+            <p:dialog id="res">
+                Aqui comeca a tristeza.
+            </p:dialog>
+        </h:form>
     </ui:define>
 </ui:composition>

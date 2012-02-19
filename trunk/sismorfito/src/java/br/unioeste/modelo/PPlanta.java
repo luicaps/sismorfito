@@ -4,6 +4,8 @@
  */
 package br.unioeste.modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Moises
@@ -11,15 +13,18 @@ package br.unioeste.modelo;
 public class PPlanta {
     int id_pplanta;
     String nome_pplanta;
+    ArrayList<Integer> ppfoto;
 
-    public PPlanta(int id_pplanta, String nome_pplanta) {
+    public PPlanta(int id_pplanta, String nome_pplanta, ArrayList<Integer> ppfoto) {
         this.id_pplanta = id_pplanta;
         this.nome_pplanta = nome_pplanta;
+        this.ppfoto = ppfoto;
     }
 
     public PPlanta() {
         this.id_pplanta = 0;
         this.nome_pplanta = new String();
+        this.ppfoto = new ArrayList();
     }
 
     public int getId_pplanta() {
@@ -36,6 +41,14 @@ public class PPlanta {
 
     public void setNome_pplanta(String nome_pplanta) {
         this.nome_pplanta = nome_pplanta;
+    }
+
+    public ArrayList<Integer> getPpfoto() {
+        return ppfoto;
+    }
+
+    public void setPpfoto(ArrayList<Integer> ppfoto) {
+        this.ppfoto = ppfoto;
     }
     
 }

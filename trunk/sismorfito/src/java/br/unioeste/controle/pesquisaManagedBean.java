@@ -241,23 +241,65 @@ public class pesquisaManagedBean {
         isReady = true;
     }
 
-    public String findFitoP(){
+    public void findFitoP(){
+        //Filo
         Filo f = new Filo();
-        Classe c = new Classe();
-        Ordem o = new Ordem();
-        Genero g = new Genero();
-        Familia fa = new Familia();
-        Especie e = new Especie();
         f.setNome_filo(filo);
+        //Classe
+        Classe c = new Classe();
         c.setNome_classe(classe);
+        //Ordem
+        Ordem o = new Ordem();
         o.setNome_ordem(ordem);
+        //Genero
+        Genero g = new Genero();
         g.setNome_genero(genero);
+        //Familia
+        Familia fa = new Familia();
         fa.setNome_familia(familia);
+        //Especie
+        Especie e = new Especie();
         e.setNome_especie(especie);
         float valdelta = (float) 1.56;
         e.setValdelta(valdelta);
-        
+        //Planta
+        Planta planta = new Planta();
+        planta.setRetirada("10-10-2010");
+        TVege tvege = new TVege();
+        tvege.setNome_tvege("Vegetacao da loucura");
+        planta.setTvege(tvege);
+        Cidade cidade = new Cidade();
+        cidade.setNome_cidade("Cidade1");
+        Estado estado = new Estado();
+        estado.setNome_estado("Parana");
+        estado.setUF("PR");
+        cidade.setEstado(estado);
+        Pos pos = new Pos();
+        pos.setCidade(cidade);
+        pos.setComentario("Comentario sobre a pos");
+        pos.setLatitude(10);
+        pos.setLongitude(15);
+        planta.setPos(pos);
+        ArrayList<Integer> foto = new ArrayList();
+        int i = 1;
+        foto.add(i);
+        planta.setFotos(foto);
+        //PPlanta
+        PPlanta pplanta = new PPlanta();
+        pplanta.setNome_pplanta("PPlanta1");
+        pplanta.setPpfoto(foto);
+        //FitoP
+        FitoP fitop = new FitoP();
+        fitop.setFilo(f);
+        fitop.setClasse(c);
+        fitop.setOrdem(o);
+        fitop.setGenero(g);
+        fitop.setFamilia(fa);
+        fitop.setEspecie(e);
+        fitop.setPlanta(planta);
+        fitop.setPplanta(pplanta);
+        fitop.setNome_fp(this.Fitolito);
+        fitop.setFpfoto(foto);
         isReady = true;
-        return "resultado";
     }
 }
