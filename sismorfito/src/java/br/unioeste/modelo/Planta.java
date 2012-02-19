@@ -15,28 +15,31 @@ public class Planta {
     int id_planta;
     String retirada;
     TVege tvege;
-    ArrayList<Integer> fotos;
+    Pos pos;
+    ArrayList<Integer> plfoto;
 
-    public Planta(int id_planta, String retirada, TVege tvege, ArrayList<Integer> fotos) {
+    public Planta(int id_planta, String retirada, TVege tvege, Pos pos, ArrayList<Integer> fotos) {
         this.id_planta = id_planta;
         this.retirada = retirada;
         this.tvege = tvege;
-        this.fotos = fotos;
+        this.pos = pos;
+        this.plfoto = fotos;
     }
 
     public Planta() {
         this.id_planta = 0;
         this.retirada = new String();
         this.tvege = new TVege();
-        this.fotos = new ArrayList();
+        this.pos = new Pos();
+        this.plfoto = new ArrayList();
     }
 
     public ArrayList<Integer> getFotos() {
-        return fotos;
+        return plfoto;
     }
 
     public void setFotos(ArrayList<Integer> fotos) {
-        this.fotos = fotos;
+        this.plfoto = fotos;
     }
 
     public int getId_planta() {
@@ -61,6 +64,22 @@ public class Planta {
 
     public void setTvege(TVege tvege) {
         this.tvege = tvege;
+    }
+
+    public ArrayList<Integer> getPlfoto() {
+        return plfoto;
+    }
+
+    public void setPlfoto(ArrayList<Integer> plfoto) {
+        this.plfoto = plfoto;
+    }
+
+    public Pos getPos() {
+        return pos;
+    }
+
+    public void setPos(Pos pos) {
+        this.pos = pos;
     }
     
 }
