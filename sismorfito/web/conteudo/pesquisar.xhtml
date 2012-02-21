@@ -6,6 +6,15 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="corpo">
+        
+        <h:form>
+            <p:dialog id="res" widgetVar="dlg" modal="true" showEffect="fade" onShow="oi.update()">
+                <h:outputText value="Aqui comeca a tristeza." />
+                <h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" />
+                <h:outputText id="oi" value="#{pesquisaManagedBean.classe}" />
+            </p:dialog>
+        </h:form>
+        
         <br/><br/>
         <h:form id="form">
 
@@ -64,15 +73,10 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" actionListener="#{pesquisaManagedBean.findFitoP()}" update="res.show()"/>
+                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" update="res" oncomplete="#{p:widgetVar('res')}.show()"/>
 
                 </p:panel>
             </div>
-        </h:form>
-        <h:form>
-            <p:dialog id="res">
-                Aqui comeca a tristeza.
-            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

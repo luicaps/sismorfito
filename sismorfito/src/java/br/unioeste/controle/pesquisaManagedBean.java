@@ -35,7 +35,7 @@ public class pesquisaManagedBean {
     ArrayList<String> listEspecie;
     ArrayList<String> listFitolito;
     
-    List<FitoP> listFitoP;
+    FitoP fitop;
     //Controle
     boolean isReady;
     /**
@@ -57,7 +57,7 @@ public class pesquisaManagedBean {
         listGenero = new ArrayList();
         listEspecie = new ArrayList();
         listFitolito = new ArrayList();
-        listFitoP = new ArrayList<FitoP>();
+        fitop = new FitoP();
         
         isReady = false;
         fetchAllFilos();
@@ -183,12 +183,12 @@ public class pesquisaManagedBean {
         this.isReady = isReady;
     }
 
-    public List<FitoP> getListFitoP() {
-        return listFitoP;
+    public FitoP getFitop() {
+        return fitop;
     }
 
-    public void setListFitoP(List<FitoP> listFitoP) {
-        this.listFitoP = listFitoP;
+    public void setFitop(FitoP fitop) {
+        this.fitop = fitop;
     }
     
     public void fetchAllFilos() {
@@ -245,23 +245,29 @@ public class pesquisaManagedBean {
         //Filo
         Filo f = new Filo();
         f.setNome_filo(filo);
+        System.out.println(filo);
         //Classe
         Classe c = new Classe();
         c.setNome_classe(classe);
+        System.out.println(classe);
         //Ordem
         Ordem o = new Ordem();
         o.setNome_ordem(ordem);
+        System.out.println(ordem);
         //Genero
         Genero g = new Genero();
         g.setNome_genero(genero);
+        System.out.println(genero);
         //Familia
         Familia fa = new Familia();
         fa.setNome_familia(familia);
+        System.out.println(familia);
         //Especie
         Especie e = new Especie();
         e.setNome_especie(especie);
         float valdelta = (float) 1.56;
         e.setValdelta(valdelta);
+        System.out.println(especie);
         //Planta
         Planta planta = new Planta();
         planta.setRetirada("10-10-2010");
@@ -289,7 +295,6 @@ public class pesquisaManagedBean {
         pplanta.setNome_pplanta("PPlanta1");
         pplanta.setPpfoto(foto);
         //FitoP
-        FitoP fitop = new FitoP();
         fitop.setFilo(f);
         fitop.setClasse(c);
         fitop.setOrdem(o);
@@ -300,6 +305,8 @@ public class pesquisaManagedBean {
         fitop.setPplanta(pplanta);
         fitop.setNome_fp(this.Fitolito);
         fitop.setFpfoto(foto);
+        System.out.println(Fitolito);
         isReady = true;
+        System.out.println("foifoifoifoifoifoif");
     }
 }
