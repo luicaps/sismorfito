@@ -14,7 +14,8 @@ public class Usuario {
     String usuario;
     String nome;
     int tipo;
-    boolean isLoged;
+    boolean isLogedAdmin;
+    boolean isLogedProfessor;
 
     public Usuario(int idusuario, String senha, String usuario, String nome, int tipo) {
         this.idusuario = idusuario;
@@ -22,7 +23,8 @@ public class Usuario {
         this.usuario = usuario;
         this.nome = nome;
         this.tipo = tipo;
-        this.isLoged = false;
+        this.isLogedAdmin = false;
+        this.isLogedProfessor = false;
     }
 
     public Usuario() {
@@ -31,6 +33,8 @@ public class Usuario {
         this.usuario = "Visitante";
         this.nome = new String();
         this.tipo = 0;
+        this.isLogedAdmin = false;
+        this.isLogedProfessor = false;
     }
 
     public int getIdusuario() {
@@ -73,12 +77,20 @@ public class Usuario {
         this.usuario = usuario;
     }
 
-    public boolean isIsLoged() {
-        return isLoged;
+    public boolean isIsLogedAdmin() {
+        return isLogedAdmin;
     }
 
-    public void setIsLoged(boolean isLoged) {
-        this.isLoged = isLoged;
+    public void setIsLogedAdmin(boolean isLogedAdmin) {
+        this.isLogedAdmin = isLogedAdmin;
     }
-    
+
+    public boolean isIsLogedProfessor() {
+        return isLogedProfessor;
+    }
+
+    public void setIsLogedProfessor(boolean isLogedProfessor) {
+        this.isLogedProfessor = isLogedProfessor;
+    }
+   
 }

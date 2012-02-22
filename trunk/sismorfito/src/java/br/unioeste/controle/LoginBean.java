@@ -47,20 +47,21 @@ public class LoginBean {
         if (usuario.getUsuario() != null && usuario.getUsuario().equals("admin") && usuario.getSenha() != null && usuario.getSenha().equals("admin")) {
             loggedIn = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", usuario.getUsuario());
-            usuario.setNome("Adminho");
-            usuario.setIsLoged(true);
+            usuario.setNome("Professorino");
+            usuario.setIsLogedProfessor(true);
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-admin/sobre-admin.xhtml");
+                //FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-admin/sobre-admin.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-professor/sobre-professor.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("La vita es dificil");
             }
         } else {
             loggedIn = false;
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Logar", "Usuario ou Senha incorretos.");
         }
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        context.addCallbackParam("loggedIn", loggedIn);
+//        context.addCallbackParam("loggedIn", loggedIn);
     }
 }

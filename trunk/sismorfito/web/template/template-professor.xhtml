@@ -10,7 +10,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:form>
-        <p:panel rendered="#{not loginBean.usuario.isLogedAdmin}" styleClass="erroLogin">
+        <p:panel rendered="#{not loginBean.usuario.isLogedProfessor}" styleClass="erroLogin">
             Ops! Acho que você não deveria estar aqui.
             Que tal voltar <p:commandLink onclick="retorna()">aqui</p:commandLink>?
             <script type="text/javascript" language="javascript">
@@ -20,10 +20,10 @@
             </script>
         </p:panel>
     </h:form>
-    <h:body styleClass="body" rendered="#{loginBean.usuario.isLogedAdmin}">
+    <h:body styleClass="body" rendered="#{loginBean.usuario.isLogedProfessor}">
         <p:growl id="growl" showDetail="true" life="3000" />
         <div class="screen">
-             <div Class="cabecalho">
+            <div Class="cabecalho">
                 <h:form id="loga">
                     <br/><p class="welcome">Bem vindo <h:outputText value="#{loginBean.usuario.nome}" id="usu"/></p>
                 </h:form>
@@ -31,17 +31,22 @@
 
                     <p:growl id="messages"/>
 
-                    <p:menubar styleClass="menuAdmin" autoDisplay="false">
+                    <p:menubar styleClass="menuProfessor" autoDisplay="false">
 
-                        <p:submenu label="Professor" icon="ui-icon-person">
-                            <p:menuitem value="Cadastrar" icon="ui-icon-pencil" action="/conteudo-admin/cadastrar-professor.xhtml" ajax="false" />
-                            <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-admin/busca-professor.xhtml" ajax="false" />
+                        <p:submenu label="Banco de Dados" icon="ui-icon-note">
+                            <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>
+                            <p:menuitem value="Cadastrar" icon="ui-icon-pencil" action="/conteudo-professor/cadastrar-fito.xhtml" ajax="false"/>
                         </p:submenu>
 
-                        <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-admin/ajuda-admin.xhtml" ajax="false" />
+                        <p:submenu label="Pesquisador" icon="ui-icon-person">
+                            <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-admin/busca-professor.xhtml" ajax="false" />
+                            <p:menuitem value="Consultar Professor" icon="ui-icon-search" action="/conteudo-admin/cadastrar-professor.xhtml" ajax="false"  styleClass="cadprof" />
+                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" action="/conteudo-admin/cadastrar-professor.xhtml" ajax="false" />
+                        </p:submenu>
+
+                        <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-professor/ajuda-professor.xhtml" ajax="false" />
 
                         <p:menuitem value="Sair" icon="ui-icon-close" />
-
                     </p:menubar>
 
                 </h:form>
