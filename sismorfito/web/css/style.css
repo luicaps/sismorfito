@@ -80,6 +80,20 @@ root {
     width: 230px !important;    
 }
 
+.menuProfessor {
+    margin-top: 5% !important;
+    font-size: 12px !important;
+    width: 380px !important;    
+}
+
+.cadprof {
+    font-size: 11.4px !important;
+}
+
+.telaCadastro {
+    
+}
+
 .welcome {
     margin-top: 29px !important;
 }
