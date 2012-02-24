@@ -34,6 +34,9 @@ public class pesquisaManagedBean {
     ArrayList<String> listGenero;
     ArrayList<String> listEspecie;
     ArrayList<String> listFitolito;
+    ArrayList<String> urlFPFoto;
+    ArrayList<String> urlPPFoto;
+    ArrayList<String> urlPlFoto;
     
     FitoP fitop;
     //Controle
@@ -57,9 +60,19 @@ public class pesquisaManagedBean {
         listGenero = new ArrayList();
         listEspecie = new ArrayList();
         listFitolito = new ArrayList();
+        urlFPFoto = new ArrayList();
+        urlPPFoto = new ArrayList();
+        urlPlFoto = new ArrayList();
         fitop = new FitoP();
         
         isReady = false;
+        
+        urlFPFoto.add("1.jpg");
+        urlFPFoto.add("2.jpg");
+        urlPPFoto.add("/PPFoto/1.jpg");
+        urlPPFoto.add("/PPFoto/2.jpg");
+        urlPlFoto.add("/PlFoto/1.jpg");
+        urlPlFoto.add("/PlFoto/2.jpg");
         fetchAllFilos();
     }
 
@@ -173,6 +186,30 @@ public class pesquisaManagedBean {
 
     public void setListFitolito(ArrayList<String> listFitolito) {
         this.listFitolito = listFitolito;
+    }
+
+    public ArrayList<String> getUrlFPFoto() {
+        return urlFPFoto;
+    }
+
+    public void setUrlFPFoto(ArrayList<String> urlFPFoto) {
+        this.urlFPFoto = urlFPFoto;
+    }
+
+    public ArrayList<String> getUrlPPFoto() {
+        return urlPPFoto;
+    }
+
+    public void setUrlPPFoto(ArrayList<String> urlPPFoto) {
+        this.urlPPFoto = urlPPFoto;
+    }
+
+    public ArrayList<String> getUrlPlFoto() {
+        return urlPlFoto;
+    }
+
+    public void setUrlPlFoto(ArrayList<String> urlPlFoto) {
+        this.urlPlFoto = urlPlFoto;
     }
 
     public boolean isIsReady() {
