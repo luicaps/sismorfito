@@ -106,3 +106,7 @@ root {
     padding-top: 100px !important;
     height: 200px;
 }
+
+.ui-dialog{
+top: 4px !important;
+}
