@@ -8,52 +8,58 @@
     <ui:define name="corpo">
 
         <p:growl id="msgs" showDetail="true"/>
-        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" resizable="false" height="200" styleClass="loginBotao" style="text-align: left !important; font-size: 13px !important;">
+        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="600" style="text-align: left !important; font-size: 13px !important;">
             <h:form>
-               
-                <p:commandButton type="button" onclick="FPFoto.previous();"
-                                 icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
-                <p:commandButton type="button" onclick="FPFoto.next();"
-                                 icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
+                <h:panelGrid columns="3">
+                    <p:panel header="Fitólito">
+                        <p:commandButton type="button" onclick="FPFoto.previous();"
+                                         icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
+                        <p:commandButton type="button" onclick="FPFoto.next();"
+                                         icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
 
-                <p:imageSwitch effect="shuffle" widgetVar="FPFoto" slideshowAuto="false" style="border-style: solid !important;">
-                    <ui:repeat value="#{pesquisaManagedBean.urlFPFoto}" var="fpfoto">
-                        <p:graphicImage value="/FPFoto/#{fpfoto}" height="250" width="350" />
-                    </ui:repeat>
-                </p:imageSwitch>
-                
-                <p:separator />
-                
-                <p:commandButton type="button" onclick="PlFoto.previous();"
-                                 icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
-                <p:commandButton type="button" onclick="PlFoto.next();"
-                                 icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
+                        <p:imageSwitch effect="fade" widgetVar="FPFoto" slideshowAuto="false">
+                            <ui:repeat value="#{pesquisaManagedBean.urlFPFoto}" var="fpfoto">
+                                <p:graphicImage value="/FPFoto/#{fpfoto}" height="250" width="350" />
+                            </ui:repeat>
+                        </p:imageSwitch>
+                    </p:panel>
+                    <p:panel header="Planta">
 
-                <p:imageSwitch effect="shuffle" widgetVar="PlFoto" slideshowAuto="false" style="border-style: solid !important;">
-                    <ui:repeat value="#{pesquisaManagedBean.urlPlFoto}" var="plfoto">
-                        <p:graphicImage value="/PLFoto/#{plfoto}" height="250" width="350" />
-                    </ui:repeat>
-                </p:imageSwitch>
-                
-                <p:separator />
-                
-                <p:commandButton type="button" onclick="PPFoto.previous();"
-                                 icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
-                <p:commandButton type="button" onclick="PPFoto.next();"
-                                 icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
+                        <p:commandButton type="button" onclick="PlFoto.previous();"
+                                         icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
+                        <p:commandButton type="button" onclick="PlFoto.next();"
+                                         icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
 
-                <p:imageSwitch effect="shuffle" widgetVar="PPFoto" slideshowAuto="false" style="border-style: solid !important;">
-                    <ui:repeat value="#{pesquisaManagedBean.urlPPFoto}" var="ppfoto">
-                        <p:graphicImage value="/PPFoto/#{ppfoto}" height="250" width="350" />
-                    </ui:repeat>
-                </p:imageSwitch>
-                
-                <p:separator />
-                
-                <h:outputText value="Aqui comeca a tristeza." /><br/>
-                <h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" /><br/>
-                <h:outputText id="oi" value="#{pesquisaManagedBean.classe}" /><br/>
-                
+                        <p:imageSwitch effect="fade" widgetVar="PlFoto" slideshowAuto="false">
+                            <ui:repeat value="#{pesquisaManagedBean.urlPlFoto}" var="plfoto">
+                                <p:graphicImage value="/PlFoto/#{plfoto}" height="250" width="350" />
+                            </ui:repeat>
+                        </p:imageSwitch>
+
+                    </p:panel>
+                    <p:panel header="Parte da planta">
+
+                        <p:commandButton type="button" onclick="PPFoto.previous();"
+                                         icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
+                        <p:commandButton type="button" onclick="PPFoto.next();"
+                                         icon="ui-icon-circle-triangle-e" style="font-size: 10px !important;"/>
+
+                        <p:imageSwitch effect="fade" widgetVar="PPFoto" slideshowAuto="false">
+                            <ui:repeat value="#{pesquisaManagedBean.urlPPFoto}" var="ppfoto">
+                                <p:graphicImage value="/PPFoto/#{ppfoto}" height="250" width="350" />
+                            </ui:repeat>
+                        </p:imageSwitch>
+
+                    </p:panel>
+                </h:panelGrid>
+
+                <p:separator style="padding-top: 5px !important;" />
+
+                <p:panel header="Dados">
+                    <h:outputText value="Aqui comeca a tristeza." /><br/>
+                    <h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" /><br/>
+                    <h:outputText id="oi" value="#{pesquisaManagedBean.classe}" /><br/>
+                </p:panel>
             </h:form>
         </p:dialog>
 

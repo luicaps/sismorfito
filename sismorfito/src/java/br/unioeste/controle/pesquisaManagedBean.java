@@ -69,10 +69,10 @@ public class pesquisaManagedBean {
         
         urlFPFoto.add("1.jpg");
         urlFPFoto.add("2.jpg");
-        urlPPFoto.add("/PPFoto/1.jpg");
-        urlPPFoto.add("/PPFoto/2.jpg");
-        urlPlFoto.add("/PlFoto/1.jpg");
-        urlPlFoto.add("/PlFoto/2.jpg");
+        urlPPFoto.add("1.jpg");
+        urlPPFoto.add("2.jpg");
+        urlPlFoto.add("1.jpg");
+        urlPlFoto.add("2.jpg");
         fetchAllFilos();
     }
 
