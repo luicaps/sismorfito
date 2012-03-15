@@ -37,10 +37,10 @@ public class pesquisaManagedBean {
     ArrayList<String> urlFPFoto;
     ArrayList<String> urlPPFoto;
     ArrayList<String> urlPlFoto;
-    
     FitoP fitop;
     //Controle
     boolean isReady;
+
     /**
      * Creates a new instance of pesquisaManagedBean
      */
@@ -64,15 +64,15 @@ public class pesquisaManagedBean {
         urlPPFoto = new ArrayList();
         urlPlFoto = new ArrayList();
         fitop = new FitoP();
-        
+
         isReady = false;
-        
-        urlFPFoto.add("1.jpg");
-        urlFPFoto.add("2.jpg");
-        urlPPFoto.add("1.jpg");
-        urlPPFoto.add("2.jpg");
-        urlPlFoto.add("1.jpg");
-        urlPlFoto.add("2.jpg");
+
+        urlFPFoto.add("1");
+        urlFPFoto.add("2");
+        urlPPFoto.add("1");
+        urlPPFoto.add("2");
+        urlPlFoto.add("1");
+        urlPlFoto.add("2");
         fetchAllFilos();
     }
 
@@ -129,6 +129,7 @@ public class pesquisaManagedBean {
     }
 
     public void setFitolito(String Fitolito) {
+        isReady = true;
         this.Fitolito = Fitolito;
     }
 
@@ -227,58 +228,84 @@ public class pesquisaManagedBean {
     public void setFitop(FitoP fitop) {
         this.fitop = fitop;
     }
-    
+
     public void fetchAllFilos() {
         this.listFilo.add("Filo1");
         this.listFilo.add("Filo2");
         this.listFilo.add("Filo3");
         this.listFilo.add("Filo4");
+        isReady = false;
     }
 
     public void fetchAllClasses() {
+        listClasse.clear();
         this.listClasse.add("Classe1");
         this.listClasse.add("Classe2");
         this.listClasse.add("Classe3");
         this.listClasse.add("Classe4");
+        listOrdem.clear();
+        listFamilia.clear();
+        listGenero.clear();
+        listEspecie.clear();
+        listFitolito.clear();
+        isReady = false;
     }
 
     public void fetchAllOrdens() {
+        listOrdem.clear();
         this.listOrdem.add("Ordem1");
         this.listOrdem.add("Ordem2");
         this.listOrdem.add("Ordem3");
         this.listOrdem.add("Ordem4");
+        listFamilia.clear();
+        listGenero.clear();
+        listEspecie.clear();
+        listFitolito.clear();
+        isReady = false;
     }
 
     public void fetchAllFamilias() {
+        listFamilia.clear();
         this.listFamilia.add("Familia1");
         this.listFamilia.add("Familia2");
         this.listFamilia.add("Familia3");
         this.listFamilia.add("Familia4");
+        listGenero.clear();
+        listEspecie.clear();
+        listFitolito.clear();
+        isReady = false;
     }
 
     public void fetchAllGenero() {
+        listGenero.clear();
         this.listGenero.add("Genero1");
         this.listGenero.add("Genero2");
         this.listGenero.add("Genero3");
         this.listGenero.add("Genero4");
+        listEspecie.clear();
+        listFitolito.clear();
+        isReady = false;
     }
 
     public void fetchAllEspecie() {
+        listEspecie.clear();
         this.listEspecie.add("Especie1");
         this.listEspecie.add("Especie2");
         this.listEspecie.add("Especie3");
         this.listEspecie.add("Especie4");
+        listFitolito.clear();
+        isReady = false;
     }
-    
+
     public void fetchAllFitolito() {
+        listFitolito.clear();
         this.listFitolito.add("Fitolito1");
         this.listFitolito.add("Fitolito2");
         this.listFitolito.add("Fitolito3");
         this.listFitolito.add("Fitolito4");
-        isReady = true;
     }
 
-    public void findFitoP(){
+    public void findFitoP() {
         //Filo
         Filo f = new Filo();
         f.setNome_filo(filo);
