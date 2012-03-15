@@ -11,7 +11,7 @@
         <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="600" style="text-align: left !important; font-size: 13px !important;">
             <h:form>
                 <h:panelGrid columns="3">
-                    <p:panel header="Fitólito">
+                    <p:panel footer="Fitólito">
                         <p:commandButton type="button" onclick="FPFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
                         <p:commandButton type="button" onclick="FPFoto.next();"
@@ -19,11 +19,11 @@
 
                         <p:imageSwitch effect="fade" widgetVar="FPFoto" slideshowAuto="false">
                             <ui:repeat value="#{pesquisaManagedBean.urlFPFoto}" var="fpfoto">
-                                <p:graphicImage value="/FPFoto/#{fpfoto}" height="250" width="350" />
+                                <p:graphicImage value="/FPFoto/#{fpfoto}.jpg" height="250" width="350" />
                             </ui:repeat>
                         </p:imageSwitch>
                     </p:panel>
-                    <p:panel header="Planta">
+                    <p:panel footer="Planta">
 
                         <p:commandButton type="button" onclick="PlFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
@@ -32,12 +32,12 @@
 
                         <p:imageSwitch effect="fade" widgetVar="PlFoto" slideshowAuto="false">
                             <ui:repeat value="#{pesquisaManagedBean.urlPlFoto}" var="plfoto">
-                                <p:graphicImage value="/PlFoto/#{plfoto}" height="250" width="350" />
+                                <p:graphicImage value="/PlFoto/#{plfoto}.jpg" height="250" width="350" />
                             </ui:repeat>
                         </p:imageSwitch>
 
                     </p:panel>
-                    <p:panel header="Parte da planta">
+                    <p:panel footer="Parte da Planta">
 
                         <p:commandButton type="button" onclick="PPFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
@@ -46,20 +46,63 @@
 
                         <p:imageSwitch effect="fade" widgetVar="PPFoto" slideshowAuto="false">
                             <ui:repeat value="#{pesquisaManagedBean.urlPPFoto}" var="ppfoto">
-                                <p:graphicImage value="/PPFoto/#{ppfoto}" height="250" width="350" />
+                                <p:graphicImage value="/PPFoto/#{ppfoto}.jpg" height="250" width="350" />
                             </ui:repeat>
                         </p:imageSwitch>
 
                     </p:panel>
                 </h:panelGrid>
 
-                <p:separator style="padding-top: 5px !important;" />
+                <p:separator />
 
-                <p:panel header="Dados">
-                    <h:outputText value="Aqui comeca a tristeza." /><br/>
-                    <h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" /><br/>
-                    <h:outputText id="oi" value="#{pesquisaManagedBean.classe}" /><br/>
-                </p:panel>
+                <div style="padding-left: 30% !important;">
+                    <p:panelGrid columns="2" transient="false">
+                        <p:column>
+                            <h:outputText value="Filo: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.filo.nome_filo}" /></b>
+                            <br/>
+                            <h:outputText value="Classe: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.classe.nome_classe}" /></b>
+                            <br/>
+                            <h:outputText value="Ordem: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.ordem.nome_ordem}" /></b>
+                            <br/>
+                            <h:outputText value="Familia: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.familia.nome_familia}" /></b>
+                            <br/>
+                            <h:outputText value="Gênero: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.genero.nome_genero}" /></b>
+                            <br/>
+                            <h:outputText value="Especie: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.especie.nome_especie}" /></b>
+                            <br/>
+                            <h:outputText value="Fitolito: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" /></b>
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="Valor C3: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.especie.valdelta}" /></b>
+                            <br/>
+                            <h:outputText value="Tipo de Vegetacao: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.tvege.nome_tvege}" /></b>
+                            <br/>
+                            <h:outputText value="Data da extracao: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.retirada}" /></b>
+                            <br/>
+                            <h:outputText value="UF: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.cidade.estado.UF}" /></b>
+                            <br/>
+                            <h:outputText value="Cidade: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.cidade.nome_cidade}" /></b>
+                            <br/>
+                            <h:outputText value="Latitude: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.latitude}" /></b>
+                            <br/>
+                            <h:outputText value="Longitude: " />
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.longitude}" /></b>
+                        </p:column>
+                    </p:panelGrid>
+                </div>
             </h:form>
         </p:dialog>
 
@@ -69,55 +112,53 @@
 
             <div style="margin-left: 35%;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle;">
-                    <h:panelGrid columns="2" cellpadding="5">
                         <p:selectOneMenu id="filo" value="#{pesquisaManagedBean.filo}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Filo" itemValue="" />
+                            <f:selectItem itemLabel="Filo" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFilo}"/>
-                            <p:ajax update="classe"
+                            <p:ajax update="classe ordem familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllClasses()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="classe" value="#{pesquisaManagedBean.classe}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Classe" itemValue="" />
+                            <f:selectItem itemLabel="Classe" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listClasse}" />
-                            <p:ajax update="ordem"
+                            <p:ajax update="ordem familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllOrdens()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="ordem" value="#{pesquisaManagedBean.ordem}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Ordem" itemValue="" />
+                            <f:selectItem itemLabel="Ordem" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listOrdem}" />
-                            <p:ajax update="familia"
+                            <p:ajax update="familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllFamilias()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="familia" value="#{pesquisaManagedBean.familia}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Familia" itemValue="" />
+                            <f:selectItem itemLabel="Familia" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFamilia}" />
-                            <p:ajax update="genero"
+                            <p:ajax update="genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllGenero()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="genero" value="#{pesquisaManagedBean.genero}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Genero" itemValue="" />
+                            <f:selectItem itemLabel="Genero" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listGenero}" />
-                            <p:ajax update="especie"
+                            <p:ajax update="especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllEspecie()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="especie" value="#{pesquisaManagedBean.especie}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Especie" itemValue="" />
+                            <f:selectItem itemLabel="Especie" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listEspecie}" />
-                            <p:ajax update="fitolito"
+                            <p:ajax update="fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllFitolito()}" />
                         </p:selectOneMenu>
                         <br/>
                         <p:selectOneMenu id="fitolito" value="#{pesquisaManagedBean.fitolito}" styleClass="loginBotao">
-                            <f:selectItem itemLabel="Fitolito" itemValue="" />
+                            <f:selectItem itemLabel="Fitolito" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFitolito}" />
                             <p:ajax update="Submit" />
                         </p:selectOneMenu>
-                    </h:panelGrid>
 
                     <p:separator />
 
