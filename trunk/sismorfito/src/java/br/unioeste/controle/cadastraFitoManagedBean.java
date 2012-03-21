@@ -316,4 +316,68 @@ public class cadastraFitoManagedBean {
         }
         return saida;
     }
+
+    public ArrayList<String> completeClasse(String query) {
+        ArrayList<String> saida = new ArrayList();
+        if(filo.compareToIgnoreCase("")==0){
+            saida.add("Selecione um Filo...");
+            return saida;
+        }
+        for (String string : listClasse) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }
+    
+    public ArrayList<String> completeOrdem(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listOrdem) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }
+    
+    public ArrayList<String> completeFamilia(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listFamilia) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }
+    
+    public ArrayList<String> completeGenero(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listGenero) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }
+    
+    public ArrayList<String> completeEspecie(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listEspecie) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }
+    
+    public ArrayList<String> completeFitolito(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listFitolito) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }    
 }
