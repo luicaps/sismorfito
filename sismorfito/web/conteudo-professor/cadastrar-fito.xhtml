@@ -8,66 +8,45 @@
     <ui:define name="corpo">
         <h:form>
             <div style="margin-left: 35%; width: 500px !important;">
-                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle;">
-                    <h:panelGrid columns="2" cellpadding="5">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+                    <h:panelGrid columns="3" cellpadding="5">
 
-                        <p:autoComplete id="acSimple" value="#{cadastraFitoManagedBean.filo}" 
+                        <h:outputText value="Filo: " />
+                        <p:autoComplete id="Filo" value="#{cadastraFitoManagedBean.filo}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeFilo}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="Classe: " />
+                        <p:autoComplete id="Classe" value="#{cadastraFitoManagedBean.classe}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeClasse}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="Ordem: " />
+                        <p:autoComplete id="Ordem" value="#{cadastraFitoManagedBean.ordem}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeOrdem}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="Familia: " />
+                        <p:autoComplete id="Familia" value="#{cadastraFitoManagedBean.familia}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeFamilia}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="Genero: " />
+                        <p:autoComplete id="Genero" value="#{cadastraFitoManagedBean.genero}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeGenero}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="EspÃ©cie: " />
+                        <p:autoComplete id="Especie" value="#{cadastraFitoManagedBean.especie}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeEspecie}"/>
+                        <p:commandButton value="Submit" />
+                        
+                        <h:outputText value="Fitolito: " />
+                        <p:autoComplete id="Fitolito" value="#{cadastraFitoManagedBean.fitolito}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeFitolito}"/>
+                        <p:commandButton value="Submit" />
+                        
 
-                        <p:selectOneMenu id="filo" value="#{pesquisaManagedBean.filo}" editable="true">
-                            <f:selectItem itemLabel="Filo" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listFilo}" />
-                            <!--<f:selectItem itemLabel="Digite novo" itemValue="" />-->
-                            <p:ajax update="classe"
-                                    listener="#{pesquisaManagedBean.fetchAllClasses()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="classe" value="#{pesquisaManagedBean.classe}" editable="true">
-                            <f:selectItem itemLabel="Classe" itemValue=""/>
-                            <f:selectItems value="#{pesquisaManagedBean.listClasse}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="ordem"
-                                    listener="#{pesquisaManagedBean.fetchAllOrdens()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="ordem" value="#{pesquisaManagedBean.ordem}" editable="true">
-                            <f:selectItem itemLabel="Ordem" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listOrdem}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="familia"
-                                    listener="#{pesquisaManagedBean.fetchAllFamilias()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="familia" value="#{pesquisaManagedBean.familia}" editable="true">
-                            <f:selectItem itemLabel="Familia" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listFamilia}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="genero"
-                                    listener="#{pesquisaManagedBean.fetchAllGenero()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="genero" value="#{pesquisaManagedBean.genero}" editable="true">
-                            <f:selectItem itemLabel="Genero" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listGenero}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="especie"
-                                    listener="#{pesquisaManagedBean.fetchAllEspecie()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="especie" value="#{pesquisaManagedBean.especie}" editable="true">
-                            <f:selectItem itemLabel="Especie" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listEspecie}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="fitolito"
-                                    listener="#{pesquisaManagedBean.fetchAllFitolito()}" />
-                        </p:selectOneMenu>
-                        <br/>
-                        <p:selectOneMenu id="fitolito" value="#{pesquisaManagedBean.fitolito}" editable="true">
-                            <f:selectItem itemLabel="Fitolito" itemValue="" />
-                            <f:selectItems value="#{pesquisaManagedBean.listFitolito}" />
-                            <f:selectItem itemLabel="Digite novo"/>
-                            <p:ajax update="Submit" />
-                        </p:selectOneMenu>
                     </h:panelGrid>
 
                     <p:separator />

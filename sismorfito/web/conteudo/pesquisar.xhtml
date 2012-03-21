@@ -8,10 +8,10 @@
     <ui:define name="corpo">
 
         <p:growl id="msgs" showDetail="true"/>
-        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="600" style="text-align: left !important; font-size: 13px !important;">
+        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="600" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
             <h:form>
                 <h:panelGrid columns="3">
-                    <p:panel footer="Fitólito">
+                    <p:panel footer="FitÃ³lito">
                         <p:commandButton type="button" onclick="FPFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
                         <p:commandButton type="button" onclick="FPFoto.next();"
@@ -70,7 +70,7 @@
                             <h:outputText value="Familia: " />
                             <b><h:outputText value="#{pesquisaManagedBean.fitop.familia.nome_familia}" /></b>
                             <br/>
-                            <h:outputText value="Gênero: " />
+                            <h:outputText value="GÃªnero: " />
                             <b><h:outputText value="#{pesquisaManagedBean.fitop.genero.nome_genero}" /></b>
                             <br/>
                             <h:outputText value="Especie: " />
