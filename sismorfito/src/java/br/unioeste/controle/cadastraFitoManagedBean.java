@@ -25,6 +25,13 @@ public class cadastraFitoManagedBean {
     String genero;
     String especie;
     String Fitolito;
+    double ValDeta;
+    String retirada;
+    boolean disponivel;
+    String estado;
+    String cidade;
+    
+    
     //Lists
     ArrayList<String> listFilo;
     ArrayList<String> listClasse;
@@ -33,6 +40,8 @@ public class cadastraFitoManagedBean {
     ArrayList<String> listGenero;
     ArrayList<String> listEspecie;
     ArrayList<String> listFitolito;
+    ArrayList<String> listEstado;
+    ArrayList<String> listCidade;
     FitoP fitop;
     //Controle
     boolean isReady;
@@ -48,7 +57,12 @@ public class cadastraFitoManagedBean {
         genero = new String();
         especie = new String();
         Fitolito = new String();
-
+        ValDeta = 0.0;
+        retirada = new String();
+        disponivel = false;
+        estado = new String();
+        cidade = new String();
+        
         listFilo = new ArrayList();
         listClasse = new ArrayList();
         listOrdem = new ArrayList();
@@ -56,6 +70,8 @@ public class cadastraFitoManagedBean {
         listGenero = new ArrayList();
         listEspecie = new ArrayList();
         listFitolito = new ArrayList();
+        listEstado = new ArrayList();
+        listCidade = new ArrayList();
         fitop = new FitoP();
 
         isReady = false;
@@ -66,6 +82,47 @@ public class cadastraFitoManagedBean {
         fetchAllFamilias();
         fetchAllEspecie();
         fetchAllFitolito();
+        fetchAllEstado();
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public boolean getDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
+    }
+
+    public String getRetirada() {
+        return retirada;
+    }
+
+    public void setRetirada(String retirada) {
+        this.retirada = retirada;
+    }
+
+    public double getValDeta() {
+        return ValDeta;
+    }
+
+    public void setValDeta(double ValDeta) {
+        this.ValDeta = ValDeta;
     }
 
     public String getClasse() {
@@ -122,6 +179,22 @@ public class cadastraFitoManagedBean {
 
     public void setFitolito(String Fitolito) {
         this.Fitolito = Fitolito;
+    }
+
+    public ArrayList<String> getListEstado() {
+        return listEstado;
+    }
+
+    public void setListEstado(ArrayList<String> listEstado) {
+        this.listEstado = listEstado;
+    }
+
+    public ArrayList<String> getListCidade() {
+        return listCidade;
+    }
+
+    public void setListCidade(ArrayList<String> listCidade) {
+        this.listCidade = listCidade;
     }
 
     public ArrayList<String> getListClasse() {
@@ -245,7 +318,22 @@ public class cadastraFitoManagedBean {
         this.listFitolito.add("Fitolito4");
         isReady = true;
     }
+    
+    public void fetchAllEstado() {
+        this.listEstado.add("ES1");
+        this.listEstado.add("ES2");
+        this.listEstado.add("ES3");
+        this.listEstado.add("ES4");
+    }
 
+    public void fetchAllCidade() {
+        this.listCidade.add("Cidade1");
+        this.listCidade.add("Cidade2");
+        this.listCidade.add("Cidade3");
+        this.listCidade.add("Cidade4");
+        System.out.println("FUI CHAMADO, OBRIGADO.");
+    }
+    
     public void findFitoP() {
         //Filo
         Filo f = new Filo();
@@ -380,4 +468,25 @@ public class cadastraFitoManagedBean {
         }
         return saida;
     }    
+    
+    public ArrayList<String> completeCidade(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listCidade) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }    
+    
+    public ArrayList<String> completeEstado(String query) {
+        ArrayList<String> saida = new ArrayList();
+        for (String string : listEstado) {
+            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+                saida.add(string);
+            }
+        }
+        return saida;
+    }    
+    
 }

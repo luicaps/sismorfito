@@ -9,43 +9,61 @@
         <h:form>
             <div style="margin-left: 35%; width: 500px !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
-                    <h:panelGrid columns="3" cellpadding="5">
+                    <h:panelGrid columns="2" cellpadding="5">
 
                         <h:outputText value="Filo: " />
                         <p:autoComplete id="Filo" value="#{cadastraFitoManagedBean.filo}" 
-                                        completeMethod="#{cadastraFitoManagedBean.completeFilo}"/>
-                        <p:commandButton value="Submit" />
-                        
+                                        completeMethod="#{cadastraFitoManagedBean.completeFilo}" 
+                                        title="Escolha o termo sugerido, a menos que este não exista." />
+
                         <h:outputText value="Classe: " />
                         <p:autoComplete id="Classe" value="#{cadastraFitoManagedBean.classe}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeClasse}"/>
-                        <p:commandButton value="Submit" />
-                        
+
                         <h:outputText value="Ordem: " />
                         <p:autoComplete id="Ordem" value="#{cadastraFitoManagedBean.ordem}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeOrdem}"/>
-                        <p:commandButton value="Submit" />
-                        
+
                         <h:outputText value="Familia: " />
                         <p:autoComplete id="Familia" value="#{cadastraFitoManagedBean.familia}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeFamilia}"/>
-                        <p:commandButton value="Submit" />
-                        
+
                         <h:outputText value="Genero: " />
                         <p:autoComplete id="Genero" value="#{cadastraFitoManagedBean.genero}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeGenero}"/>
-                        <p:commandButton value="Submit" />
-                        
-                        <h:outputText value="EspÃ©cie: " />
+
+                        <h:outputText value="Especie: " />
                         <p:autoComplete id="Especie" value="#{cadastraFitoManagedBean.especie}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeEspecie}"/>
-                        <p:commandButton value="Submit" />
-                        
+
                         <h:outputText value="Fitolito: " />
                         <p:autoComplete id="Fitolito" value="#{cadastraFitoManagedBean.fitolito}" 
-                                        completeMethod="#{cadastraFitoManagedBean.completeFitolito}"/>
-                        <p:commandButton value="Submit" />
-                        
+                                        completeMethod="#{cadastraFitoManagedBean.completeFitolito}" />
+
+                        <h:outputText value="Valor DeltaC3:" />
+                        <p:inputText id="ValDelta" value="#{cadastraFitoManagedBean.valDeta}" />
+                    </h:panelGrid>
+
+                    <p:separator />
+
+                    <h:panelGrid columns="2" cellpadding="5">
+
+
+                        <h:outputText value="Estado:" />
+                        <p:autoComplete id="Estado" value="#{cadastraFitoManagedBean.estado}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeEstado}" scrollHeight="100" valueChangeListener="#{cadastraFitoManagedBean.fetchAllCidade()}">
+                        </p:autoComplete>
+
+                        <h:outputText value="Cidade:" />
+                        <p:autoComplete id="Cidade" value="#{cadastraFitoManagedBean.cidade}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeCidade}" />
+
+                        <h:outputText value="Retirada:" />
+                        <p:inputMask id="Retirada" value="#{cadastraFitoManagedBean.retirada}" mask="99/99/9999"/> 
+
+                        <h:outputText value="Disponível para busca?" />
+                        <p:selectBooleanCheckbox id="Disponivel" value="#{cadastraFitoManagedBean.disponivel}" />
+
 
                     </h:panelGrid>
 
