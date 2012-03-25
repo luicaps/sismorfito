@@ -11,7 +11,7 @@
     <link rel="StyleSheet" type="text/css" href="../css/pesquisa.css" media="screen" />
 
         <p:growl id="msgs" showDetail="true"/>
-        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="600" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
+        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="500" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
             <h:form>
                 <h:panelGrid columns="3">
                     <p:panel footer="Fitolito">
@@ -56,7 +56,7 @@
                     </p:panel>
                 </h:panelGrid>
 
-                <p:separator />
+                <p:separator style="padding-bottom: 10px !important;" />
 
                 <div style="padding-left: 30% !important;">
                     <p:panelGrid columns="2" transient="false">
@@ -115,49 +115,49 @@
 
             <div style="margin-left: 35%;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle;">
-                        <p:selectOneMenu id="filo" value="#{pesquisaManagedBean.filo}" styleClass="loginBotao">
+                    <p:selectOneMenu id="filo" value="#{pesquisaManagedBean.filo}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Filo" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFilo}"/>
                             <p:ajax update="classe ordem familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllClasses()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="classe" value="#{pesquisaManagedBean.classe}" styleClass="loginBotao">
+                        <p:selectOneMenu id="classe" value="#{pesquisaManagedBean.classe}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Classe" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listClasse}" />
                             <p:ajax update="ordem familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllOrdens()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="ordem" value="#{pesquisaManagedBean.ordem}" styleClass="loginBotao">
+                        <p:selectOneMenu id="ordem" value="#{pesquisaManagedBean.ordem}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Ordem" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listOrdem}" />
                             <p:ajax update="familia genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllFamilias()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="familia" value="#{pesquisaManagedBean.familia}" styleClass="loginBotao">
+                        <p:selectOneMenu id="familia" value="#{pesquisaManagedBean.familia}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Familia" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFamilia}" />
                             <p:ajax update="genero especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllGenero()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="genero" value="#{pesquisaManagedBean.genero}" styleClass="loginBotao">
+                        <p:selectOneMenu id="genero" value="#{pesquisaManagedBean.genero}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Genero" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listGenero}" />
                             <p:ajax update="especie fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllEspecie()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="especie" value="#{pesquisaManagedBean.especie}" styleClass="loginBotao">
+                        <p:selectOneMenu id="especie" value="#{pesquisaManagedBean.especie}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Especie" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listEspecie}" />
                             <p:ajax update="fitolito Submit"
                                     listener="#{pesquisaManagedBean.fetchAllFitolito()}" />
                         </p:selectOneMenu>
                         <br/>
-                        <p:selectOneMenu id="fitolito" value="#{pesquisaManagedBean.fitolito}" styleClass="loginBotao">
+                        <p:selectOneMenu id="fitolito" value="#{pesquisaManagedBean.fitolito}" height="150" styleClass="loginBotao" style="margin-bottom: 5px !important; width: 120px !important;">
                             <f:selectItem itemLabel="Fitolito" itemValue="" itemDisabled="true"/>
                             <f:selectItems value="#{pesquisaManagedBean.listFitolito}" />
                             <p:ajax update="Submit" />

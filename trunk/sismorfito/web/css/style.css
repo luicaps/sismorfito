@@ -11,7 +11,7 @@ root {
 }
 
 .body {
-    background: #2b842b;
+    background: white;
     /*background-image: url('../img/background.jpg');*/
     background-repeat: repeat;
 }
@@ -24,10 +24,11 @@ root {
 
 .cabecalho {
     height: 184px;
-    background-image: url('../img/header.jpg') !important;
+    background-color: #d3effe;
+    /*background-image: url('../img/header.jpg') !important;         com imagem
     background-repeat: repeat-x !important;
     background-position-x: 100% !important;
-    background-color: #d4e2d3 !important;
+    background-color: #d4e2d3 !important;*/
     padding: 2% 10px 0px 2%;
 }
 
@@ -38,7 +39,8 @@ root {
     text-align: center !important;
     padding-left: 20% !important;
     padding-right: 20% !important;
-    background-color: #b1c9ac !important;
+    /*background-color: #a1dfde !important;*/
+    background-color: #bce4f9 !important;
     padding-top: 1%;
 }
 
@@ -51,8 +53,8 @@ root {
     min-height: 100px;
     height: auto !important;
     height: 150px !important;
-    background-color: #d4e2d3 !important;
-    background-image: url('../img/footer.jpg') !important;
+    background-color: #206463 !important;
+    /*background-image: url('../img/footer.jpg') !important;*/
     background-repeat: no-repeat !important;
     background-position-x: 100% !important;
     padding-top: 1%;
@@ -68,10 +70,14 @@ root {
     margin-bottom: 0px !important;
 }
 
+.dialogin {
+    font-size: 12px !important;
+}
+
 .menu {
     margin-top: 5% !important;
     font-size: 12px !important;
-    width: 490px !important;
+    width: 430px !important;
 }
 
 .menuAdmin {
