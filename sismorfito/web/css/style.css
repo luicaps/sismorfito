@@ -11,8 +11,8 @@ root {
 }
 
 .body {
-    /*background: #2b842b;*/
-    background-image: url('../img/background.jpg');
+    background: #2b842b;
+    /*background-image: url('../img/background.jpg');*/
     background-repeat: repeat;
 }
 
