@@ -50,7 +50,7 @@ public class LoginBean {
             usuario.setNome("Professorino");
             usuario.setIsLogedProfessor(true);
             try {
-                //FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-admin/sobre-admin.xhtml");
+//                FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-admin/sobre-admin.xhtml");
                 FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-professor/sobre-professor.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,5 +63,12 @@ public class LoginBean {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
 //        context.addCallbackParam("loggedIn", loggedIn);
+    }
+
+    public String logout() {
+        System.out.println("CHAMOUAEEEAEAEAE");
+        RequestContext context = RequestContext.getCurrentInstance();
+        this.usuario = new Usuario();
+        return "../conteudo/sobre.xhtml?faces-redirect=true";
     }
 }
