@@ -43,7 +43,7 @@
 
         <div class="screen">             
             <div Class="cabecalho">
-                
+
                 <h:form id="loga">
                     <p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>
                     <br/><p>Bem vindo Visitante</p>
@@ -52,7 +52,7 @@
 
                     <p:growl id="messages"/>
 
-                    <p:menubar styleClass="menu" autoDisplay="false">
+                    <p:menubar styleClass="menu" autoDisplay="true">
 
                         <p:submenu label="Banco de Dados" icon="ui-icon-note">
                             <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo/pesquisar.xhtml" ajax="false"/>
@@ -83,16 +83,12 @@
                     </ui:insert>
                 </div>
             </div>
-            <!--<div Class="rodape">
-                Esse rodapé vai ser sempre o mesmo.
-            </div>
-            <p:panel styleClass="rodape" header="Esse rodapé... Dat asss.."></p:panel>-->
-            <p:toolbar style="height: 91px !important; font-size: 12px !important; font-style: inherit !important; padding: 10px 0px 0px 15px !important;">
+            <p:toolbar styleClass="rodape">
                 <p:toolbarGroup align="left">
                     <h:outputText value="rodape"/>
                 </p:toolbarGroup>
             </p:toolbar>
         </div>
-       
+
     </h:body>
 </html>
