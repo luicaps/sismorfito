@@ -12,10 +12,17 @@
     </h:head>
     <h:body styleClass="body">
         <h:form>
-            <p:panel styleClass="tela" header="Sistema loco classificador de Fitólitos">
+            <!--<p:panel styleClass="tela" header="Sistema loco classificador de Fitólitos">
                 Mimimi sistema legal <br/>
                 <p:commandButton value="Entrar" styleClass="botao" action="/conteudo/sobre" ajax="false"/>
-            </p:panel> 
+            </p:panel> -->
+            <p:dialog header="Sistema loco classificador de Fitólitos" closable="false" visible="true" resizable="false" style="text-align: center !important;">
+                Mimimi sistema legal <br/>
+                <p:commandButton value="Entrar" styleClass="botao" action="/conteudo/sobre" ajax="false" style="font-size: 12px !important;" />
+            </p:dialog>
+            <div class="fundo">
+                
+            </div>
         </h:form>
     </h:body>
 </html>

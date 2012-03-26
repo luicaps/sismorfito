@@ -11,7 +11,8 @@ root {
 }
 
 .body {
-    background: #2b842b;
+    /*background: #2b842b;*/
+    background: #d3effe;
 }
 
 .tela {
@@ -23,4 +24,17 @@ root {
 
 .botao {
     margin-top: 20%;
+}
+
+/*.ui-dialog{
+top: 150px !important;
+}*/
+
+.fundo {
+    background-image: url('../img/pc.jpg') !important;
+    background-repeat: no-repeat;
+    width: 800px;
+    height: 100px;
+    position: absolute;
+    top: 80%;
 }
