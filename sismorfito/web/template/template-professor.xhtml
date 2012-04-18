@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <link rel="StyleSheet" type="text/css" href="../css/style.css" media="screen" />
     <h:head>
-        <title>Facelet Title</title>
+        <title>FitoDB</title>
     </h:head>
     <h:form>
         <p:panel rendered="#{not loginBean.usuario.isLogedProfessor}" styleClass="erroLogin">
@@ -39,9 +39,9 @@
                         </p:submenu>
 
                         <p:submenu label="Pesquisador" icon="ui-icon-person">
-                            <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-admin/busca-professor.xhtml" ajax="false" />
-                            <p:menuitem value="Consultar Professor" icon="ui-icon-search" action="/conteudo-admin/cadastrar-professor.xhtml" ajax="false"  styleClass="cadprof" />
-                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" action="/conteudo-admin/cadastrar-professor.xhtml" ajax="false" />
+                            <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" ajax="false" />
+                            <p:menuitem value="Consultar Professor" icon="ui-icon-search" ajax="false"  styleClass="cadprof" />
+                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" ajax="false" />
                         </p:submenu>
 
                         <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-professor/ajuda-professor.xhtml" ajax="false" />
@@ -62,7 +62,7 @@
             </div>
             <p:toolbar styleClass="rodape">
                 <p:toolbarGroup align="left">
-                    <h:outputText value="rodape"/>
+                    <!--<h:outputText value="rodape"/>-->
                 </p:toolbarGroup>
             </p:toolbar>
         </div>

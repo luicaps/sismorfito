@@ -5,9 +5,14 @@
 package br.unioeste.controle;
 
 import br.unioeste.modelo.*;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.event.FileUploadEvent;
 
 /**
  *
@@ -15,7 +20,7 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class cadastraFitoManagedBean {
+public class cadastraFitoManagedBean implements Serializable {
 
     //Selects
     String filo;
@@ -488,5 +493,15 @@ public class cadastraFitoManagedBean {
         }
         return saida;
     }    
+    
+    public void handleFileUpload(FileUploadEvent event) {
+        try {
+        FacesMessage msg = new FacesMessage("FOIOIOI" + event.getFile().getFileName() + "Enviado com sucecidão...");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch(Exception e) {
+            System.out.println("Fods" + e.getMessage());
+        }
+        System.out.println("CHAMOU O METODO");
+    }
     
 }
