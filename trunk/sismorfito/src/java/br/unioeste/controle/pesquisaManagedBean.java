@@ -371,6 +371,5 @@ public class pesquisaManagedBean {
         fitop.setFpfoto(foto);
         System.out.println(Fitolito);
         isReady = true;
-        System.out.println("foifoifoifoifoifoif");
     }
 }

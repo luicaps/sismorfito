@@ -7,7 +7,7 @@
 
     <ui:define name="corpo">
         <h:form>
-            <div style="margin-left: 35%; width: 500px !important;">
+            <div style="margin-left: 30%; width: 500px !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
                     <h:panelGrid columns="2" cellpadding="5">
 
@@ -69,10 +69,27 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />
+                    <!--<p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />-->
 
                 </p:panel>
             </div>
+            <h:form enctype="multipart/form-data">
+                <p:growl id="message" showDetail="true" life="5000"/>
+                <p:panel>
+                    <p:fileUpload fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload(event)}"
+                              mode="advanced"
+                              update="message"
+                              multiple="true"
+                              sizeLimit="1000000"
+                              allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                              style="font-size: 13px !important; text-align: left !important;"
+                              label="Escolher"
+                              uploadLabel="Enviar"
+                              cancelLabel="Cancelar">
+                    <h:outputText value="Insira Fotos de Fitólito" />
+                </p:fileUpload>
+                </p:panel>
+            </h:form>
         </h:form>
     </ui:define>
 </ui:composition>

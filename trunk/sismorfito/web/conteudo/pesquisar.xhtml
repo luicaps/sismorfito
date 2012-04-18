@@ -22,7 +22,7 @@
 
                         <p:imageSwitch effect="fade" widgetVar="FPFoto" slideshowAuto="false">
                             <ui:repeat value="#{pesquisaManagedBean.urlFPFoto}" var="fpfoto">
-                                <p:graphicImage value="/FPFoto/#{fpfoto}.jpg" height="250" width="350" />
+                                <h:link accesskey="/FPFoto/#{fpfoto}.jpg"><p:graphicImage value="/FPFoto/#{fpfoto}.jpg" height="250" width="350" /></h:link>
                             </ui:repeat>
                         </p:imageSwitch>
                     </p:panel>
@@ -73,10 +73,10 @@
                             <h:outputText value="Familia: " />
                             <b><h:outputText value="#{pesquisaManagedBean.fitop.familia.nome_familia}" /></b>
                             <br/>
-                            <h:outputText value="GÃªnero: " />
+                            <h:outputText value="Gênero: " />
                             <b><h:outputText value="#{pesquisaManagedBean.fitop.genero.nome_genero}" /></b>
                             <br/>
-                            <h:outputText value="Especie: " />
+                            <h:outputText value="Espécie: " />
                             <b><h:outputText value="#{pesquisaManagedBean.fitop.especie.nome_especie}" /></b>
                             <br/>
                             <h:outputText value="Fitolito: " />
