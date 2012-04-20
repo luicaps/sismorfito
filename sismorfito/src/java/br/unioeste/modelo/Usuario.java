@@ -4,6 +4,11 @@
  */
 package br.unioeste.modelo;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Moises
@@ -58,7 +63,13 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        this.senha = senha;
+        try {
+            this.senha = AeSimpleSHA1.SHA1(senha);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getTipo() {

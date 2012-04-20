@@ -76,7 +76,7 @@
             <h:form enctype="multipart/form-data">
                 <p:growl id="message" showDetail="true" life="5000"/>
                 <p:panel>
-                    <p:fileUpload fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload(event)}"
+                    <p:fileUpload fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
                               mode="advanced"
                               update="message"
                               multiple="true"
