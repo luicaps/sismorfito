@@ -44,7 +44,7 @@ public class LoginBean {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
-        if (usuario.getUsuario() != null && usuario.getUsuario().equals("admin") && usuario.getSenha() != null && usuario.getSenha().equals("admin")) {
+        if (usuario.getUsuario() != null && usuario.getUsuario().equals("admin") && usuario.getSenha() != null && usuario.getSenha().equals("i033j22fj348fjg5660kh2140fjh35850h4if997")) {
             loggedIn = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", usuario.getUsuario());
             usuario.setNome("Professorino");
