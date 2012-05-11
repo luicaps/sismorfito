@@ -36,7 +36,7 @@
         <filter-name>PrimeFaces FileUpload Filter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
-    
+    <!--
     <filter>
         <filter-name>Pretty Filter</filter-name>
         <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
@@ -48,5 +48,5 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
 </web-app>
