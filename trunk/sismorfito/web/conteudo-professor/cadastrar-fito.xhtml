@@ -14,7 +14,9 @@
                         <h:outputText value="Filo: " />
                         <p:autoComplete id="Filo" value="#{cadastraFitoManagedBean.filo}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeFilo}" 
-                                        title="Escolha o termo sugerido, a menos que este não exista." />
+                                        title="Escolha o termo sugerido, a menos que este não exista." >
+                            <p:ajax update="Submit" oncomplete="Submit"/>
+                        </p:autoComplete>
 
                         <h:outputText value="Classe: " />
                         <p:autoComplete id="Classe" value="#{cadastraFitoManagedBean.classe}" 
@@ -69,27 +71,66 @@
 
                     <p:separator />
 
-                    <!--<p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />-->
 
                 </p:panel>
             </div>
-            <h:form enctype="multipart/form-data">
+            <h:form id="formfu" enctype="multipart/form-data">
                 <p:growl id="message" showDetail="true" life="5000"/>
                 <p:panel>
-                    <p:fileUpload fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
-                              mode="advanced"
-                              update="message"
-                              multiple="true"
-                              sizeLimit="1000000"
-                              allowTypes="/(\.|\/)(jpg|jpeg)$/"
-                              style="font-size: 13px !important; text-align: left !important;"
-                              label="Escolher"
-                              uploadLabel="Enviar"
-                              cancelLabel="Cancelar">
-                    <h:outputText value="Insira Fotos de Fitólito" />
-                </p:fileUpload>
+
+                    <!--Foto de Fitolito-->
+                    <p:fileUpload id="fuFito"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <h:outputText value="Atenção: Envie os arquivos antes de finalizar o cadastro." style="color: red !important;" />
+                        <br/>
+                        <h:outputText value="Insira Fotos de Fitólito" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+                    <!--Foto de Planta-->
+                    <p:fileUpload id="fuPlanta"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <br/>
+                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+                    <!--Foto de Parte da Planta-->
+                    <p:fileUpload id="fuPPlanta"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <br/>
+                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+
                 </p:panel>
-            </h:form>
+            </h:form> 
+            <p:commandButton value="Cadastrar" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />
         </h:form>
     </ui:define>
 </ui:composition>

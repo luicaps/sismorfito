@@ -5,9 +5,12 @@
 package br.unioeste.controle;
 
 import br.unioeste.modelo.*;
-import java.io.IOException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -22,6 +25,8 @@ import org.primefaces.event.FileUploadEvent;
 @ViewScoped
 public class cadastraFitoManagedBean implements Serializable {
 
+    //constantes
+    private static final String dirFito = "C:\\Users\\Caps\\Documents\\NetBeansProjects\\sismorfito\\web\\FPFoto\\";
     //Selects
     String filo;
     String classe;
@@ -35,8 +40,9 @@ public class cadastraFitoManagedBean implements Serializable {
     boolean disponivel;
     String estado;
     String cidade;
-    
-    
+    LinkedList<Integer> fitoFoto;
+    LinkedList<Integer> plantaFoto;
+    LinkedList<Integer> pPlantaFoto;
     //Lists
     ArrayList<String> listFilo;
     ArrayList<String> listClasse;
@@ -67,7 +73,7 @@ public class cadastraFitoManagedBean implements Serializable {
         disponivel = false;
         estado = new String();
         cidade = new String();
-        
+
         listFilo = new ArrayList();
         listClasse = new ArrayList();
         listOrdem = new ArrayList();
@@ -88,6 +94,7 @@ public class cadastraFitoManagedBean implements Serializable {
         fetchAllEspecie();
         fetchAllFitolito();
         fetchAllEstado();
+        fetchAllCidade();
     }
 
     public String getCidade() {
@@ -259,7 +266,11 @@ public class cadastraFitoManagedBean implements Serializable {
     }
 
     public boolean isIsReady() {
-        return isReady;
+        if (filo.equals("")) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void setIsReady(boolean isReady) {
@@ -323,7 +334,7 @@ public class cadastraFitoManagedBean implements Serializable {
         this.listFitolito.add("Fitolito4");
         isReady = true;
     }
-    
+
     public void fetchAllEstado() {
         this.listEstado.add("ES1");
         this.listEstado.add("ES2");
@@ -336,9 +347,8 @@ public class cadastraFitoManagedBean implements Serializable {
         this.listCidade.add("Cidade2");
         this.listCidade.add("Cidade3");
         this.listCidade.add("Cidade4");
-        System.out.println("FUI CHAMADO, OBRIGADO.");
     }
-    
+
     public void findFitoP() {
         //Filo
         Filo f = new Filo();
@@ -399,11 +409,11 @@ public class cadastraFitoManagedBean implements Serializable {
         fitop.setFpfoto(foto);
         isReady = true;
     }
-    
+
     public ArrayList<String> completeFilo(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listFilo) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
@@ -412,96 +422,122 @@ public class cadastraFitoManagedBean implements Serializable {
 
     public ArrayList<String> completeClasse(String query) {
         ArrayList<String> saida = new ArrayList();
-        if(filo.compareToIgnoreCase("")==0){
+        if (filo.compareToIgnoreCase("") == 0) {
             saida.add("Selecione um Filo...");
             return saida;
         }
         for (String string : listClasse) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
     }
-    
+
     public ArrayList<String> completeOrdem(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listOrdem) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
     }
-    
+
     public ArrayList<String> completeFamilia(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listFamilia) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
     }
-    
+
     public ArrayList<String> completeGenero(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listGenero) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
     }
-    
+
     public ArrayList<String> completeEspecie(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listEspecie) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
     }
-    
+
     public ArrayList<String> completeFitolito(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listFitolito) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
-    }    
-    
+    }
+
     public ArrayList<String> completeCidade(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listCidade) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
-    }    
-    
+    }
+
     public ArrayList<String> completeEstado(String query) {
         ArrayList<String> saida = new ArrayList();
         for (String string : listEstado) {
-            if(string.substring(0, query.length()).equalsIgnoreCase(query)){
+            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
                 saida.add(string);
             }
         }
         return saida;
-    }    
-    
-    public void handleFileUpload(FileUploadEvent event) {
-        try {
-        FacesMessage msg = new FacesMessage("FOIOIOI" + event.getFile().getFileName() + "Enviado com sucecidão...");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-        } catch(Exception e) {
-            System.out.println("Fods" + e.getMessage());
-        }
-        System.out.println("CHAMOU O METODO");
     }
-    
+
+    public void handleFileUpload(FileUploadEvent event) {
+
+        int fNome = 0;//Recebe o valor para a proxima imagem
+        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+
+        try {
+
+            File saida = new File(dirFito + fNome + ext);
+            FileOutputStream fos = new FileOutputStream(saida);
+            byte[] buffer = new byte[50];
+            int bulk;
+            InputStream is = event.getFile().getInputstream();
+
+            while (true) {
+                bulk = is.read(buffer);
+                if (bulk < 0) {
+                    break;
+                }
+                fos.write(buffer, 0, bulk);
+                fos.flush();
+            }
+
+            fos.close();
+            is.close();
+
+            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+    }
 }
