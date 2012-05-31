@@ -2,44 +2,42 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.unioeste.modelo;
+package br.unioeste.controle;
 
+import br.unioeste.modelo.AeSimpleSHA1;
+import br.unioeste.modelo.Usuario;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
- * @author Moises
+ * @author Richetti
  */
-public class Usuario {
+@ManagedBean
+@RequestScoped
+public class cadastraUsuarioManagedBean implements Serializable {
     int idusuario;
     String senha;
     String usuario;
     String nome;
-    int tipo;
     boolean isLogedAdmin;
     boolean isLogedProfessor;
 
-    public Usuario(int idusuario, String senha, String usuario, String nome, int tipo) {
-        this.idusuario = idusuario;
-        this.senha = senha;
-        this.usuario = usuario;
-        this.nome = nome;
-        this.tipo = tipo;
-        this.isLogedAdmin = false;
-        this.isLogedProfessor = false;
-    }
-
-    public Usuario() {
-        this.idusuario = 0;
-        this.senha = new String();
-        this.usuario = "Visitante";
-        this.nome = new String();
-        this.tipo = 0;
-        this.isLogedAdmin = false;
-        this.isLogedProfessor = false;
+    /**
+     * Creates a new instance of cadastraUsuarioManagedBean
+     */
+    public cadastraUsuarioManagedBean() {
+        senha = new String();
+        usuario = new String();
+        nome = new String();
+        idusuario = 0;
+        isLogedAdmin = false;
+        isLogedProfessor = false;
     }
 
     public int getIdusuario() {
@@ -48,6 +46,22 @@ public class Usuario {
 
     public void setIdusuario(int idusuario) {
         this.idusuario = idusuario;
+    }
+
+    public boolean isIsLogedAdmin() {
+        return isLogedAdmin;
+    }
+
+    public void setIsLogedAdmin(boolean isLogedAdmin) {
+        this.isLogedAdmin = isLogedAdmin;
+    }
+
+    public boolean isIsLogedProfessor() {
+        return isLogedProfessor;
+    }
+
+    public void setIsLogedProfessor(boolean isLogedProfessor) {
+        this.isLogedProfessor = isLogedProfessor;
     }
 
     public String getNome() {
@@ -72,14 +86,6 @@ public class Usuario {
         }
     }
 
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
     public String getUsuario() {
         return usuario;
     }
@@ -87,20 +93,11 @@ public class Usuario {
     public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
-
-    public boolean isIsLogedAdmin() {
-        return isLogedAdmin;
+    
+    public void cadastrar(){
+        System.out.println("Entrou no Metodo");
+        System.out.println("Usuário: " + usuario);
+        System.out.println("Senha: " + senha);
+        System.out.println("Nome: " + nome);
     }
-
-    public void setIsLogedAdmin(boolean isLogedAdmin) {
-        this.isLogedAdmin = isLogedAdmin;
-    }
-
-    public boolean isIsLogedProfessor() {
-        return isLogedProfessor;
-    }
-
-    public void setIsLogedProfessor(boolean isLogedProfessor) {
-        this.isLogedProfessor = isLogedProfessor;
-    }   
 }
