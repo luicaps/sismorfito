@@ -11,8 +11,11 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -123,13 +126,16 @@ public class cadastraUsuarioManagedBean implements Serializable {
     public void setSenha2(String senha2) {
         this.senha2 = senha2;
     }
+    
+    public void addError(ActionEvent actionEvent) {  
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Sample error message", "Password está incorreto, digite novamente."));  
+    }
 
     public void cadastrar(){
+        System.out.println("Email: " + email);
         System.out.println("Entrou no Metodo");
-        System.out.println("Usuário: " + usuario);
         System.out.println("Senha: " + senha);
         System.out.println("Nome: " + nome);
         System.out.println("Sobrenome: " + sobrenome);
-        System.out.println("email: " + email);
     }
 }
