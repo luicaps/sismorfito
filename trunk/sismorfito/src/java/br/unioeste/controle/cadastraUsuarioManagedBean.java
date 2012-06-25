@@ -23,8 +23,11 @@ import javax.faces.bean.RequestScoped;
 public class cadastraUsuarioManagedBean implements Serializable {
     int idusuario;
     String senha;
+    String senha2;
     String usuario;
     String nome;
+    String sobrenome;
+    String email;
     boolean isLogedAdmin;
     boolean isLogedProfessor;
 
@@ -33,8 +36,11 @@ public class cadastraUsuarioManagedBean implements Serializable {
      */
     public cadastraUsuarioManagedBean() {
         senha = new String();
+        senha2 = new String();
         usuario = new String();
         nome = new String();
+        sobrenome = new String();
+        email = new String();
         idusuario = 0;
         isLogedAdmin = false;
         isLogedProfessor = false;
@@ -55,7 +61,7 @@ public class cadastraUsuarioManagedBean implements Serializable {
     public void setIsLogedAdmin(boolean isLogedAdmin) {
         this.isLogedAdmin = isLogedAdmin;
     }
-
+    
     public boolean isIsLogedProfessor() {
         return isLogedProfessor;
     }
@@ -90,14 +96,40 @@ public class cadastraUsuarioManagedBean implements Serializable {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+        public void setUsuario(String usuario) {
         this.usuario = usuario;
     }
     
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSobrenome() {
+        return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+        this.sobrenome = sobrenome;
+    }
+
+    public String getSenha2() {
+        return senha2;
+    }
+
+    public void setSenha2(String senha2) {
+        this.senha2 = senha2;
+    }
+
     public void cadastrar(){
         System.out.println("Entrou no Metodo");
         System.out.println("Usuário: " + usuario);
         System.out.println("Senha: " + senha);
         System.out.println("Nome: " + nome);
+        System.out.println("Sobrenome: " + sobrenome);
+        System.out.println("email: " + email);
     }
 }

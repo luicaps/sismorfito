@@ -11,13 +11,29 @@
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <h:outputText value="Usuario: "/>
-                        <p:inputText id="Usuario" value="#{cadastraUsuarioManagedBean.usuario}"/>
-                                     
-                        <h:outputText value="Senha: "/>
-                        <p:password id="Password" value="#{cadastraUsuarioManagedBean.senha}"/>
-                                     
+                        <p:inputText id="Usuario" value="#{cadastraUsuarioManagedBean.usuario}" required="true"/>
+                            
+                        <p:messages autoUpdate="true" id="mensagem" showDetail="true"/>
+                        <h:panelGrid id="PasswordGrid" columns="2">
+                            <h:outputText value="Senha: "/>
+                            <p:password id="Password" value="#{cadastraUsuarioManagedBean.senha}" feedback="true" required="true"
+                                        promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+                                        match="Password2"/>
+
+                            <h:outputText value="Digite sua Senha novamente: "/>
+                            <p:password id="Password2" value="#{cadastraUsuarioManagedBean.senha2}" feedback="true" required="true"
+                                        promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+                        </h:panelGrid>
+                            
                         <h:outputText value="Nome: "/>
-                        <p:inputText id="Nome" value="#{cadastraUsuarioManagedBean.nome}"/>
+                        <p:inputText id="Nome" value="#{cadastraUsuarioManagedBean.nome}" required="true"/>
+                        
+                        <h:outputText value="Sobrenome: "/>
+                        <p:inputText id="Sobrenome" value="#{cadastraUsuarioManagedBean.sobrenome}" required="true"/>
+                        
+                        <h:outputText value="E-Mail: "/>
+                        <p:inputText id="EMail" value="#{cadastraUsuarioManagedBean.email}" required="true"/>
+                                     
                     </h:panelGrid>
                     <p:separator />
                         
