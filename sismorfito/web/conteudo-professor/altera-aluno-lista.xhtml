@@ -1,0 +1,22 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form>
+            <div style="margin-left: 30%; width: 500p !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+                    <p:dataTable id="Alunos" var="aluno" value="#{alteraAlunoManagedBean.LISTADEALUNOS}" paginator="true" rows="15"
+                                 selection="#{alteraAlunoManagedBean.VARIAVELPARAALUNOESCOLHIDO}" selectionMode="single">
+                    
+                        
+                        
+                    </p:dataTable>
+                </p:panel>
+            </div>
+        </h:form>       
+    </ui:define>
+</ui:composition>
