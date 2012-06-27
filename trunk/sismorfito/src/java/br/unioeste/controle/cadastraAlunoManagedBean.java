@@ -23,11 +23,10 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @RequestScoped
-public class cadastraUsuarioManagedBean implements Serializable {
+public class cadastraAlunoManagedBean implements Serializable {
     int idusuario;
     String senha;
     String senha2;
-    String usuario;
     String nome;
     String sobrenome;
     String email;
@@ -37,10 +36,9 @@ public class cadastraUsuarioManagedBean implements Serializable {
     /**
      * Creates a new instance of cadastraUsuarioManagedBean
      */
-    public cadastraUsuarioManagedBean() {
+    public cadastraAlunoManagedBean() {
         senha = new String();
         senha2 = new String();
-        usuario = new String();
         nome = new String();
         sobrenome = new String();
         email = new String();
@@ -94,14 +92,6 @@ public class cadastraUsuarioManagedBean implements Serializable {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-        public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
     
     public String getEmail() {
         return email;
@@ -124,17 +114,20 @@ public class cadastraUsuarioManagedBean implements Serializable {
     }
 
     public void setSenha2(String senha2) {
-        this.senha2 = senha2;
-    }
-    
-    public void addError(ActionEvent actionEvent) {  
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Sample error message", "Password está incorreto, digite novamente."));  
+        try {
+            this.senha2 = AeSimpleSHA1.SHA1(senha2);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void cadastrar(){
         System.out.println("Email: " + email);
         System.out.println("Entrou no Metodo");
         System.out.println("Senha: " + senha);
+        System.out.println("Senha2: " + senha2);
         System.out.println("Nome: " + nome);
         System.out.println("Sobrenome: " + sobrenome);
     }

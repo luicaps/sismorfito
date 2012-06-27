@@ -9,33 +9,32 @@
         <h:form>
             <div style="margin-left: 30%; width: 500p !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
-                    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
+                    
                     <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
 
                         <h:outputText value="E-Mail: "/>
-                        <p:inputText id="EMail" value="#{cadastraAlunoManagedBean.email}" required="true"/>
-
+                        <p:inputText id="EMail" value="#{alteraAlunoManagedBean.email}" disabled="true"/>
+                        
                         <h:outputText value="Senha: "/>
-                        <p:password id="Password" value="#{cadastraAlunoManagedBean.senha}" feedback="true" required="true"
+                        <p:password id="Password" value="#{alteraAlunoManagedBean.senha}" feedback="true"
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
                                     match="Password2"/>
 
                         <h:outputText value="Senha Novamente: "/>
-                        <p:password id="Password2" value="#{cadastraAlunoManagedBean.senha2}" feedback="true" required="true"
+                        <p:password id="Password2" value="#{alteraAlunoManagedBean.senha2}" feedback="true" 
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
 
 
                         <h:outputText value="Nome: "/>
-                        <p:inputText id="Nome" value="#{cadastraAlunoManagedBean.nome}" required="true"/>
+                        <p:inputText id="Nome" value="#{alteraAlunoManagedBean.nome}"/>
 
                         <h:outputText value="Sobrenome: "/>
-                        <p:inputText id="Sobrenome" value="#{cadastraAlunoManagedBean.sobrenome}" required="true"/>
-
-
+                        <p:inputText id="Sobrenome" value="#{alteraAlunoManagedBean.sobrenome}"/>
+                        
                     </h:panelGrid>
                     <p:separator />
-
-                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{cadastraAlunoManagedBean.cadastrar}" />
+                    
+                    <p:commandButton value="Alterar" id="AlteraAlunoButton" action="#{alteraAlunoManagedBean.alterar()}" />
 
                 </p:panel>
             </div>
