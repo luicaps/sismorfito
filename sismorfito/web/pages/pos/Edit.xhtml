@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPosLabel_idPos}" for="idPos" />
+                    <h:inputText id="idPos" value="#{posController.selected.idPos}" title="#{bundle.EditPosTitle_idPos}" required="true" requiredMessage="#{bundle.EditPosRequiredMessage_idPos}"/>
+                    <h:outputLabel value="#{bundle.EditPosLabel_latitude}" for="latitude" />
+                    <h:inputText id="latitude" value="#{posController.selected.latitude}" title="#{bundle.EditPosTitle_latitude}" />
+                    <h:outputLabel value="#{bundle.EditPosLabel_longitde}" for="longitde" />
+                    <h:inputText id="longitde" value="#{posController.selected.longitde}" title="#{bundle.EditPosTitle_longitde}" />
+                    <h:outputLabel value="#{bundle.EditPosLabel_comentario}" for="comentario" />
+                    <h:inputText id="comentario" value="#{posController.selected.comentario}" title="#{bundle.EditPosTitle_comentario}" />
+                    <h:outputLabel value="#{bundle.EditPosLabel_fkIdCsolo}" for="fkIdCsolo" />
+                    <h:selectOneMenu id="fkIdCsolo" value="#{posController.selected.fkIdCsolo}" title="#{bundle.EditPosTitle_fkIdCsolo}" required="true" requiredMessage="#{bundle.EditPosRequiredMessage_fkIdCsolo}">
+                        <f:selectItems value="#{csoloController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPosLabel_fkIdCidade}" for="fkIdCidade" />
+                    <h:selectOneMenu id="fkIdCidade" value="#{posController.selected.fkIdCidade}" title="#{bundle.EditPosTitle_fkIdCidade}" required="true" requiredMessage="#{bundle.EditPosRequiredMessage_fkIdCidade}">
+                        <f:selectItems value="#{cidadeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{posController.update}" value="#{bundle.EditPosSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPosViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{posController.prepareList}" value="#{bundle.EditPosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPosIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPlantaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPlantaLabel_idPlanta}" for="idPlanta" />
+                    <h:inputText id="idPlanta" value="#{plantaController.selected.idPlanta}" title="#{bundle.EditPlantaTitle_idPlanta}" required="true" requiredMessage="#{bundle.EditPlantaRequiredMessage_idPlanta}"/>
+                    <h:outputLabel value="#{bundle.EditPlantaLabel_retirada}" for="retirada" />
+                    <h:inputText id="retirada" value="#{plantaController.selected.retirada}" title="#{bundle.EditPlantaTitle_retirada}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPlantaLabel_fkIdTvege}" for="fkIdTvege" />
+                    <h:selectOneMenu id="fkIdTvege" value="#{plantaController.selected.fkIdTvege}" title="#{bundle.EditPlantaTitle_fkIdTvege}" required="true" requiredMessage="#{bundle.EditPlantaRequiredMessage_fkIdTvege}">
+                        <f:selectItems value="#{tvegeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPlantaLabel_fkIdPos}" for="fkIdPos" />
+                    <h:selectOneMenu id="fkIdPos" value="#{plantaController.selected.fkIdPos}" title="#{bundle.EditPlantaTitle_fkIdPos}" required="true" requiredMessage="#{bundle.EditPlantaRequiredMessage_fkIdPos}">
+                        <f:selectItems value="#{posController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditPlantaLabel_fkIdEspecie}" for="fkIdEspecie" />
+                    <h:selectOneMenu id="fkIdEspecie" value="#{plantaController.selected.fkIdEspecie}" title="#{bundle.EditPlantaTitle_fkIdEspecie}" required="true" requiredMessage="#{bundle.EditPlantaRequiredMessage_fkIdEspecie}">
+                        <f:selectItems value="#{especieController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{plantaController.update}" value="#{bundle.EditPlantaSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditPlantaViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{plantaController.prepareList}" value="#{bundle.EditPlantaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditPlantaIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

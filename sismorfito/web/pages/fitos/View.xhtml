@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFitosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFitosLabel_idFitos}"/>
+                    <h:outputText value="#{fitosController.selected.idFitos}" title="#{bundle.ViewFitosTitle_idFitos}"/>
+                    <h:outputText value="#{bundle.ViewFitosLabel_disponivel}"/>
+                    <h:outputText value="#{fitosController.selected.disponivel}" title="#{bundle.ViewFitosTitle_disponivel}"/>
+                    <h:outputText value="#{bundle.ViewFitosLabel_retirada}"/>
+                    <h:outputText value="#{fitosController.selected.retirada}" title="#{bundle.ViewFitosTitle_retirada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewFitosLabel_compara}"/>
+                    <h:outputText value="#{fitosController.selected.compara}" title="#{bundle.ViewFitosTitle_compara}"/>
+                    <h:outputText value="#{bundle.ViewFitosLabel_fkIdUsu}"/>
+                    <h:outputText value="#{fitosController.selected.fkIdUsu}" title="#{bundle.ViewFitosTitle_fkIdUsu}"/>
+                    <h:outputText value="#{bundle.ViewFitosLabel_fkIdPos}"/>
+                    <h:outputText value="#{fitosController.selected.fkIdPos}" title="#{bundle.ViewFitosTitle_fkIdPos}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fitosController.destroyAndView}" value="#{bundle.ViewFitosDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewFitosEditLink}"/>
+                <br />
+                <h:commandLink action="#{fitosController.prepareCreate}" value="#{bundle.ViewFitosCreateLink}" />
+                <br />
+                <h:commandLink action="#{fitosController.prepareList}" value="#{bundle.ViewFitosShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewFitosIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

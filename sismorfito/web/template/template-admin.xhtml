@@ -7,10 +7,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <link rel="StyleSheet" type="text/css" href="../css/style.css" media="screen" />
     <h:head>
-        <title>Facelet Title</title>
+        <title>FitoDB</title>
     </h:head>
     <h:form>
-        <p:panel rendered="#{not loginBean.usuario.isLogedAdmin}" styleClass="erroLogin">
+        <p:panel rendered="#{not loginBean.logedAdmin}" styleClass="erroLogin">
             Ops! Acho que você não deveria estar aqui.
             Que tal voltar <p:commandLink onclick="retorna()">aqui</p:commandLink>?
             <script type="text/javascript" language="javascript">
@@ -20,10 +20,10 @@
             </script>
         </p:panel>
     </h:form>
-    <h:body styleClass="body" rendered="#{loginBean.usuario.isLogedAdmin}">
+    <h:body styleClass="body" rendered="#{loginBean.logedAdmin}">
         <p:growl id="growl" showDetail="true" life="3000" />
         <div class="screen">
-             <div Class="cabecalho">
+			<div Class="cabecalho">
                 <h:form id="loga">
                     <br/><p class="welcome">Bem vindo <h:outputText value="#{loginBean.usuario.nome}" id="usu"/></p>
                 </h:form>
@@ -40,7 +40,8 @@
 
                         <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-admin/ajuda-admin.xhtml" ajax="false" />
 
-                        <p:menuitem value="Sair" icon="ui-icon-close" onclick="#{loginBean.logout}" ajax="false" />
+						<p:menuitem value="Sair" icon="ui-icon-close" action="#{loginBean.logout}" ajax="false"/>
+
 
                     </p:menubar>
 

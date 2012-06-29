@@ -10,7 +10,7 @@
         <title>FitoDB</title>
     </h:head>
     <h:form>
-        <p:panel rendered="#{not loginBean.usuario.isLogedProfessor}" styleClass="erroLogin">
+        <p:panel rendered="#{not loginBean.logedProfessor}" styleClass="erroLogin">
             Ops! Acho que você não deveria estar aqui.
             Que tal voltar <p:commandLink onclick="retorna()">aqui</p:commandLink>?
             <script type="text/javascript" language="javascript">
@@ -20,7 +20,7 @@
             </script>
         </p:panel>
     </h:form>
-    <h:body styleClass="body" rendered="#{loginBean.usuario.isLogedProfessor}">
+    <h:body styleClass="body" rendered="#{loginBean.logedProfessor}">
         <p:growl id="growl" showDetail="true" life="3000" />
         <div class="screen">
             <div Class="cabecalho">

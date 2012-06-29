@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListOrdemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+			<h:form styleClass="jsfcrud_list_form">
+				<h:panelGroup id="messagePanel" layout="block">
+					<h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+				</h:panelGroup>
+				<h:outputText escape="false" value="#{bundle.ListOrdemEmpty}" rendered="#{ordemController.items.rowCount == 0}"/>
+				<h:panelGroup rendered="#{ordemController.items.rowCount > 0}">
+					<h:outputText value="#{ordemController.pagination.pageFirstItem + 1}..#{ordemController.pagination.pageLastItem + 1}/#{ordemController.pagination.itemsCount}"/>&nbsp;
+					<h:commandLink action="#{ordemController.previous}" value="#{bundle.Previous} #{ordemController.pagination.pageSize}" rendered="#{ordemController.pagination.hasPreviousPage}"/>&nbsp;
+					<h:commandLink action="#{ordemController.next}" value="#{bundle.Next} #{ordemController.pagination.pageSize}" rendered="#{ordemController.pagination.hasNextPage}"/>&nbsp;
+					<h:dataTable value="#{ordemController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListOrdemTitle_idOrdem}"/>
+							</f:facet>
+							<h:outputText value="#{item.idOrdem}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListOrdemTitle_nomeOrdem}"/>
+							</f:facet>
+							<h:outputText value="#{item.nomeOrdem}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListOrdemTitle_fkIdClasse}"/>
+							</f:facet>
+							<h:outputText value="#{item.fkIdClasse}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="&nbsp;"/>
+							</f:facet>
+							<h:commandLink action="#{ordemController.prepareView}" value="#{bundle.ListOrdemViewLink}"/>
+							<h:outputText value=" "/>
+							<h:commandLink action="#{ordemController.prepareEdit}" value="#{bundle.ListOrdemEditLink}"/>
+							<h:outputText value=" "/>
+							<h:commandLink action="#{ordemController.destroy}" value="#{bundle.ListOrdemDestroyLink}"/>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<br />
+				<h:commandLink action="#{ordemController.prepareCreate}" value="#{bundle.ListOrdemCreateLink}"/>
+				<br />
+				<br />
+				<h:commandLink value="#{bundle.ListOrdemIndexLink}" action="/index" immediate="true" />
+			</h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

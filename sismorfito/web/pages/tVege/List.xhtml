@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListTvegeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+			<h:form styleClass="jsfcrud_list_form">
+				<h:panelGroup id="messagePanel" layout="block">
+					<h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+				</h:panelGroup>
+				<h:outputText escape="false" value="#{bundle.ListTvegeEmpty}" rendered="#{tvegeController.items.rowCount == 0}"/>
+				<h:panelGroup rendered="#{tvegeController.items.rowCount > 0}">
+					<h:outputText value="#{tvegeController.pagination.pageFirstItem + 1}..#{tvegeController.pagination.pageLastItem + 1}/#{tvegeController.pagination.itemsCount}"/>&nbsp;
+					<h:commandLink action="#{tvegeController.previous}" value="#{bundle.Previous} #{tvegeController.pagination.pageSize}" rendered="#{tvegeController.pagination.hasPreviousPage}"/>&nbsp;
+					<h:commandLink action="#{tvegeController.next}" value="#{bundle.Next} #{tvegeController.pagination.pageSize}" rendered="#{tvegeController.pagination.hasNextPage}"/>&nbsp;
+					<h:dataTable value="#{tvegeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListTvegeTitle_idTvege}"/>
+							</f:facet>
+							<h:outputText value="#{item.idTvege}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{bundle.ListTvegeTitle_nomeVege}"/>
+							</f:facet>
+							<h:outputText value="#{item.nomeVege}"/>
+						</h:column>
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="&nbsp;"/>
+							</f:facet>
+							<h:commandLink action="#{tvegeController.prepareView}" value="#{bundle.ListTvegeViewLink}"/>
+							<h:outputText value=" "/>
+							<h:commandLink action="#{tvegeController.prepareEdit}" value="#{bundle.ListTvegeEditLink}"/>
+							<h:outputText value=" "/>
+							<h:commandLink action="#{tvegeController.destroy}" value="#{bundle.ListTvegeDestroyLink}"/>
+						</h:column>
+					</h:dataTable>
+				</h:panelGroup>
+				<br />
+				<h:commandLink action="#{tvegeController.prepareCreate}" value="#{bundle.ListTvegeCreateLink}"/>
+				<br />
+				<br />
+				<h:commandLink value="#{bundle.ListTvegeIndexLink}" action="/index" immediate="true" />
+			</h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

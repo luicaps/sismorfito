@@ -15,11 +15,11 @@
             <h:form>
                 <h:panelGrid columns="2" cellpadding="5">
                     <h:outputLabel for="username" value="Usuario:" />
-                    <p:inputText value="#{loginBean.usuario.usuario}" 
+                    <p:inputText value="#{loginBean.usuario.email}" 
                                  id="username" required="true" label="username" />
 
                     <h:outputLabel for="password" value="Senha:" />
-                    <h:inputSecret value="#{loginBean.usuario.senha}" 
+                    <h:inputSecret value="#{loginBean.senha}" 
                                    id="password" required="true" label="password" />
 
                     <f:facet name="footer">

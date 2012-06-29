@@ -11,7 +11,7 @@
     <link rel="StyleSheet" type="text/css" href="../css/pesquisa.css" media="screen" />
 
         <p:growl id="msgs" showDetail="true"/>
-        <p:dialog header="#{pesquisaManagedBean.fitop.nome_fp}" id="dlg" widgetVar="dlg" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="500" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
+        <p:dialog header="#{pesquisaManagedBean.fitop.nomeFp}" id="dlg" widgetVar="dial" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="500" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
             <h:form>
                 <h:panelGrid columns="3">
                     <p:panel footer="Fitolito">
@@ -62,47 +62,47 @@
                     <p:panelGrid columns="2" transient="false">
                         <p:column>
                             <h:outputText value="Filo: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.filo.nome_filo}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.fkIdGenero.fkIdFamilia.fkIdOrdem.fkIdClasse.fkIdFilo.nomeFilo}" /></b>
                             <br/>
                             <h:outputText value="Classe: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.classe.nome_classe}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.fkIdGenero.fkIdFamilia.fkIdOrdem.fkIdClasse.nomeClasse}" /></b>
                             <br/>
                             <h:outputText value="Ordem: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.ordem.nome_ordem}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.fkIdGenero.fkIdFamilia.fkIdOrdem.nomeOrdem}" /></b>
                             <br/>
                             <h:outputText value="Familia: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.familia.nome_familia}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.fkIdGenero.fkIdFamilia.nomeFamilia}" /></b>
                             <br/>
                             <h:outputText value="Gênero: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.genero.nome_genero}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.fkIdGenero.nomeGenero}" /></b>
                             <br/>
                             <h:outputText value="Espécie: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.especie.nome_especie}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.nomeEspecie}" /></b>
                             <br/>
                             <h:outputText value="Fitolito: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.nome_fp}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.nomeFp}" /></b>
                         </p:column>
                         <p:column>
                             <h:outputText value="Valor C3: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.especie.valdelta}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.valdelta}" /></b>
                             <br/>
                             <h:outputText value="Tipo de Vegetacao: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.tvege.nome_tvege}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdTvege.nomeVege}" /></b>
                             <br/>
                             <h:outputText value="Data da extracao: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.retirada}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.retirada}" /></b>
                             <br/>
                             <h:outputText value="UF: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.cidade.estado.UF}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdPos.fkIdCidade.fkIdEstado.uf}" /></b>
                             <br/>
                             <h:outputText value="Cidade: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.cidade.nome_cidade}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdPos.fkIdCidade.cidade}" /></b>
                             <br/>
                             <h:outputText value="Latitude: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.latitude}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdPos.latitude}" /></b>
                             <br/>
                             <h:outputText value="Longitude: " />
-                            <b><h:outputText value="#{pesquisaManagedBean.fitop.planta.pos.longitude}" /></b>
+                            <b><h:outputText value="#{pesquisaManagedBean.fitop.fkIdPplanta.fkIdPlanta.fkIdPos.longitde}" /></b>
                         </p:column>
                     </p:panelGrid>
                 </div>
@@ -165,7 +165,7 @@
 
                     <p:separator />
 
-                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" update=":dlg" oncomplete="dlg.show()" />
+                    <p:commandButton value="Submit" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" update=":dlg" oncomplete="dial.show()" />
 
                 </p:panel>
             </div>

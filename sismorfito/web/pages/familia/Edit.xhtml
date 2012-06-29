@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFamiliaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFamiliaLabel_idFamilia}" for="idFamilia" />
+                    <h:inputText id="idFamilia" value="#{familiaController.selected.idFamilia}" title="#{bundle.EditFamiliaTitle_idFamilia}" required="true" requiredMessage="#{bundle.EditFamiliaRequiredMessage_idFamilia}"/>
+                    <h:outputLabel value="#{bundle.EditFamiliaLabel_nomeFamilia}" for="nomeFamilia" />
+                    <h:inputText id="nomeFamilia" value="#{familiaController.selected.nomeFamilia}" title="#{bundle.EditFamiliaTitle_nomeFamilia}" />
+                    <h:outputLabel value="#{bundle.EditFamiliaLabel_fkIdOrdem}" for="fkIdOrdem" />
+                    <h:selectOneMenu id="fkIdOrdem" value="#{familiaController.selected.fkIdOrdem}" title="#{bundle.EditFamiliaTitle_fkIdOrdem}" required="true" requiredMessage="#{bundle.EditFamiliaRequiredMessage_fkIdOrdem}">
+                        <f:selectItems value="#{ordemController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{familiaController.update}" value="#{bundle.EditFamiliaSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditFamiliaViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{familiaController.prepareList}" value="#{bundle.EditFamiliaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditFamiliaIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

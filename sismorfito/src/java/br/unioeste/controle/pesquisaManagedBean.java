@@ -6,6 +6,7 @@ package br.unioeste.controle;
 
 import br.unioeste.modelo.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -37,7 +38,7 @@ public class pesquisaManagedBean {
     ArrayList<String> urlFPFoto;
     ArrayList<String> urlPPFoto;
     ArrayList<String> urlPlFoto;
-    FitoP fitop;
+    Fitop fitop;
     //Controle
     boolean isReady;
 
@@ -63,7 +64,7 @@ public class pesquisaManagedBean {
         urlFPFoto = new ArrayList();
         urlPPFoto = new ArrayList();
         urlPlFoto = new ArrayList();
-        fitop = new FitoP();
+        fitop = new Fitop();
 
         isReady = false;
 
@@ -221,13 +222,13 @@ public class pesquisaManagedBean {
         this.isReady = isReady;
     }
 
-    public FitoP getFitop() {
-        return fitop;
-    }
+	public Fitop getFitop() {
+		return fitop;
+	}
 
-    public void setFitop(FitoP fitop) {
-        this.fitop = fitop;
-    }
+	public void setFitop(Fitop fitop) {
+		this.fitop = fitop;
+	}
 
     public void fetchAllFilos() {
         this.listFilo.add("Filo1");
@@ -308,68 +309,64 @@ public class pesquisaManagedBean {
     public void findFitoP() {
         //Filo
         Filo f = new Filo();
-        f.setNome_filo(filo);
-        System.out.println(filo);
+        f.setNomeFilo(filo);
         //Classe
         Classe c = new Classe();
-        c.setNome_classe(classe);
-        System.out.println(classe);
+        c.setNomeClasse(classe);
+		c.setFkIdFilo(f);
         //Ordem
         Ordem o = new Ordem();
-        o.setNome_ordem(ordem);
-        System.out.println(ordem);
-        //Genero
-        Genero g = new Genero();
-        g.setNome_genero(genero);
-        System.out.println(genero);
+        o.setNomeOrdem(ordem);
+		o.setFkIdClasse(c);
         //Familia
         Familia fa = new Familia();
-        fa.setNome_familia(familia);
-        System.out.println(familia);
+        fa.setNomeFamilia(familia);
+		fa.setFkIdOrdem(o);
+        //Genero
+        Genero g = new Genero();
+        g.setNomeGenero(genero);
+		g.setFkIdFamilia(fa);
         //Especie
         Especie e = new Especie();
-        e.setNome_especie(especie);
-        float valdelta = (float) 1.56;
+		e.setFkIdGenero(g);
+        e.setNomeEspecie(especie);
+        double valdelta = (double) 1.56;
         e.setValdelta(valdelta);
-        System.out.println(especie);
         //Planta
         Planta planta = new Planta();
-        planta.setRetirada("10-10-2010");
-        TVege tvege = new TVege();
-        tvege.setNome_tvege("Vegetacao da loucura");
-        planta.setTvege(tvege);
+		planta.setFkIdEspecie(e);
+        planta.setRetirada(new Date());
+        Tvege tvege = new Tvege();
+        tvege.setNomeVege("Vegetacao da loucura");
+        planta.setFkIdTvege(tvege);
         Cidade cidade = new Cidade();
-        cidade.setNome_cidade("Cidade1");
+        cidade.setCidade("Cidade1");
         Estado estado = new Estado();
-        estado.setNome_estado("Parana");
-        estado.setUF("PR");
-        cidade.setEstado(estado);
+        estado.setEstado("Parana");
+        estado.setUf("PR");
+        cidade.setFkIdEstado(estado);
         Pos pos = new Pos();
-        pos.setCidade(cidade);
+        pos.setFkIdCidade(cidade);
         pos.setComentario("Comentario sobre a pos");
-        pos.setLatitude(10);
-        pos.setLongitude(15);
-        planta.setPos(pos);
-        ArrayList<Integer> foto = new ArrayList();
-        int i = 1;
-        foto.add(i);
-        planta.setFotos(foto);
+        pos.setLatitude("10");
+        pos.setLongitde("15");
+        planta.setFkIdPos(pos);
+        List<Plfoto> plfoto = new ArrayList();
+        plfoto.add(new Plfoto());
+        planta.setPlfotoList(plfoto);
         //PPlanta
-        PPlanta pplanta = new PPlanta();
-        pplanta.setNome_pplanta("PPlanta1");
-        pplanta.setPpfoto(foto);
+        Pplanta pplanta = new Pplanta();
+		pplanta.setFkIdPlanta(planta);
+        pplanta.setNomePplanta("PPlanta1");
+		List<Ppfoto> ppfoto = new ArrayList();
+		ppfoto.add(new Ppfoto());
+        pplanta.setPpfotoList(ppfoto);
         //FitoP
-        fitop.setFilo(f);
-        fitop.setClasse(c);
-        fitop.setOrdem(o);
-        fitop.setGenero(g);
-        fitop.setFamilia(fa);
-        fitop.setEspecie(e);
-        fitop.setPlanta(planta);
-        fitop.setPplanta(pplanta);
-        fitop.setNome_fp(this.Fitolito);
-        fitop.setFpfoto(foto);
-        System.out.println(Fitolito);
+        fitop.setFkIdPplanta(pplanta);
+        fitop.setNomeFp(this.Fitolito);
+		List<Fpfoto> fpfoto = new ArrayList();
+		fpfoto.add(new Fpfoto());
+        fitop.setFpfotoList(fpfoto);
         isReady = true;
     }
 }

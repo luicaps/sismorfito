@@ -1,0 +1,68 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+		<p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+			<h:outputText style="color: #999999 !important;" value="Inserção dos dados"/> -> Upload das fotos
+		</p:panel>
+		<h:form id="formfu" enctype="multipart/form-data">
+			<p:growl id="message" showDetail="true" life="5000"/>
+			<p:panel>
+
+				<!--Foto de Fitolito - FPFoto -->
+				<p:fileUpload id="fuFito"
+							  fileUploadListener="#{cadastraFitoManagedBean.handleFileUploadFPFoto}"
+							  mode="advanced"
+							  update="message"
+							  multiple="true"
+							  sizeLimit="10000000"
+							  allowTypes="/(\.|\/)(jpg|jpeg|bmp|BMP)$/"
+							  style="font-size: 13px !important; text-align: left !important;"
+							  label="Escolher"
+							  uploadLabel="Enviar"
+							  cancelLabel="Cancelar">
+					<h:outputText value="Insira Fotos de Fitólito" style="font-size: 14px !important;"/>
+				</p:fileUpload>
+
+				<!--Foto de Planta - PlFoto -->
+				<p:fileUpload id="fuPlanta"
+							  fileUploadListener="#{cadastraFitoManagedBean.handleFileUploadPlFoto}"
+							  mode="advanced"
+							  update="message"
+							  multiple="true"
+							  sizeLimit="10000000"
+							  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+							  style="font-size: 13px !important; text-align: left !important;"
+							  label="Escolher"
+							  uploadLabel="Enviar"
+							  cancelLabel="Cancelar">
+					<br/>
+					<h:outputText value="Insira Fotos da Planta" style="font-size: 14px !important;"/>
+				</p:fileUpload>
+
+				<!--Foto de Parte da Planta - PPFoto-->
+				<p:fileUpload id="fuPPlanta"
+							  fileUploadListener="#{cadastraFitoManagedBean.handleFileUploadPPFoto}"
+							  mode="advanced"
+							  update="message"
+							  multiple="true"
+							  sizeLimit="10000000"
+							  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+							  style="font-size: 13px !important; text-align: left !important;"
+							  label="Escolher"
+							  uploadLabel="Enviar"
+							  cancelLabel="Cancelar"
+							  disabled="true">
+					<br/>
+					<h:outputText value="Insira Fotos da Planta" style="font-size: 14px !important;"/>
+				</p:fileUpload>
+				<br/>
+				<h:outputText value="Dica: Selecione o Arquivo e clique em enviar antes de finalizar o cadastro." style="color: red !important; font-size: 15px !important;" />
+			</p:panel>
+		</h:form> 
+    </ui:define>
+</ui:composition>
