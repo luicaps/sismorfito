@@ -1,0 +1,129 @@
+/* 
+    Document   : style
+    Created on : 21/01/2012, 22:42:10
+    Author     : Moises
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.body {
+    background: white;
+    /*background-image: url('../img/background.jpg');*/
+    background-repeat: repeat;
+}
+
+.screen {
+    width: 80%;
+    height: 100%;
+    padding: 3% 0% 3% 10%;
+}
+
+.cabecalho {
+    height: 184px;
+    background-color: #d3effe;
+    /*background-image: url('../img/header.jpg') !important;         com imagem
+    background-repeat: repeat-x !important;
+    background-position-x: 100% !important;
+    background-color: #d4e2d3 !important;*/
+    padding: 2% 10px 0px 2%;
+}
+
+.corpo {
+    min-height: 460px;
+    height: auto !important;
+    height: 460px;    
+    text-align: center !important;
+    padding-left: 20% !important;
+    padding-right: 20% !important;
+    /*background-color: #a1dfde !important;*/
+    background-color: #bce4f9 !important;
+    padding-top: 1%;
+}
+
+.conteudo {
+    /*background-color: #F4F0EC !important;*/
+    height: auto !important;
+}
+
+/*.rodape {
+    min-height: 100px;
+    height: auto !important;
+    height: 150px !important;
+    background-color: #206463 !important;
+    background-image: url('../img/footer.jpg') !important;
+    background-repeat: no-repeat !important;
+    background-position-x: 100% !important;
+    padding-top: 1%;
+    padding-left: 1%;
+}*/
+
+.rodape {
+    height: 90px !important;
+    font-size: 12px !important;
+    font-style: inherit !important;
+    padding: 10px 0px 0px 15px !important;
+}
+
+.loginBotao {
+    font-size: 13px !important;
+}
+.pJanela {
+    font-size: 14px;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.dialogin {
+    font-size: 12px !important;
+}
+
+.menu {
+    margin-top: 5% !important;
+    font-size: 12px !important;
+    /*width: 430px !important;*/
+    width: 59% !important;
+}
+
+.menuAdmin {
+    margin-top: 5% !important;
+    font-size: 12px !important;
+    width: 230px !important;    
+}
+
+.menuProfessor {
+    margin-top: 5% !important;
+    font-size: 12px !important;
+    width: 380px !important;    
+}
+
+.cadprof {
+    font-size: 11.4px !important;
+}
+
+.telaCadastro {
+    
+}
+
+.welcome {
+    margin-top: 29px !important;
+}
+
+.erroLogin {
+    text-align: center !important;
+    text-shadow: inherit !important;
+    font-size: 20px !important;
+    font-family: sans-serif !important;
+    padding-top: 100px !important;
+    height: 200px;
+}
+
+.pdados {
+}
+
+.ui-panel-footer {
+    text-align: center !important;
+}

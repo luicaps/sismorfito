@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <link rel="StyleSheet" type="text/css" href="../css/style.css" media="screen" />
+    <h:head>
+        <title>FitoDB</title>
+    </h:head>
+    <h:form>
+        <p:panel rendered="#{not loginBean.usuario.isLogedProfessor}" styleClass="erroLogin">
+            Ops! Acho que você não deveria estar aqui.
+            Que tal voltar <p:commandLink onclick="retorna()">aqui</p:commandLink>?
+            <script type="text/javascript" language="javascript">
+                function retorna() {
+                    window.location.href='../index.xhtml';
+                }
+            </script>
+        </p:panel>
+    </h:form>
+    <h:body styleClass="body" rendered="#{loginBean.usuario.isLogedProfessor}">
+        <p:growl id="growl" showDetail="true" life="3000" />
+        <div class="screen">
+            <div Class="cabecalho">
+                <h:form id="loga">
+                    <br/><p class="welcome">Bem vindo <h:outputText value="#{loginBean.usuario.nome}" id="usu"/></p>
+                </h:form>
+                <h:form>
+
+                    <p:growl id="messages"/>
+
+                    <p:menubar styleClass="menuProfessor" autoDisplay="false">
+
+                        <p:submenu label="Banco de Dados" icon="ui-icon-note">
+                            <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>
+                            <p:menuitem value="Cadastrar" icon="ui-icon-pencil" action="/conteudo-professor/cadastrar-fito.xhtml" ajax="false"/>
+                        </p:submenu>
+
+                        <p:submenu label="Pesquisador" icon="ui-icon-person">
+                            <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-professor/cadastra-aluno.xhtml" ajax="false" />
+                            <p:menuitem value="Alterar Aluno" icon="ui-icon-note" action="/conteudo-professor/alterar-aluno-lista.xhtml" ajax="false" />
+                            <p:menuitem value="Consultar Professor" icon="ui-icon-search" ajax="false"  styleClass="cadprof" />
+                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" ajax="false" />
+                        </p:submenu>
+
+                        <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-professor/ajuda-professor.xhtml" ajax="false" />
+
+                        <p:menuitem value="Sair" icon="ui-icon-close" action="#{loginBean.logout}" ajax="false"/>
+                    </p:menubar>
+
+                </h:form>
+            </div>
+            <div Class="corpo">
+                <div class="conteudo">
+                    <ui:insert name="corpo">
+
+                        Conteúdo padrão
+
+                    </ui:insert>
+                </div>
+            </div>
+            <p:toolbar styleClass="rodape">
+                <p:toolbarGroup align="left">
+                    <!--<h:outputText value="rodape"/>-->
+                </p:toolbarGroup>
+            </p:toolbar>
+        </div>
+    </h:body>
+</html>

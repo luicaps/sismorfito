@@ -1,0 +1,136 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form>
+            <div style="margin-left: 30%; width: 500px !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+                    <h:panelGrid columns="2" cellpadding="5">
+
+                        <h:outputText value="Filo: " />
+                        <p:autoComplete id="Filo" value="#{cadastraFitoManagedBean.filo}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeFilo}" 
+                                        title="Escolha o termo sugerido, a menos que este não exista." >
+                            <p:ajax update="Submit" oncomplete="Submit"/>
+                        </p:autoComplete>
+
+                        <h:outputText value="Classe: " />
+                        <p:autoComplete id="Classe" value="#{cadastraFitoManagedBean.classe}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeClasse}"/>
+
+                        <h:outputText value="Ordem: " />
+                        <p:autoComplete id="Ordem" value="#{cadastraFitoManagedBean.ordem}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeOrdem}"/>
+
+                        <h:outputText value="Familia: " />
+                        <p:autoComplete id="Familia" value="#{cadastraFitoManagedBean.familia}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeFamilia}"/>
+
+                        <h:outputText value="Genero: " />
+                        <p:autoComplete id="Genero" value="#{cadastraFitoManagedBean.genero}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeGenero}"/>
+
+                        <h:outputText value="Especie: " />
+                        <p:autoComplete id="Especie" value="#{cadastraFitoManagedBean.especie}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeEspecie}"/>
+
+                        <h:outputText value="Fitolito: " />
+                        <p:autoComplete id="Fitolito" value="#{cadastraFitoManagedBean.fitolito}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeFitolito}" />
+
+                        <h:outputText value="Valor DeltaC3:" />
+                        <p:inputText id="ValDelta" value="#{cadastraFitoManagedBean.valDeta}" />
+                    </h:panelGrid>
+
+                    <p:separator />
+
+                    <h:panelGrid columns="2" cellpadding="5">
+
+
+                        <h:outputText value="Estado:" />
+                        <p:autoComplete id="Estado" value="#{cadastraFitoManagedBean.estado}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeEstado}" scrollHeight="100" valueChangeListener="#{cadastraFitoManagedBean.fetchAllCidade()}">
+                        </p:autoComplete>
+
+                        <h:outputText value="Cidade:" />
+                        <p:autoComplete id="Cidade" value="#{cadastraFitoManagedBean.cidade}" 
+                                        completeMethod="#{cadastraFitoManagedBean.completeCidade}" />
+
+                        <h:outputText value="Retirada:" />
+                        <p:inputMask id="Retirada" value="#{cadastraFitoManagedBean.retirada}" mask="99/99/9999"/> 
+
+                        <h:outputText value="Disponível para busca?" />
+                        <p:selectBooleanCheckbox id="Disponivel" value="#{cadastraFitoManagedBean.disponivel}" />
+
+
+                    </h:panelGrid>
+
+                    <p:separator />
+
+
+                </p:panel>
+            </div>
+            <h:form id="formfu" enctype="multipart/form-data">
+                <p:growl id="message" showDetail="true" life="5000"/>
+                <p:panel>
+
+                    <!--Foto de Fitolito-->
+                    <p:fileUpload id="fuFito"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <h:outputText value="Atenção: Envie os arquivos antes de finalizar o cadastro." style="color: red !important;" />
+                        <br/>
+                        <h:outputText value="Insira Fotos de Fitólito" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+                    <!--Foto de Planta-->
+                    <p:fileUpload id="fuPlanta"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <br/>
+                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+                    <!--Foto de Parte da Planta-->
+                    <p:fileUpload id="fuPPlanta"
+                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
+                                  mode="advanced"
+                                  update="message"
+                                  multiple="true"
+                                  sizeLimit="10000000"
+                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
+                                  style="font-size: 13px !important; text-align: left !important;"
+                                  label="Escolher"
+                                  uploadLabel="Enviar"
+                                  cancelLabel="Cancelar">
+                        <br/>
+                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
+                    </p:fileUpload>
+
+
+                </p:panel>
+            </h:form> 
+            <p:commandButton value="Cadastrar" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />
+        </h:form>
+    </ui:define>
+</ui:composition>

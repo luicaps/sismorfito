@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <link rel="StyleSheet" type="text/css" href="../css/style.css" media="screen" />
+    <h:head>
+        <title>FitoDB</title>
+    </h:head>
+    <h:body styleClass="body">
+        <p:growl id="growl" showDetail="true" life="3000" />
+        <p:dialog id="dialog" header="Login" widgetVar="login" resizable="false" styleClass="dialogin">
+            <h:form>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="username" value="Usuario:" />
+                    <p:inputText value="#{loginBean.usuario.usuario}" 
+                                 id="username" required="true" label="username" />
+
+                    <h:outputLabel for="password" value="Senha:" />
+                    <h:inputSecret value="#{loginBean.usuario.senha}" 
+                                   id="password" required="true" label="password" />
+
+                    <f:facet name="footer">
+                        <p:commandButton id="loginButton" value="Login" update=":growl :loga" 
+                                         actionListener="#{loginBean.login(actionEvent)}" 
+                                         oncomplete="handleLoginRequest(xhr, status, args)"/>
+                    </f:facet>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if(args.validationFailed || !args.loggedIn) {
+                    jQuery('#dialog').effect("shake", { times:3 }, 100);
+                } else {
+                    login.hide();
+                }
+            }
+        </script>
+
+        <div class="screen">             
+            <div Class="cabecalho">
+
+                <h:form id="loga">
+                    <p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>
+                    <br/><p>Bem vindo Visitante</p>
+                </h:form>
+                <h:form>
+
+                    <p:growl id="messages"/>
+
+                    <p:menubar styleClass="menu" autoDisplay="true">
+
+                        <p:submenu label="Banco de Dados" icon="ui-icon-note">
+                            <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo/pesquisar.xhtml" ajax="false"/>
+                        </p:submenu>
+
+                        <p:submenu label="Fitólito" icon="ui-icon-gear">
+                            <p:menuitem value="O que é?" icon="ui-icon-lightbulb" action="/conteudo/oque.xhtml" ajax="false"/>
+                        </p:submenu>
+
+                        <p:submenu label="Projeto" icon="ui-icon-document">
+                            <p:menuitem value="O site" icon="ui-icon-comment" action="/conteudo/sobre.xhtml" ajax="false"/>
+                            <p:menuitem value="Grupo de pesquisa da área" icon="ui-icon-image" action="/conteudo/grupo.xhtml" ajax="false"/>
+                        </p:submenu>
+
+                        <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo/ajuda-principal.xhtml" ajax="false" />
+
+                        <p:menuitem value="Contato" icon="ui-icon-contact" action="/conteudo/contato.xhtml" ajax="false" />
+                    </p:menubar>
+
+                </h:form>
+            </div>
+            <div Class="corpo">
+                <div class="conteudo">
+                    <ui:insert name="corpo">
+
+                        Conteúdo padrão
+
+                    </ui:insert>
+                </div>
+            </div>
+            <p:toolbar styleClass="rodape">
+                <p:toolbarGroup align="left">
+                    <!--<div style="padding-left: 100% !important;"><h:outputText value="oioioii"/></div>-->
+                </p:toolbarGroup>
+            </p:toolbar>
+        </div>
+
+    </h:body>
+</html>

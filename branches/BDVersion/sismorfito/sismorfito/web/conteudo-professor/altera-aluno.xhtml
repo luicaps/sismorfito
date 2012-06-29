@@ -1,0 +1,43 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form>
+            <div style="margin-left: 30%; width: 500p !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+                    
+                    <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
+
+                        <h:outputText value="E-Mail: "/>
+                        <p:inputText id="EMail" value="#{alteraAlunoManagedBean.email}" disabled="true"/>
+                        
+                        <h:outputText value="Senha: "/>
+                        <p:password id="Password" value="#{alteraAlunoManagedBean.senha}" feedback="true"
+                                    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+                                    match="Password2"/>
+
+                        <h:outputText value="Senha Novamente: "/>
+                        <p:password id="Password2" value="#{alteraAlunoManagedBean.senha2}" feedback="true" 
+                                    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+
+
+                        <h:outputText value="Nome: "/>
+                        <p:inputText id="Nome" value="#{alteraAlunoManagedBean.nome}"/>
+
+                        <h:outputText value="Sobrenome: "/>
+                        <p:inputText id="Sobrenome" value="#{alteraAlunoManagedBean.sobrenome}"/>
+                        
+                    </h:panelGrid>
+                    <p:separator />
+                    
+                    <p:commandButton value="Alterar" id="AlteraAlunoButton" action="#{alteraAlunoManagedBean.alterar()}" />
+
+                </p:panel>
+            </div>
+        </h:form>       
+    </ui:define>
+</ui:composition>

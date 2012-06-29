@@ -1,0 +1,40 @@
+/* 
+    Document   : layout
+    Created on : 18/01/2012, 19:11:32
+    Author     : Boiarski
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.body {
+    /*background: #2b842b;*/
+    background: #d3effe;
+}
+
+.tela {
+    margin-left: 22%;
+    width: 50%;
+    height: 300px;
+    text-align: center;
+}
+
+.botao {
+    margin-top: 20%;
+}
+
+/*.ui-dialog{
+top: 150px !important;
+}*/
+
+.fundo {
+    background-image: url('../img/pc.jpg') !important;
+    background-repeat: no-repeat;
+    width: 800px;
+    height: 100px;
+    position: absolute;
+    top: 80%;
+}
