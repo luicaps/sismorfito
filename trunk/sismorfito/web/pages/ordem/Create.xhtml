@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateOrdemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateOrdemLabel_idOrdem}" for="idOrdem" />
+                    <h:inputText id="idOrdem" value="#{ordemController.selected.idOrdem}" title="#{bundle.CreateOrdemTitle_idOrdem}" required="true" requiredMessage="#{bundle.CreateOrdemRequiredMessage_idOrdem}"/>
+                    <h:outputLabel value="#{bundle.CreateOrdemLabel_nomeOrdem}" for="nomeOrdem" />
+                    <h:inputText id="nomeOrdem" value="#{ordemController.selected.nomeOrdem}" title="#{bundle.CreateOrdemTitle_nomeOrdem}" />
+                    <h:outputLabel value="#{bundle.CreateOrdemLabel_fkIdClasse}" for="fkIdClasse" />
+                    <h:selectOneMenu id="fkIdClasse" value="#{ordemController.selected.fkIdClasse}" title="#{bundle.CreateOrdemTitle_fkIdClasse}" required="true" requiredMessage="#{bundle.CreateOrdemRequiredMessage_fkIdClasse}">
+                        <f:selectItems value="#{classeController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{ordemController.create}" value="#{bundle.CreateOrdemSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{ordemController.prepareList}" value="#{bundle.CreateOrdemShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateOrdemIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

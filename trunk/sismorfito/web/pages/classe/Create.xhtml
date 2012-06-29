@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateClasseTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateClasseLabel_idClasse}" for="idClasse" />
+                    <h:inputText id="idClasse" value="#{classeController.selected.idClasse}" title="#{bundle.CreateClasseTitle_idClasse}" required="true" requiredMessage="#{bundle.CreateClasseRequiredMessage_idClasse}"/>
+                    <h:outputLabel value="#{bundle.CreateClasseLabel_nomeClasse}" for="nomeClasse" />
+                    <h:inputText id="nomeClasse" value="#{classeController.selected.nomeClasse}" title="#{bundle.CreateClasseTitle_nomeClasse}" />
+                    <h:outputLabel value="#{bundle.CreateClasseLabel_fkIdFilo}" for="fkIdFilo" />
+                    <h:selectOneMenu id="fkIdFilo" value="#{classeController.selected.fkIdFilo}" title="#{bundle.CreateClasseTitle_fkIdFilo}" required="true" requiredMessage="#{bundle.CreateClasseRequiredMessage_fkIdFilo}">
+                        <f:selectItems value="#{filoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{classeController.create}" value="#{bundle.CreateClasseSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{classeController.prepareList}" value="#{bundle.CreateClasseShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateClasseIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPosLabel_idPos}"/>
+                    <h:outputText value="#{posController.selected.idPos}" title="#{bundle.ViewPosTitle_idPos}"/>
+                    <h:outputText value="#{bundle.ViewPosLabel_latitude}"/>
+                    <h:outputText value="#{posController.selected.latitude}" title="#{bundle.ViewPosTitle_latitude}"/>
+                    <h:outputText value="#{bundle.ViewPosLabel_longitde}"/>
+                    <h:outputText value="#{posController.selected.longitde}" title="#{bundle.ViewPosTitle_longitde}"/>
+                    <h:outputText value="#{bundle.ViewPosLabel_comentario}"/>
+                    <h:outputText value="#{posController.selected.comentario}" title="#{bundle.ViewPosTitle_comentario}"/>
+                    <h:outputText value="#{bundle.ViewPosLabel_fkIdCsolo}"/>
+                    <h:outputText value="#{posController.selected.fkIdCsolo}" title="#{bundle.ViewPosTitle_fkIdCsolo}"/>
+                    <h:outputText value="#{bundle.ViewPosLabel_fkIdCidade}"/>
+                    <h:outputText value="#{posController.selected.fkIdCidade}" title="#{bundle.ViewPosTitle_fkIdCidade}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{posController.destroyAndView}" value="#{bundle.ViewPosDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewPosEditLink}"/>
+                <br />
+                <h:commandLink action="#{posController.prepareCreate}" value="#{bundle.ViewPosCreateLink}" />
+                <br />
+                <h:commandLink action="#{posController.prepareList}" value="#{bundle.ViewPosShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewPosIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

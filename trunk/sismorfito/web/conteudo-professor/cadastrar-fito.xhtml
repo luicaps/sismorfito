@@ -6,9 +6,13 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="corpo">
+		<p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+			Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
+		</p:panel>
         <h:form>
-            <div style="margin-left: 30%; width: 500px !important;">
-                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <!--<p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">-->
+				<div style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
                     <h:panelGrid columns="2" cellpadding="5">
 
                         <h:outputText value="Filo: " />
@@ -44,11 +48,10 @@
 
                         <h:outputText value="Valor DeltaC3:" />
                         <p:inputText id="ValDelta" value="#{cadastraFitoManagedBean.valDeta}" />
-                    </h:panelGrid>
 
-                    <p:separator />
+						<p:separator style="width: 109% !important;"/>
+						<p:separator />
 
-                    <h:panelGrid columns="2" cellpadding="5">
 
 
                         <h:outputText value="Estado:" />
@@ -71,66 +74,11 @@
 
                     <p:separator />
 
-
-                </p:panel>
+					<p:commandButton style="margin-bottom: 4% !important;" value="Avançar" id="Submit" action="cadastrar-fito-upload" />
+<!--					<p:commandButton style="margin-bottom: 4% !important;" value="Avançar" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />-->
+				</div>
             </div>
-            <h:form id="formfu" enctype="multipart/form-data">
-                <p:growl id="message" showDetail="true" life="5000"/>
-                <p:panel>
 
-                    <!--Foto de Fitolito-->
-                    <p:fileUpload id="fuFito"
-                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
-                                  mode="advanced"
-                                  update="message"
-                                  multiple="true"
-                                  sizeLimit="10000000"
-                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
-                                  style="font-size: 13px !important; text-align: left !important;"
-                                  label="Escolher"
-                                  uploadLabel="Enviar"
-                                  cancelLabel="Cancelar">
-                        <h:outputText value="Atenção: Envie os arquivos antes de finalizar o cadastro." style="color: red !important;" />
-                        <br/>
-                        <h:outputText value="Insira Fotos de Fitólito" style="font-size: 13px !important;"/>
-                    </p:fileUpload>
-
-                    <!--Foto de Planta-->
-                    <p:fileUpload id="fuPlanta"
-                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
-                                  mode="advanced"
-                                  update="message"
-                                  multiple="true"
-                                  sizeLimit="10000000"
-                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
-                                  style="font-size: 13px !important; text-align: left !important;"
-                                  label="Escolher"
-                                  uploadLabel="Enviar"
-                                  cancelLabel="Cancelar">
-                        <br/>
-                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
-                    </p:fileUpload>
-
-                    <!--Foto de Parte da Planta-->
-                    <p:fileUpload id="fuPPlanta"
-                                  fileUploadListener="#{cadastraFitoManagedBean.handleFileUpload}"
-                                  mode="advanced"
-                                  update="message"
-                                  multiple="true"
-                                  sizeLimit="10000000"
-                                  allowTypes="/(\.|\/)(jpg|jpeg)$/"
-                                  style="font-size: 13px !important; text-align: left !important;"
-                                  label="Escolher"
-                                  uploadLabel="Enviar"
-                                  cancelLabel="Cancelar">
-                        <br/>
-                        <h:outputText value="Insira Fotos da Planta" style="font-size: 13px !important;"/>
-                    </p:fileUpload>
-
-
-                </p:panel>
-            </h:form> 
-            <p:commandButton value="Cadastrar" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />
         </h:form>
     </ui:define>
 </ui:composition>

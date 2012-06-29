@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFitopTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFitopLabel_idFitop}"/>
+                    <h:outputText value="#{fitopController.selected.idFitop}" title="#{bundle.ViewFitopTitle_idFitop}"/>
+                    <h:outputText value="#{bundle.ViewFitopLabel_nomeFp}"/>
+                    <h:outputText value="#{fitopController.selected.nomeFp}" title="#{bundle.ViewFitopTitle_nomeFp}"/>
+                    <h:outputText value="#{bundle.ViewFitopLabel_disponivel}"/>
+                    <h:outputText value="#{fitopController.selected.disponivel}" title="#{bundle.ViewFitopTitle_disponivel}"/>
+                    <h:outputText value="#{bundle.ViewFitopLabel_fkIdUsu}"/>
+                    <h:outputText value="#{fitopController.selected.fkIdUsu}" title="#{bundle.ViewFitopTitle_fkIdUsu}"/>
+                    <h:outputText value="#{bundle.ViewFitopLabel_fkIdPplanta}"/>
+                    <h:outputText value="#{fitopController.selected.fkIdPplanta}" title="#{bundle.ViewFitopTitle_fkIdPplanta}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{fitopController.destroyAndView}" value="#{bundle.ViewFitopDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewFitopEditLink}"/>
+                <br />
+                <h:commandLink action="#{fitopController.prepareCreate}" value="#{bundle.ViewFitopCreateLink}" />
+                <br />
+                <h:commandLink action="#{fitopController.prepareList}" value="#{bundle.ViewFitopShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewFitopIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

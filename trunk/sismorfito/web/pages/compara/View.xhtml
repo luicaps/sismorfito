@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewComparaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewComparaLabel_fkIdFitos}"/>
+                    <h:outputText value="#{comparaController.selected.fkIdFitos}" title="#{bundle.ViewComparaTitle_fkIdFitos}"/>
+                    <h:outputText value="#{bundle.ViewComparaLabel_fkIdUsu}"/>
+                    <h:outputText value="#{comparaController.selected.fkIdUsu}" title="#{bundle.ViewComparaTitle_fkIdUsu}"/>
+                    <h:outputText value="#{bundle.ViewComparaLabel_fitos}"/>
+                    <h:outputText value="#{comparaController.selected.fitos}" title="#{bundle.ViewComparaTitle_fitos}"/>
+                    <h:outputText value="#{bundle.ViewComparaLabel_fkIdFitop}"/>
+                    <h:outputText value="#{comparaController.selected.fkIdFitop}" title="#{bundle.ViewComparaTitle_fkIdFitop}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{comparaController.destroyAndView}" value="#{bundle.ViewComparaDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewComparaEditLink}"/>
+                <br />
+                <h:commandLink action="#{comparaController.prepareCreate}" value="#{bundle.ViewComparaCreateLink}" />
+                <br />
+                <h:commandLink action="#{comparaController.prepareList}" value="#{bundle.ViewComparaShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewComparaIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

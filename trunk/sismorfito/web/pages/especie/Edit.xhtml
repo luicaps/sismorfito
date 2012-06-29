@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditEspecieTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditEspecieLabel_idEspecie}" for="idEspecie" />
+                    <h:inputText id="idEspecie" value="#{especieController.selected.idEspecie}" title="#{bundle.EditEspecieTitle_idEspecie}" required="true" requiredMessage="#{bundle.EditEspecieRequiredMessage_idEspecie}"/>
+                    <h:outputLabel value="#{bundle.EditEspecieLabel_nomeEspecie}" for="nomeEspecie" />
+                    <h:inputText id="nomeEspecie" value="#{especieController.selected.nomeEspecie}" title="#{bundle.EditEspecieTitle_nomeEspecie}" />
+                    <h:outputLabel value="#{bundle.EditEspecieLabel_valdelta}" for="valdelta" />
+                    <h:inputText id="valdelta" value="#{especieController.selected.valdelta}" title="#{bundle.EditEspecieTitle_valdelta}" />
+                    <h:outputLabel value="#{bundle.EditEspecieLabel_fkIdGenero}" for="fkIdGenero" />
+                    <h:selectOneMenu id="fkIdGenero" value="#{especieController.selected.fkIdGenero}" title="#{bundle.EditEspecieTitle_fkIdGenero}" required="true" requiredMessage="#{bundle.EditEspecieRequiredMessage_fkIdGenero}">
+                        <f:selectItems value="#{generoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{especieController.update}" value="#{bundle.EditEspecieSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditEspecieViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{especieController.prepareList}" value="#{bundle.EditEspecieShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditEspecieIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

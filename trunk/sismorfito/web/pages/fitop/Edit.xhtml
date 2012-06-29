@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFitopTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFitopLabel_idFitop}" for="idFitop" />
+                    <h:inputText id="idFitop" value="#{fitopController.selected.idFitop}" title="#{bundle.EditFitopTitle_idFitop}" required="true" requiredMessage="#{bundle.EditFitopRequiredMessage_idFitop}"/>
+                    <h:outputLabel value="#{bundle.EditFitopLabel_nomeFp}" for="nomeFp" />
+                    <h:inputText id="nomeFp" value="#{fitopController.selected.nomeFp}" title="#{bundle.EditFitopTitle_nomeFp}" />
+                    <h:outputLabel value="#{bundle.EditFitopLabel_disponivel}" for="disponivel" />
+                    <h:inputText id="disponivel" value="#{fitopController.selected.disponivel}" title="#{bundle.EditFitopTitle_disponivel}" />
+                    <h:outputLabel value="#{bundle.EditFitopLabel_fkIdUsu}" for="fkIdUsu" />
+                    <h:selectOneMenu id="fkIdUsu" value="#{fitopController.selected.fkIdUsu}" title="#{bundle.EditFitopTitle_fkIdUsu}" required="true" requiredMessage="#{bundle.EditFitopRequiredMessage_fkIdUsu}">
+                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditFitopLabel_fkIdPplanta}" for="fkIdPplanta" />
+                    <h:selectOneMenu id="fkIdPplanta" value="#{fitopController.selected.fkIdPplanta}" title="#{bundle.EditFitopTitle_fkIdPplanta}" required="true" requiredMessage="#{bundle.EditFitopRequiredMessage_fkIdPplanta}">
+                        <f:selectItems value="#{pplantaController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{fitopController.update}" value="#{bundle.EditFitopSaveLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="View" value="#{bundle.EditFitopViewLink}" immediate="true"/>
+                <br />
+                <h:commandLink action="#{fitopController.prepareList}" value="#{bundle.EditFitopShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.EditFitopIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -26,7 +26,9 @@ import org.primefaces.event.FileUploadEvent;
 public class cadastraFitoManagedBean implements Serializable {
 
     //constantes
-    private static final String dirFito = "C:\\Users\\Caps\\Documents\\NetBeansProjects\\sismorfito\\web\\FPFoto\\";
+    private static final String dirFPFoto = "FPFoto\\";
+    private static final String dirPlFoto = "PlFoto\\";
+    private static final String dirPPFoto = "PPFoto\\";
     //Selects
     String filo;
     String classe;
@@ -53,7 +55,7 @@ public class cadastraFitoManagedBean implements Serializable {
     ArrayList<String> listFitolito;
     ArrayList<String> listEstado;
     ArrayList<String> listCidade;
-    FitoP fitop;
+//    FitoP fitop;
     //Controle
     boolean isReady;
 
@@ -83,7 +85,7 @@ public class cadastraFitoManagedBean implements Serializable {
         listFitolito = new ArrayList();
         listEstado = new ArrayList();
         listCidade = new ArrayList();
-        fitop = new FitoP();
+//        fitop = new FitoP();
 
         isReady = false;
         fetchAllFilos();
@@ -277,13 +279,13 @@ public class cadastraFitoManagedBean implements Serializable {
         this.isReady = isReady;
     }
 
-    public FitoP getFitop() {
-        return fitop;
-    }
-
-    public void setFitop(FitoP fitop) {
-        this.fitop = fitop;
-    }
+//    public FitoP getFitop() {
+//        return fitop;
+//    }
+//
+//    public void setFitop(FitoP fitop) {
+//        this.fitop = fitop;
+//    }
 
     public void fetchAllFilos() {
         this.listFilo.add("Filo1");
@@ -350,64 +352,64 @@ public class cadastraFitoManagedBean implements Serializable {
     }
 
     public void findFitoP() {
-        //Filo
-        Filo f = new Filo();
-        f.setNome_filo(filo);
-        //Classe
-        Classe c = new Classe();
-        c.setNome_classe(classe);
-        //Ordem
-        Ordem o = new Ordem();
-        o.setNome_ordem(ordem);
-        //Genero
-        Genero g = new Genero();
-        g.setNome_genero(genero);
-        //Familia
-        Familia fa = new Familia();
-        fa.setNome_familia(familia);
-        //Especie
-        Especie e = new Especie();
-        e.setNome_especie(especie);
-        float valdelta = (float) 1.56;
-        e.setValdelta(valdelta);
-        //Planta
-        Planta planta = new Planta();
-        planta.setRetirada("10-10-2010");
-        TVege tvege = new TVege();
-        tvege.setNome_tvege("Vegetacao da loucura");
-        planta.setTvege(tvege);
-        Cidade cidade = new Cidade();
-        cidade.setNome_cidade("Cidade1");
-        Estado estado = new Estado();
-        estado.setNome_estado("Parana");
-        estado.setUF("PR");
-        cidade.setEstado(estado);
-        Pos pos = new Pos();
-        pos.setCidade(cidade);
-        pos.setComentario("Comentario sobre a pos");
-        pos.setLatitude(10);
-        pos.setLongitude(15);
-        planta.setPos(pos);
-        ArrayList<Integer> foto = new ArrayList();
-        int i = 1;
-        foto.add(i);
-        planta.setFotos(foto);
-        //PPlanta
-        PPlanta pplanta = new PPlanta();
-        pplanta.setNome_pplanta("PPlanta1");
-        pplanta.setPpfoto(foto);
-        //FitoP
-        fitop.setFilo(f);
-        fitop.setClasse(c);
-        fitop.setOrdem(o);
-        fitop.setGenero(g);
-        fitop.setFamilia(fa);
-        fitop.setEspecie(e);
-        fitop.setPlanta(planta);
-        fitop.setPplanta(pplanta);
-        fitop.setNome_fp(this.Fitolito);
-        fitop.setFpfoto(foto);
-        isReady = true;
+//        //Filo
+//        Filo f = new Filo();
+//        f.setNome_filo(filo);
+//        //Classe
+//        Classe c = new Classe();
+//        c.setNome_classe(classe);
+//        //Ordem
+//        Ordem o = new Ordem();
+//        o.setNome_ordem(ordem);
+//        //Genero
+//        Genero g = new Genero();
+//        g.setNome_genero(genero);
+//        //Familia
+//        Familia fa = new Familia();
+//        fa.setNome_familia(familia);
+//        //Especie
+//        Especie e = new Especie();
+//        e.setNome_especie(especie);
+//        float valdelta = (float) 1.56;
+//        e.setValdelta(valdelta);
+//        //Planta
+//        Planta planta = new Planta();
+//        planta.setRetirada("10-10-2010");
+//        TVege tvege = new TVege();
+//        tvege.setNome_tvege("Vegetacao da loucura");
+//        planta.setTvege(tvege);
+//        Cidade cidade = new Cidade();
+//        cidade.setNome_cidade("Cidade1");
+//        Estado estado = new Estado();
+//        estado.setNome_estado("Parana");
+//        estado.setUF("PR");
+//        cidade.setEstado(estado);
+//        Pos pos = new Pos();
+//        pos.setCidade(cidade);
+//        pos.setComentario("Comentario sobre a pos");
+//        pos.setLatitude(10);
+//        pos.setLongitude(15);
+//        planta.setPos(pos);
+//        ArrayList<Integer> foto = new ArrayList();
+//        int i = 1;
+//        foto.add(i);
+//        planta.setFotos(foto);
+//        //PPlanta
+//        PPlanta pplanta = new PPlanta();
+//        pplanta.setNome_pplanta("PPlanta1");
+//        pplanta.setPpfoto(foto);
+//        //FitoP
+//        fitop.setFilo(f);
+//        fitop.setClasse(c);
+//        fitop.setOrdem(o);
+//        fitop.setGenero(g);
+//        fitop.setFamilia(fa);
+//        fitop.setEspecie(e);
+//        fitop.setPlanta(planta);
+//        fitop.setPplanta(pplanta);
+//        fitop.setNome_fp(this.Fitolito);
+//        fitop.setFpfoto(foto);
+//        isReady = true;
     }
 
     public ArrayList<String> completeFilo(String query) {
@@ -504,14 +506,94 @@ public class cadastraFitoManagedBean implements Serializable {
         return saida;
     }
 
-    public void handleFileUpload(FileUploadEvent event) {
-
-        int fNome = 0;//Recebe o valor para a proxima imagem
+    public void handleFileUploadFPFoto(FileUploadEvent event) {
+        int fNome = 5;//Recebe o valor para a proxima imagem
         String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
 
         try {
 
-            File saida = new File(dirFito + fNome + ext);
+            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirFPFoto + fNome + ext);
+			if(!saida.exists()){
+				saida.createNewFile();
+			}
+            FileOutputStream fos = new FileOutputStream(saida);
+            byte[] buffer = new byte[50];
+            int bulk;
+            InputStream is = event.getFile().getInputstream();
+
+            while (true) {
+                bulk = is.read(buffer);
+                if (bulk < 0) {
+                    break;
+                }
+                fos.write(buffer, 0, bulk);
+                fos.flush();
+            }
+
+            fos.close();
+            is.close();
+
+            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+    }
+
+	public void handleFileUploadPlFoto(FileUploadEvent event) {
+        int fNome = 5;//Recebe o valor para a proxima imagem
+        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+
+        try {
+
+            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPlFoto + fNome + ext);
+			if(!saida.exists()){
+				saida.createNewFile();
+			}
+            FileOutputStream fos = new FileOutputStream(saida);
+            byte[] buffer = new byte[50];
+            int bulk;
+            InputStream is = event.getFile().getInputstream();
+
+            while (true) {
+                bulk = is.read(buffer);
+                if (bulk < 0) {
+                    break;
+                }
+                fos.write(buffer, 0, bulk);
+                fos.flush();
+            }
+
+            fos.close();
+            is.close();
+
+            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        }
+    }
+
+	public void handleFileUploadPPFoto(FileUploadEvent event) {
+        int fNome = 5;//Recebe o valor para a proxima imagem
+        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+
+        try {
+
+            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPPFoto + fNome + ext);
+			if(!saida.exists()){
+				saida.createNewFile();
+			}
             FileOutputStream fos = new FileOutputStream(saida);
             byte[] buffer = new byte[50];
             int bulk;
