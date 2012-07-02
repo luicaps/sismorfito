@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class FiloFacade extends AbstractFacade<Filo> {
+
 	@PersistenceContext(unitName = "sismorfitoPU")
 	private EntityManager em;
 
@@ -29,17 +30,20 @@ public class FiloFacade extends AbstractFacade<Filo> {
 	public FiloFacade() {
 		super(Filo.class);
 	}
-	
-	public List<Classe> findClassesFromFilo(String nomefilo){
+
+	public List<Classe> findClassesFromFilo(String nomefilo) {
 
 		TypedQuery<Filo> q = getEntityManager().createQuery("select f from Filo f where f.nomeFilo =:arg1", Filo.class).setParameter("arg1", nomefilo);
 
 		q.setMaxResults(1);
-		
+
 		List<Filo> lista = q.getResultList();
-		
+
+		if (lista == null || lista.get(0).getClasseList() == null) {
+			return null;
+		}
+
 		return lista.get(0).getClasseList();
-		
+
 	}
-	
 }
