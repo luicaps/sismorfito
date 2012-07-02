@@ -4,10 +4,13 @@
  */
 package br.unioeste.persistencia;
 
+import br.unioeste.modelo.Classe;
 import br.unioeste.modelo.Filo;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,6 +28,18 @@ public class FiloFacade extends AbstractFacade<Filo> {
 
 	public FiloFacade() {
 		super(Filo.class);
+	}
+	
+	public List<Classe> findClassesFromFilo(String nomefilo){
+
+		TypedQuery<Filo> q = getEntityManager().createQuery("select f from Filo f where f.nomeFilo =:arg1", Filo.class).setParameter("arg1", nomefilo);
+
+		q.setMaxResults(1);
+		
+		List<Filo> lista = q.getResultList();
+		
+		return lista.get(0).getClasseList();
+		
 	}
 	
 }

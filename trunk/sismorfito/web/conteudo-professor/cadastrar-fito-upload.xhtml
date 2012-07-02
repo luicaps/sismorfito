@@ -6,13 +6,22 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="corpo">
+
 		<p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
 			<h:outputText style="color: #999999 !important;" value="Inserção dos dados"/> -> Upload das fotos
 		</p:panel>
+
+
 		<h:form id="formfu" enctype="multipart/form-data">
 			<p:growl id="message" showDetail="true" life="5000"/>
-			<p:panel>
 
+			<p:panel id="painelt" style="text-align: center !important;">
+				<p:commandButton id="voltar" value="Voltar" style="font-size: 10px !important;" rendered="#{cadastraFitoManagedBean.isVoltar()}" action="#{cadastraFitoManagedBean.handleVoltar()}" update="formfu painelt voltar avancar text fuFito fuPlanta fuPPlanta"/>
+				<h:outputText id="text" value="#{cadastraFitoManagedBean.uploadCase}" style="font-size: 15px !important; padding-left: 5% !important; padding-right: 5% !important;"/>
+				<p:commandButton id="avancar" value="Avançar" style="font-size: 10px !important;" rendered="#{cadastraFitoManagedBean.isAvancar()}" action="#{cadastraFitoManagedBean.handleAvancar()}" update="formfu painelt voltar avancar text fuFito fuPlanta fuPPlanta"/>
+			</p:panel>
+
+			<p:panel>
 				<!--Foto de Fitolito - FPFoto -->
 				<p:fileUpload id="fuFito"
 							  fileUploadListener="#{cadastraFitoManagedBean.handleFileUploadFPFoto}"
@@ -21,11 +30,11 @@
 							  multiple="true"
 							  sizeLimit="10000000"
 							  allowTypes="/(\.|\/)(jpg|jpeg|bmp|BMP)$/"
-							  style="font-size: 13px !important; text-align: left !important;"
+							  style="font-size: 13px !important; text-align: left !important; padding-top: 4% !important;"
 							  label="Escolher"
 							  uploadLabel="Enviar"
-							  cancelLabel="Cancelar">
-					<h:outputText value="Insira Fotos de Fitólito" style="font-size: 14px !important;"/>
+							  cancelLabel="Cancelar"
+							  rendered="#{cadastraFitoManagedBean.changeUploadCaseFPFoto()}">
 				</p:fileUpload>
 
 				<!--Foto de Planta - PlFoto -->
@@ -39,9 +48,9 @@
 							  style="font-size: 13px !important; text-align: left !important;"
 							  label="Escolher"
 							  uploadLabel="Enviar"
-							  cancelLabel="Cancelar">
+							  cancelLabel="Cancelar"
+							  rendered="#{cadastraFitoManagedBean.changeUploadCasePlFoto()}">
 					<br/>
-					<h:outputText value="Insira Fotos da Planta" style="font-size: 14px !important;"/>
 				</p:fileUpload>
 
 				<!--Foto de Parte da Planta - PPFoto-->
@@ -56,12 +65,14 @@
 							  label="Escolher"
 							  uploadLabel="Enviar"
 							  cancelLabel="Cancelar"
-							  disabled="true">
+							  rendered="#{cadastraFitoManagedBean.changeUploadCasePPFoto()}">
 					<br/>
-					<h:outputText value="Insira Fotos da Planta" style="font-size: 14px !important;"/>
 				</p:fileUpload>
 				<br/>
 				<h:outputText value="Dica: Selecione o Arquivo e clique em enviar antes de finalizar o cadastro." style="color: red !important; font-size: 15px !important;" />
+			</p:panel>
+			<p:panel style="text-align: right !important;">
+				<p:commandButton value="Finalizar" style="font-size: 12px !important;"/>
 			</p:panel>
 		</h:form> 
     </ui:define>

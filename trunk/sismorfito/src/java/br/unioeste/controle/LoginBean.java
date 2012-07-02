@@ -42,7 +42,6 @@ public class LoginBean {
 		this.usuario = new Usuario();
 		LogedProfessor = false;
 		LogedAdmin = false;
-		ejbFacade = new UsuarioFacade();
 	}
 
 	public Usuario getUsuario() {

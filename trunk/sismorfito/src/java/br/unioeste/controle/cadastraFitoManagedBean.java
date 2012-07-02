@@ -5,15 +5,20 @@
 package br.unioeste.controle;
 
 import br.unioeste.modelo.*;
+import br.unioeste.persistencia.ClasseFacade;
+import br.unioeste.persistencia.FiloFacade;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 
@@ -22,336 +27,483 @@ import org.primefaces.event.FileUploadEvent;
  * @author Moises
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class cadastraFitoManagedBean implements Serializable {
 
-    //constantes
-    private static final String dirFPFoto = "FPFoto\\";
-    private static final String dirPlFoto = "PlFoto\\";
-    private static final String dirPPFoto = "PPFoto\\";
-    //Selects
-    String filo;
-    String classe;
-    String ordem;
-    String familia;
-    String genero;
-    String especie;
-    String Fitolito;
-    double ValDeta;
-    String retirada;
-    boolean disponivel;
-    String estado;
-    String cidade;
-    LinkedList<Integer> fitoFoto;
-    LinkedList<Integer> plantaFoto;
-    LinkedList<Integer> pPlantaFoto;
-    //Lists
-    ArrayList<String> listFilo;
-    ArrayList<String> listClasse;
-    ArrayList<String> listOrdem;
-    ArrayList<String> listFamilia;
-    ArrayList<String> listGenero;
-    ArrayList<String> listEspecie;
-    ArrayList<String> listFitolito;
-    ArrayList<String> listEstado;
-    ArrayList<String> listCidade;
-//    FitoP fitop;
-    //Controle
-    boolean isReady;
+	//Diretorios para Foto
+	private static final String dirFPFoto = "FPFoto\\";
+	private static final String dirPlFoto = "PlFoto\\";
+	private static final String dirPPFoto = "PPFoto\\";
+	//Selects
+	String filo;
+	String classe;
+	String ordem;
+	String familia;
+	String genero;
+	String especie;
+	String Fitolito;
+	double ValDeta;
+	String retirada;
+	boolean disponivel;
+	String estado;
+	String cidade;
+	//Lists
+	int current;
+	ArrayList<String> listFilo;		//1
+	ArrayList<String> listClasse;	//2
+	ArrayList<String> listOrdem;	//3
+	ArrayList<String> listFamilia;	//4
+	ArrayList<String> listGenero;	//5
+	ArrayList<String> listEspecie;	//6
+	ArrayList<String> listFitolito;	//7
+	ArrayList<String> listEstado;	//8
+	ArrayList<String> listCidade;	//9
+	//Saída para o BD
+	Fitop fitop;
+	Usuario responsavel;
+	//Controle
+	boolean isReady;
+	String uploadCase;
+	int uCase;
+	//Facades
+	@EJB
+	private FiloFacade ejbFiloFacade;
+	@EJB
+	private ClasseFacade ejbClasseFacade;
 
-    /**
-     * Creates a new instance of cadastraFitoManagedBean
-     */
-    public cadastraFitoManagedBean() {
-        filo = new String();
-        classe = new String();
-        ordem = new String();
-        familia = new String();
-        genero = new String();
-        especie = new String();
-        Fitolito = new String();
-        ValDeta = 0.0;
-        retirada = new String();
-        disponivel = false;
-        estado = new String();
-        cidade = new String();
+	/**
+	 * Creates a new instance of cadastraFitoManagedBean
+	 */
+	public cadastraFitoManagedBean() {
 
-        listFilo = new ArrayList();
-        listClasse = new ArrayList();
-        listOrdem = new ArrayList();
-        listFamilia = new ArrayList();
-        listGenero = new ArrayList();
-        listEspecie = new ArrayList();
-        listFitolito = new ArrayList();
-        listEstado = new ArrayList();
-        listCidade = new ArrayList();
-//        fitop = new FitoP();
+		filo = new String();
+		classe = new String();
+		ordem = new String();
+		familia = new String();
+		genero = new String();
+		especie = new String();
+		Fitolito = new String();
+		ValDeta = 0.0;
+		retirada = new String();
+		disponivel = false;
+		estado = new String();
+		cidade = new String();
 
-        isReady = false;
-        fetchAllFilos();
-        fetchAllClasses();
-        fetchAllOrdens();
-        fetchAllGenero();
-        fetchAllFamilias();
-        fetchAllEspecie();
-        fetchAllFitolito();
-        fetchAllEstado();
-        fetchAllCidade();
-    }
+		listFilo = new ArrayList();
+		listClasse = new ArrayList();
+		listOrdem = new ArrayList();
+		listFamilia = new ArrayList();
+		listGenero = new ArrayList();
+		listEspecie = new ArrayList();
+		listFitolito = new ArrayList();
+		listEstado = new ArrayList();
+		listCidade = new ArrayList();
 
-    public String getCidade() {
-        return cidade;
-    }
+		fitop = new Fitop();
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
+		isReady = false;
+		uploadCase = "Fotos do Morfotipo do Fitólito";
+		uCase = 0;
 
-    public String getEstado() {
-        return estado;
-    }
+//		fetchAllClasses();
+		fetchAllOrdens();
+		fetchAllGenero();
+		fetchAllFamilias();
+		fetchAllEspecie();
+		fetchAllFitolito();
+		fetchAllEstado();
+		fetchAllCidade();
+	}
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
+	@PostConstruct
+	public void init() {
+		fetchAllFilos();
+		LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
+		responsavel = lg.getUsuario();
+	}
 
-    public boolean getDisponivel() {
-        return disponivel;
-    }
+	public FiloFacade getEjbFiloFacade() {
+		return ejbFiloFacade;
+	}
 
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
-    }
+	public void setEjbFiloFacade(FiloFacade ejbFiloFacade) {
+		this.ejbFiloFacade = ejbFiloFacade;
+	}
 
-    public String getRetirada() {
-        return retirada;
-    }
+	public ClasseFacade getEjbClasseFacade() {
+		return ejbClasseFacade;
+	}
 
-    public void setRetirada(String retirada) {
-        this.retirada = retirada;
-    }
+	public void setEjbClasseFacade(ClasseFacade ejbClasseFacade) {
+		this.ejbClasseFacade = ejbClasseFacade;
+	}
 
-    public double getValDeta() {
-        return ValDeta;
-    }
+	public String getCidade() {
+		return cidade;
+	}
 
-    public void setValDeta(double ValDeta) {
-        this.ValDeta = ValDeta;
-    }
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
 
-    public String getClasse() {
-        return classe;
-    }
+	public String getEstado() {
+		return estado;
+	}
 
-    public void setClasse(String classe) {
-        this.classe = classe;
-    }
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 
-    public String getEspecie() {
-        return especie;
-    }
+	public boolean getDisponivel() {
+		return disponivel;
+	}
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
-    }
+	public void setDisponivel(boolean disponivel) {
+		this.disponivel = disponivel;
+	}
 
-    public String getFamilia() {
-        return familia;
-    }
+	public String getRetirada() {
+		return retirada;
+	}
 
-    public void setFamilia(String familia) {
-        this.familia = familia;
-    }
+	public void setRetirada(String retirada) {
+		this.retirada = retirada;
+	}
 
-    public String getFilo() {
-        return filo;
-    }
+	public double getValDeta() {
+		return ValDeta;
+	}
 
-    public void setFilo(String filo) {
-        this.filo = filo;
-    }
+	public void setValDeta(double ValDeta) {
+		this.ValDeta = ValDeta;
+	}
 
-    public String getGenero() {
-        return genero;
-    }
+	public String getClasse() {
+		return classe;
+	}
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+	public void setClasse(String classe) {
+		this.classe = classe;
+	}
 
-    public String getOrdem() {
-        return ordem;
-    }
+	public String getEspecie() {
+		return especie;
+	}
 
-    public void setOrdem(String ordem) {
-        this.ordem = ordem;
-    }
+	public void setEspecie(String especie) {
+		this.especie = especie;
+	}
 
-    public String getFitolito() {
-        return Fitolito;
-    }
+	public String getFamilia() {
+		return familia;
+	}
 
-    public void setFitolito(String Fitolito) {
-        this.Fitolito = Fitolito;
-    }
+	public void setFamilia(String familia) {
+		this.familia = familia;
+	}
 
-    public ArrayList<String> getListEstado() {
-        return listEstado;
-    }
+	public String getFilo() {
+		return filo;
+	}
 
-    public void setListEstado(ArrayList<String> listEstado) {
-        this.listEstado = listEstado;
-    }
+	public void setFilo(String filo) {
+		this.filo = filo;
+		System.out.println("SETOU FILO: " + filo);
+		//teste
+		fetchAllClasses();
+	}
 
-    public ArrayList<String> getListCidade() {
-        return listCidade;
-    }
+	public String getGenero() {
+		return genero;
+	}
 
-    public void setListCidade(ArrayList<String> listCidade) {
-        this.listCidade = listCidade;
-    }
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
 
-    public ArrayList<String> getListClasse() {
-        return listClasse;
-    }
+	public String getOrdem() {
+		return ordem;
+	}
 
-    public void setListClasse(ArrayList<String> listClasse) {
-        this.listClasse = listClasse;
-    }
+	public void setOrdem(String ordem) {
+		this.ordem = ordem;
+	}
 
-    public ArrayList<String> getListEspecie() {
-        return listEspecie;
-    }
+	public String getFitolito() {
+		return Fitolito;
+	}
 
-    public void setListEspecie(ArrayList<String> listEspecie) {
-        this.listEspecie = listEspecie;
-    }
+	public void setFitolito(String Fitolito) {
+		this.Fitolito = Fitolito;
+	}
 
-    public ArrayList<String> getListFamilia() {
-        return listFamilia;
-    }
+	public ArrayList<String> getListEstado() {
+		return listEstado;
+	}
 
-    public void setListFamilia(ArrayList<String> listFamilia) {
-        this.listFamilia = listFamilia;
-    }
+	public void setListEstado(ArrayList<String> listEstado) {
+		this.listEstado = listEstado;
+	}
 
-    public ArrayList<String> getListFilo() {
-        return listFilo;
-    }
+	public ArrayList<String> getListCidade() {
+		return listCidade;
+	}
 
-    public void setListFilo(ArrayList<String> listFilo) {
-        this.listFilo = listFilo;
-    }
+	public void setListCidade(ArrayList<String> listCidade) {
+		this.listCidade = listCidade;
+	}
 
-    public ArrayList<String> getListGenero() {
-        return listGenero;
-    }
+	public ArrayList<String> getListClasse() {
+		return listClasse;
+	}
 
-    public void setListGenero(ArrayList<String> listGenero) {
-        this.listGenero = listGenero;
-    }
+	public void setListClasse(ArrayList<String> listClasse) {
+		this.listClasse = listClasse;
+	}
 
-    public ArrayList<String> getListOrdem() {
-        return listOrdem;
-    }
+	public ArrayList<String> getListEspecie() {
+		return listEspecie;
+	}
 
-    public void setListOrdem(ArrayList<String> listOrdem) {
-        this.listOrdem = listOrdem;
-    }
+	public void setListEspecie(ArrayList<String> listEspecie) {
+		this.listEspecie = listEspecie;
+	}
 
-    public ArrayList<String> getListFitolito() {
-        return listFitolito;
-    }
+	public ArrayList<String> getListFamilia() {
+		return listFamilia;
+	}
 
-    public void setListFitolito(ArrayList<String> listFitolito) {
-        this.listFitolito = listFitolito;
-    }
+	public void setListFamilia(ArrayList<String> listFamilia) {
+		this.listFamilia = listFamilia;
+	}
 
-    public boolean isIsReady() {
-        if (filo.equals("")) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+	public ArrayList<String> getListFilo() {
+		return listFilo;
+	}
 
-    public void setIsReady(boolean isReady) {
-        this.isReady = isReady;
-    }
+	public void setListFilo(ArrayList<String> listFilo) {
+		this.listFilo = listFilo;
+	}
 
-//    public FitoP getFitop() {
-//        return fitop;
-//    }
-//
-//    public void setFitop(FitoP fitop) {
-//        this.fitop = fitop;
-//    }
+	public ArrayList<String> getListGenero() {
+		return listGenero;
+	}
 
-    public void fetchAllFilos() {
-        this.listFilo.add("Filo1");
-        this.listFilo.add("Filo2");
-        this.listFilo.add("Filo3");
-        this.listFilo.add("Filo4");
-    }
+	public void setListGenero(ArrayList<String> listGenero) {
+		this.listGenero = listGenero;
+	}
 
-    public void fetchAllClasses() {
-        this.listClasse.add("Classe1");
-        this.listClasse.add("Classe2");
-        this.listClasse.add("Classe3");
-        this.listClasse.add("Classe4");
-    }
+	public ArrayList<String> getListOrdem() {
+		return listOrdem;
+	}
 
-    public void fetchAllOrdens() {
-        this.listOrdem.add("Ordem1");
-        this.listOrdem.add("Ordem2");
-        this.listOrdem.add("Ordem3");
-        this.listOrdem.add("Ordem4");
-    }
+	public void setListOrdem(ArrayList<String> listOrdem) {
+		this.listOrdem = listOrdem;
+	}
 
-    public void fetchAllFamilias() {
-        this.listFamilia.add("Familia1");
-        this.listFamilia.add("Familia2");
-        this.listFamilia.add("Familia3");
-        this.listFamilia.add("Familia4");
-    }
+	public ArrayList<String> getListFitolito() {
+		return listFitolito;
+	}
 
-    public void fetchAllGenero() {
-        this.listGenero.add("Genero1");
-        this.listGenero.add("Genero2");
-        this.listGenero.add("Genero3");
-        this.listGenero.add("Genero4");
-    }
+	public void setListFitolito(ArrayList<String> listFitolito) {
+		this.listFitolito = listFitolito;
+	}
 
-    public void fetchAllEspecie() {
-        this.listEspecie.add("Especie1");
-        this.listEspecie.add("Especie2");
-        this.listEspecie.add("Especie3");
-        this.listEspecie.add("Especie4");
-    }
+	public boolean isIsReady() {
+		if (filo.equals("")) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 
-    public void fetchAllFitolito() {
-        this.listFitolito.add("Fitolito1");
-        this.listFitolito.add("Fitolito2");
-        this.listFitolito.add("Fitolito3");
-        this.listFitolito.add("Fitolito4");
-        isReady = true;
-    }
+	public void setIsReady(boolean isReady) {
+		this.isReady = isReady;
+	}
 
-    public void fetchAllEstado() {
-        this.listEstado.add("ES1");
-        this.listEstado.add("ES2");
-        this.listEstado.add("ES3");
-        this.listEstado.add("ES4");
-    }
+	public Fitop getFitop() {
+		return fitop;
+	}
 
-    public void fetchAllCidade() {
-        this.listCidade.add("Cidade1");
-        this.listCidade.add("Cidade2");
-        this.listCidade.add("Cidade3");
-        this.listCidade.add("Cidade4");
-    }
+	public void setFitop(Fitop fitop) {
+		this.fitop = fitop;
+	}
 
-    public void findFitoP() {
+	public void fetchAllFilos() {
+		System.out.println("FETCHING FILOS");
+		List<Filo> aux = ejbFiloFacade.findAll();
+		for (Filo filo1 : aux) {
+			this.listFilo.add(filo1.getNomeFilo());
+			System.out.println(filo1.getNomeFilo());
+		}
+	}
+
+	public void fetchAllClasses() {
+//		this.listClasse.add("Classe1");
+//		this.listClasse.add("Classe2");
+//		this.listClasse.add("Classe3");
+//		this.listClasse.add("Classe4");
+		System.out.println("FETCHING CLASSES");
+		List<Classe> aux = ejbFiloFacade.findClassesFromFilo(filo);
+		for (Classe classe1 : aux) {
+			this.listClasse.add(classe1.getNomeClasse());
+			System.out.println(classe1.getNomeClasse());
+		}
+	}
+
+	public void fetchAllOrdens() {
+		this.listOrdem.add("Ordem1");
+		this.listOrdem.add("Ordem2");
+		this.listOrdem.add("Ordem3");
+		this.listOrdem.add("Ordem4");
+	}
+
+	public void fetchAllFamilias() {
+		this.listFamilia.add("Familia1");
+		this.listFamilia.add("Familia2");
+		this.listFamilia.add("Familia3");
+		this.listFamilia.add("Familia4");
+	}
+
+	public void fetchAllGenero() {
+		this.listGenero.add("Genero1");
+		this.listGenero.add("Genero2");
+		this.listGenero.add("Genero3");
+		this.listGenero.add("Genero4");
+	}
+
+	public void fetchAllEspecie() {
+		this.listEspecie.add("Especie1");
+		this.listEspecie.add("Especie2");
+		this.listEspecie.add("Especie3");
+		this.listEspecie.add("Especie4");
+	}
+
+	public void fetchAllFitolito() {
+		this.listFitolito.add("Fitolito1");
+		this.listFitolito.add("Fitolito2");
+		this.listFitolito.add("Fitolito3");
+		this.listFitolito.add("Fitolito4");
+		isReady = true;
+	}
+
+	public void fetchAllEstado() {
+		this.listEstado.add("ES1");
+		this.listEstado.add("ES2");
+		this.listEstado.add("ES3");
+		this.listEstado.add("ES4");
+	}
+
+	public void fetchAllCidade() {
+		this.listCidade.add("Cidade1");
+		this.listCidade.add("Cidade2");
+		this.listCidade.add("Cidade3");
+		this.listCidade.add("Cidade4");
+	}
+
+	public ArrayList<String> completeFilo(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listFilo) {
+			if (string.equalsIgnoreCase(query)) {
+				saida.add(string);
+			} else {
+				if (string.length() >= query.length()) {
+					if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+						saida.add(string);
+					}
+				}
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeClasse(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listClasse) {
+			if (string.equalsIgnoreCase(query)) {
+				saida.add(string);
+			} else {
+				if (string.length() >= query.length()) {
+					if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+						saida.add(string);
+					}
+				}
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeOrdem(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listOrdem) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeFamilia(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listFamilia) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeGenero(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listGenero) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeEspecie(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listEspecie) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeFitolito(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listFitolito) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeCidade(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listCidade) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<String> completeEstado(String query) {
+		ArrayList<String> saida = new ArrayList();
+		for (String string : listEstado) {
+			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
+				saida.add(string);
+			}
+		}
+		return saida;
+	}
+
+	public void findFitoP() {
 //        //Filo
 //        Filo f = new Filo();
 //        f.setNome_filo(filo);
@@ -410,216 +562,207 @@ public class cadastraFitoManagedBean implements Serializable {
 //        fitop.setNome_fp(this.Fitolito);
 //        fitop.setFpfoto(foto);
 //        isReady = true;
-    }
+	}
 
-    public ArrayList<String> completeFilo(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFilo) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	/*
+	 *
+	 * Upload Page Methods
+	 *
+	 */
+	public String getUploadCase() {
+		return uploadCase;
+	}
 
-    public ArrayList<String> completeClasse(String query) {
-        ArrayList<String> saida = new ArrayList();
-        if (filo.compareToIgnoreCase("") == 0) {
-            saida.add("Selecione um Filo...");
-            return saida;
-        }
-        for (String string : listClasse) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public void setUploadCase(String uploadCase) {
+		this.uploadCase = uploadCase;
+	}
 
-    public ArrayList<String> completeOrdem(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listOrdem) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public boolean changeUploadCaseFPFoto() {
+		if (uCase == 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ArrayList<String> completeFamilia(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFamilia) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public boolean changeUploadCasePlFoto() {
+		if (uCase == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ArrayList<String> completeGenero(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listGenero) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public boolean changeUploadCasePPFoto() {
+		if (uCase == 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ArrayList<String> completeEspecie(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listEspecie) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public boolean isVoltar() {
+		if (uCase > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ArrayList<String> completeFitolito(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFitolito) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public boolean isAvancar() {
+		if (uCase < 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-    public ArrayList<String> completeCidade(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listCidade) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public void handleAvancar() {
+		uCase++;
+		if (uCase == 1) {
+			changeUploadStringPlFoto();
+		}
+		if (uCase == 2) {
+			changeUploadStringPPFoto();
+		}
+	}
 
-    public ArrayList<String> completeEstado(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listEstado) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
+	public void handleVoltar() {
+		uCase--;
+		if (uCase == 0) {
+			changeUploadStringFPFoto();
+		}
+		if (uCase == 1) {
+			changeUploadStringPlFoto();
+		}
+	}
 
-    public void handleFileUploadFPFoto(FileUploadEvent event) {
-        int fNome = 5;//Recebe o valor para a proxima imagem
-        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+	public void changeUploadStringFPFoto() {
+		uploadCase = "Fotos do Morfotipo do Fitólito";
+	}
 
-        try {
+	public void changeUploadStringPlFoto() {
+		uploadCase = "Fotos da planta extraída";
+	}
 
-            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirFPFoto + fNome + ext);
-			if(!saida.exists()){
+	public void changeUploadStringPPFoto() {
+		uploadCase = "Fotos da parte da planta extraída";
+	}
+
+	public void handleFileUploadFPFoto(FileUploadEvent event) {
+		int fNome = 5;//Recebe o valor para a proxima imagem
+		String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+
+		try {
+
+			File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirFPFoto + fNome + ext);
+			if (!saida.exists()) {
 				saida.createNewFile();
 			}
-            FileOutputStream fos = new FileOutputStream(saida);
-            byte[] buffer = new byte[50];
-            int bulk;
-            InputStream is = event.getFile().getInputstream();
+			FileOutputStream fos = new FileOutputStream(saida);
+			byte[] buffer = new byte[50];
+			int bulk;
+			InputStream is = event.getFile().getInputstream();
 
-            while (true) {
-                bulk = is.read(buffer);
-                if (bulk < 0) {
-                    break;
-                }
-                fos.write(buffer, 0, bulk);
-                fos.flush();
-            }
+			while (true) {
+				bulk = is.read(buffer);
+				if (bulk < 0) {
+					break;
+				}
+				fos.write(buffer, 0, bulk);
+				fos.flush();
+			}
 
-            fos.close();
-            is.close();
+			fos.close();
+			is.close();
 
-            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            e.printStackTrace();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        }
-    }
+		}
+	}
 
 	public void handleFileUploadPlFoto(FileUploadEvent event) {
-        int fNome = 5;//Recebe o valor para a proxima imagem
-        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+		int fNome = 5;//Recebe o valor para a proxima imagem
+		String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
 
-        try {
+		try {
 
-            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPlFoto + fNome + ext);
-			if(!saida.exists()){
+			File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPlFoto + fNome + ext);
+			if (!saida.exists()) {
 				saida.createNewFile();
 			}
-            FileOutputStream fos = new FileOutputStream(saida);
-            byte[] buffer = new byte[50];
-            int bulk;
-            InputStream is = event.getFile().getInputstream();
+			FileOutputStream fos = new FileOutputStream(saida);
+			byte[] buffer = new byte[50];
+			int bulk;
+			InputStream is = event.getFile().getInputstream();
 
-            while (true) {
-                bulk = is.read(buffer);
-                if (bulk < 0) {
-                    break;
-                }
-                fos.write(buffer, 0, bulk);
-                fos.flush();
-            }
+			while (true) {
+				bulk = is.read(buffer);
+				if (bulk < 0) {
+					break;
+				}
+				fos.write(buffer, 0, bulk);
+				fos.flush();
+			}
 
-            fos.close();
-            is.close();
+			fos.close();
+			is.close();
 
-            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            e.printStackTrace();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        }
-    }
+		}
+	}
 
 	public void handleFileUploadPPFoto(FileUploadEvent event) {
-        int fNome = 5;//Recebe o valor para a proxima imagem
-        String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
+		int fNome = 5;//Recebe o valor para a proxima imagem
+		String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
 
-        try {
+		try {
 
-            File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPPFoto + fNome + ext);
-			if(!saida.exists()){
+			File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirPPFoto + fNome + ext);
+			if (!saida.exists()) {
 				saida.createNewFile();
 			}
-            FileOutputStream fos = new FileOutputStream(saida);
-            byte[] buffer = new byte[50];
-            int bulk;
-            InputStream is = event.getFile().getInputstream();
+			FileOutputStream fos = new FileOutputStream(saida);
+			byte[] buffer = new byte[50];
+			int bulk;
+			InputStream is = event.getFile().getInputstream();
 
-            while (true) {
-                bulk = is.read(buffer);
-                if (bulk < 0) {
-                    break;
-                }
-                fos.write(buffer, 0, bulk);
-                fos.flush();
-            }
+			while (true) {
+				bulk = is.read(buffer);
+				if (bulk < 0) {
+					break;
+				}
+				fos.write(buffer, 0, bulk);
+				fos.flush();
+			}
 
-            fos.close();
-            is.close();
+			fos.close();
+			is.close();
 
-            FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			FacesMessage msg = new FacesMessage("O arquivo" + event.getFile().getFileName() + " foi Enviado com sucesso...");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        } catch (Exception e) {
+		} catch (Exception e) {
 
-            e.printStackTrace();
-            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+			e.printStackTrace();
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro:", "Arquivo " + event.getFile().getFileName() + " não foi enviado corretamente.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
 
-        }
-    }
+		}
+	}
 }
