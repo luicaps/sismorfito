@@ -345,9 +345,11 @@ public class cadastraFitoManagedBean implements Serializable {
 //		this.listClasse.add("Classe4");
 		System.out.println("FETCHING CLASSES");
 		List<Classe> aux = ejbFiloFacade.findClassesFromFilo(filo);
-		for (Classe classe1 : aux) {
-			this.listClasse.add(classe1.getNomeClasse());
-			System.out.println(classe1.getNomeClasse());
+		if (!(aux == null)) {
+			for (Classe classe1 : aux) {
+				this.listClasse.add(classe1.getNomeClasse());
+				System.out.println(classe1.getNomeClasse());
+			}
 		}
 	}
 
@@ -418,6 +420,7 @@ public class cadastraFitoManagedBean implements Serializable {
 	}
 
 	public ArrayList<String> completeClasse(String query) {
+		System.out.println("chamou o metodo do piru d coco");
 		ArrayList<String> saida = new ArrayList();
 		for (String string : listClasse) {
 			if (string.equalsIgnoreCase(query)) {

@@ -9,7 +9,7 @@
 		<p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
 			Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
 		</p:panel>
-        <h:form>
+        <h:form id="pa">
             <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
                 <!--<p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">-->
 				<div style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
@@ -19,7 +19,7 @@
                         <p:autoComplete id="Filo" value="#{cadastraFitoManagedBean.filo}" 
                                         completeMethod="#{cadastraFitoManagedBean.completeFilo}" 
                                         title="Escolha o termo sugerido, a menos que este não exista." >
-                            <p:ajax update="Submit Classe" oncomplete="Submit"/>
+
                         </p:autoComplete>
 
                         <h:outputText value="Classe: " />
