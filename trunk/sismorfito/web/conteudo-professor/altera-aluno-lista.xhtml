@@ -11,15 +11,25 @@
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
                     <p:dataTable id="Alunos" var="aluno" value="#{alteraAlunoManagedBean.LISTADEALUNOS}" paginator="true" rows="15"
                                  selection="#{alteraAlunoManagedBean.VARIAVELPARAALUNOESCOLHIDO}" selectionMode="single">
+                        
                         <p:ajax event="rowSelect" listener="#{alteraAlunoManagedBean.onRowSelect()}"/>
                         
                         <f:facet name="Tabela">
                             Selecione o Aluno a ser modificado.
                         </f:facet>
                                  
+                        <p:column headerText="Nome" >
+                            #{alteraAlunoManagedBean.nome}
+                        </p:column>
                         
+                        <p:column headerText="Sobrenome" >
+                            #{alteraAlunoManagedBean.sobrenome}
+                        </p:column>
                         
-                    </p:dataTable>
+                        <p:column headerText="E-Mail" >
+                            #{alteraAlunoManagedBean.email}
+                        </p:column>
+                    </p:dataTable>                   
                 </p:panel>
             </div>
         </h:form>       

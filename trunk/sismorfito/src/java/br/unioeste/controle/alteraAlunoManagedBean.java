@@ -9,6 +9,7 @@ import br.unioeste.modelo.Usuario;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -23,6 +24,7 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class alteraAlunoManagedBean {
 
+    List<Usuario> alunos;
     String senha;
     String senha2;
     String nome;
