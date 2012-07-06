@@ -15,18 +15,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 /**
  *
  * @author Richetti
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class cadastraAlunoManagedBean implements Serializable {
 
     int idusuario;
@@ -59,6 +57,7 @@ public class cadastraAlunoManagedBean implements Serializable {
         isLogedAdmin = false;
         isLogedProfessor = false;
         sucesso = false;
+        System.out.println("Criou novo objeto IDIOTA PORRA");
     }
 
     @PostConstruct
@@ -160,29 +159,41 @@ public class cadastraAlunoManagedBean implements Serializable {
     }
 
     public void cadastrar() {
-        Usuario us = new Usuario();
-        us.setNome(nome);
-        us.setSobrenome(sobrenome);
-        us.setEmail(email);
-        us.setSenha(senha);
-        us.setFkIdUsuSup(professor);
-        us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
-        if (ejbUsuarioFacade.findLogin(us) == null){
-//            ejbUsuarioFacade.create(us);
-            sucesso = true;
-            mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
-        } else {
-            sucesso = false;
-            mensagemsucesso = "Este aluno já está cadastrado!";
+        if (!(senha == null && senha2 == null)){
+            System.out.println("entrou no metodo de cadastro");
+            Usuario us = new Usuario();
+            us.setNome(nome);
+            us.setSobrenome(sobrenome);
+            us.setEmail(email);
+            us.setSenha(senha);
+            us.setFkIdUsuSup(professor);
+            us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
+            System.out.println("cadastro preparado");
+            if (ejbUsuarioFacade.findLogin(us) == null){
+                System.out.println("vai mudar pra true");
+    //            ejbUsuarioFacade.create(us);
+                sucesso = true;
+                mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
+            } else {
+                System.out.println("vai mudar pra falso");
+                sucesso = false;
+                mensagemsucesso = "Este aluno já está cadastrado!";
+            }
+            System.out.println(sucesso);
+            System.out.println("fechou");
         }
     }
     
     public String whichPage(){
-        if (sucesso){
+        System.out.println("entrou no which page");
+        System.out.println(nome);
+        System.out.println(sobrenome);
+        System.out.println(sucesso);
+        if (sucesso){ // TA CHEGANDO FALSE NESSA PORRA SEI LA PORQUE...
             System.out.println("WOLOLO DEU CERTO");
-            return "../conteudo-professor/sobre-professor?faces-redirect=true";
+            return "/conteudo-professor/sobre-professor";
         }else {
-            return "../conteudo-professor/cadastra-aluno?faces-redirect=true";
+            return "/conteudo-professor/cadastra-aluno";
         }
     }
 }
