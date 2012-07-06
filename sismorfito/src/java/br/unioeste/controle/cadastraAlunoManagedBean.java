@@ -6,11 +6,15 @@ package br.unioeste.controle;
 
 import br.unioeste.modelo.AeSimpleSHA1;
 import br.unioeste.modelo.Usuario;
+import br.unioeste.persistencia.TusuFacade;
+import br.unioeste.persistencia.UsuarioFacade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -24,14 +28,22 @@ import javax.faces.event.ActionEvent;
 @ManagedBean
 @RequestScoped
 public class cadastraAlunoManagedBean implements Serializable {
+
     int idusuario;
     String senha;
     String senha2;
     String nome;
     String sobrenome;
     String email;
+    String mensagemsucesso;
     boolean isLogedAdmin;
     boolean isLogedProfessor;
+    boolean sucesso;
+    Usuario professor;
+    @EJB
+    private UsuarioFacade ejbUsuarioFacade;
+    @EJB
+    private TusuFacade ejbTusuFacade;
 
     /**
      * Creates a new instance of cadastraUsuarioManagedBean
@@ -42,9 +54,17 @@ public class cadastraAlunoManagedBean implements Serializable {
         nome = new String();
         sobrenome = new String();
         email = new String();
+        mensagemsucesso = new String();
         idusuario = 0;
         isLogedAdmin = false;
         isLogedProfessor = false;
+        sucesso = false;
+    }
+
+    @PostConstruct
+    public void init() {
+        LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
+        professor = lg.getUsuario();
     }
 
     public int getIdusuario() {
@@ -62,7 +82,7 @@ public class cadastraAlunoManagedBean implements Serializable {
     public void setIsLogedAdmin(boolean isLogedAdmin) {
         this.isLogedAdmin = isLogedAdmin;
     }
-    
+
     public boolean isIsLogedProfessor() {
         return isLogedProfessor;
     }
@@ -92,7 +112,7 @@ public class cadastraAlunoManagedBean implements Serializable {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -123,12 +143,46 @@ public class cadastraAlunoManagedBean implements Serializable {
         }
     }
 
-    public void cadastrar(){
-        System.out.println("Email: " + email);
-        System.out.println("Entrou no Metodo");
-        System.out.println("Senha: " + senha);
-        System.out.println("Senha2: " + senha2);
-        System.out.println("Nome: " + nome);
-        System.out.println("Sobrenome: " + sobrenome);
+    public String getMensagemsucesso() {
+        return mensagemsucesso;
+    }
+
+    public void setMensagemsucesso(String mensagemsucesso) {
+        this.mensagemsucesso = mensagemsucesso;
+    }
+
+    public boolean isSucesso() {
+        return sucesso;
+    }
+
+    public void setSucesso(boolean sucesso) {
+        this.sucesso = sucesso;
+    }
+
+    public void cadastrar() {
+        Usuario us = new Usuario();
+        us.setNome(nome);
+        us.setSobrenome(sobrenome);
+        us.setEmail(email);
+        us.setSenha(senha);
+        us.setFkIdUsuSup(professor);
+        us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
+        if (ejbUsuarioFacade.findLogin(us) == null){
+//            ejbUsuarioFacade.create(us);
+            sucesso = true;
+            mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
+        } else {
+            sucesso = false;
+            mensagemsucesso = "Este aluno já está cadastrado!";
+        }
+    }
+    
+    public String whichPage(){
+        if (sucesso){
+            System.out.println("WOLOLO DEU CERTO");
+            return "../conteudo-professor/sobre-professor?faces-redirect=true";
+        }else {
+            return "../conteudo-professor/cadastra-aluno?faces-redirect=true";
+        }
     }
 }

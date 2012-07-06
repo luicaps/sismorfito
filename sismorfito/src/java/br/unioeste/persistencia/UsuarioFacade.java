@@ -36,6 +36,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 		
 		List<Usuario> lista = q.getResultList();
 		
+                if(lista == null || lista.size()!= 1){
+                    return null;
+                }
+                
 		return lista.get(0);		
 	}
 }
