@@ -6,12 +6,14 @@ package br.unioeste.controle;
 
 import br.unioeste.modelo.AeSimpleSHA1;
 import br.unioeste.modelo.Usuario;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -94,5 +96,13 @@ public class alteraAlunoManagedBean {
         System.out.println("Senha2: " + senha2);
         System.out.println("Nome: " + nome);
         System.out.println("Sobrenome: " + sobrenome);
+    }
+    
+    public void onRowSelect (){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-professor/altera-aluno.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(alteraAlunoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
