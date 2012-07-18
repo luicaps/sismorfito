@@ -19,8 +19,8 @@
                                  id="username" required="true" label="username" />
 
                     <h:outputLabel for="password" value="Senha:" />
-                    <h:inputSecret value="#{loginBean.senha}" 
-                                   id="password" required="true" label="password" />
+					<p:password value="#{loginBean.senha}"
+								id="password" rendered="true" label="password"/>
 
                     <f:facet name="footer">
                         <p:commandButton id="loginButton" value="Login" update=":growl :loga" 
@@ -46,13 +46,12 @@
 
                 <h:form id="loga">
                     <p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>
-                    <br/><p>Bem vindo Visitante</p>
                 </h:form>
                 <h:form>
 
                     <p:growl id="messages"/>
 
-                    <p:menubar styleClass="menu" autoDisplay="true">
+                    <p:menubar styleClass="menu" autoDisplay="false">
 
                         <p:submenu label="Banco de Dados" icon="ui-icon-note">
                             <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo/pesquisar.xhtml" ajax="false"/>

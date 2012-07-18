@@ -4,51 +4,115 @@
  */
 package br.unioeste.modelo;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Moises
+ * @author Caps
  */
-public class PPlanta {
-    int id_pplanta;
-    String nome_pplanta;
-    ArrayList<Integer> ppfoto;
+@Entity
+@Table(name = "pplanta")
+@XmlRootElement
+@NamedQueries({
+	@NamedQuery(name = "Pplanta.findAll", query = "SELECT p FROM Pplanta p"),
+	@NamedQuery(name = "Pplanta.findByIdPplanta", query = "SELECT p FROM Pplanta p WHERE p.idPplanta = :idPplanta"),
+	@NamedQuery(name = "Pplanta.findByNomePplanta", query = "SELECT p FROM Pplanta p WHERE p.nomePplanta = :nomePplanta")})
+public class Pplanta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_pplanta")
+	private Long idPplanta;
+	@Size(max = 80)
+    @Column(name = "nome_pplanta")
+	private String nomePplanta;
+	@JoinColumn(name = "fk_id_planta", referencedColumnName = "id_planta")
+    @ManyToOne(optional = false)
+	private Planta fkIdPlanta;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fkIdPplanta")
+	private List<Ppfoto> ppfotoList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fkIdPplanta")
+	private List<Fitop> fitopList;
 
-    public PPlanta(int id_pplanta, String nome_pplanta, ArrayList<Integer> ppfoto) {
-        this.id_pplanta = id_pplanta;
-        this.nome_pplanta = nome_pplanta;
-        this.ppfoto = ppfoto;
-    }
+	public Pplanta() {
+	}
 
-    public PPlanta() {
-        this.id_pplanta = 0;
-        this.nome_pplanta = new String();
-        this.ppfoto = new ArrayList();
-    }
+	public Pplanta(Long idPplanta) {
+		this.idPplanta = idPplanta;
+	}
 
-    public int getId_pplanta() {
-        return id_pplanta;
-    }
+	public Long getIdPplanta() {
+		return idPplanta;
+	}
 
-    public void setId_pplanta(int id_pplanta) {
-        this.id_pplanta = id_pplanta;
-    }
+	public void setIdPplanta(Long idPplanta) {
+		this.idPplanta = idPplanta;
+	}
 
-    public String getNome_pplanta() {
-        return nome_pplanta;
-    }
+	public String getNomePplanta() {
+		return nomePplanta;
+	}
 
-    public void setNome_pplanta(String nome_pplanta) {
-        this.nome_pplanta = nome_pplanta;
-    }
+	public void setNomePplanta(String nomePplanta) {
+		this.nomePplanta = nomePplanta;
+	}
 
-    public ArrayList<Integer> getPpfoto() {
-        return ppfoto;
-    }
+	public Planta getFkIdPlanta() {
+		return fkIdPlanta;
+	}
 
-    public void setPpfoto(ArrayList<Integer> ppfoto) {
-        this.ppfoto = ppfoto;
-    }
-    
+	public void setFkIdPlanta(Planta fkIdPlanta) {
+		this.fkIdPlanta = fkIdPlanta;
+	}
+
+	@XmlTransient
+	public List<Ppfoto> getPpfotoList() {
+		return ppfotoList;
+	}
+
+	public void setPpfotoList(List<Ppfoto> ppfotoList) {
+		this.ppfotoList = ppfotoList;
+	}
+
+	@XmlTransient
+	public List<Fitop> getFitopList() {
+		return fitopList;
+	}
+
+	public void setFitopList(List<Fitop> fitopList) {
+		this.fitopList = fitopList;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idPplanta != null ? idPplanta.hashCode() : 0);
+		return hash;
+	}
+
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Pplanta)) {
+			return false;
+		}
+		Pplanta other = (Pplanta) object;
+		if ((this.idPplanta == null && other.idPplanta != null) || (this.idPplanta != null && !this.idPplanta.equals(other.idPplanta))) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "br.unioeste.modelo.Pplanta[ idPplanta=" + idPplanta + " ]";
+	}
+	
 }

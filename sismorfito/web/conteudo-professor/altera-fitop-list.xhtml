@@ -1,0 +1,29 @@
+<ui:composition template="/template/template-professor.xhtml"
+				xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+		<p:dataTable var="fitop" value="#{alteraFitopManagedBean.list}" rowKey="#{fitop.nomeFp}" paginator="true" rows="10"
+					 selection="#{alteraFitopManagedBean.selection}" selectionMode="single" id="fitop"
+					 style="font-size: 13px !important;">
+
+			<p:ajax event="rowSelect" oncomplete="carDialog.show()" />  
+
+			<p:column headerText="Nome" sortBy="#{fitop.nomeFp}" id="nome">
+				#{fitop.nomeFp}
+			</p:column>
+
+			<p:column headerText="Espécie" sortBy="#{fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.nomeEspecie}" id="especie">
+				#{fitop.fkIdPplanta.fkIdPlanta.fkIdEspecie.nomeEspecie}
+			</p:column>
+
+			<p:column headerText="Retirada" sortBy="#{fitop.fkIdPplanta.fkIdPlanta.retirada}" id="retirada">
+				#{fitop.fkIdPplanta.fkIdPlanta.retirada}
+			</p:column>
+
+		</p:dataTable>
+	</ui:define>
+</ui:composition>
