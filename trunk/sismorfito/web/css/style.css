@@ -68,9 +68,17 @@ root {
     padding: 10px 0px 0px 15px !important;
 }
 
-.loginBotao {
+/*.loginBotao {
     font-size: 13px !important;
+}*/
+
+.loginBotao {
+	font-size: 13px !important;
+	float: right !important;
+	margin-top: 10% !important;
+	margin-right: 5% !important;
 }
+
 .pJanela {
     font-size: 14px;
     padding-bottom: 0px !important;
@@ -82,10 +90,10 @@ root {
 }
 
 .menu {
-    margin-top: 5% !important;
+    margin-top: 10% !important;
     font-size: 12px !important;
     /*width: 430px !important;*/
-    width: 59% !important;
+    width: 42% !important;
 }
 
 .menuAdmin {

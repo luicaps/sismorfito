@@ -5,7 +5,7 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Classe;
-import br.unioeste.modelo.Usuario;
+import br.unioeste.modelo.Ordem;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -31,12 +31,20 @@ public class ClasseFacade extends AbstractFacade<Classe> {
 		super(Classe.class);
 	}
 
-	public List<Classe> findClassesFromFilo(Long idFilo) {
+	public List<Ordem> findOrdemFromClasse(String nomeClasse) {
 
-		TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.fkIdFilo =:arg1", Classe.class).setParameter("arg1", idFilo.longValue());
+	
+		TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
+
+		q.setMaxResults(1);
 
 		List<Classe> lista = q.getResultList();
 
-		return lista;
+		if (lista == null || lista.get(0).getOrdemList() == null) {
+			return null;
+		}
+
+		return lista.get(0).getOrdemList();
+
 	}
 }

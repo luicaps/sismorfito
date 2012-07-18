@@ -4,153 +4,137 @@
  */
 package br.unioeste.modelo;
 
-import java.util.ArrayList;
-
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+//vai classe
 /**
  *
- * @author Moises
+ * @author Caps
  */
-public class FitoP {
+@Entity
+@Table(name = "fitop")
+@XmlRootElement
+@NamedQueries({
+	@NamedQuery(name = "Fitop.findAll", query = "SELECT f FROM Fitop f"),
+	@NamedQuery(name = "Fitop.findByIdFitop", query = "SELECT f FROM Fitop f WHERE f.idFitop = :idFitop"),
+	@NamedQuery(name = "Fitop.findByNomeFp", query = "SELECT f FROM Fitop f WHERE f.nomeFp = :nomeFp"),
+	@NamedQuery(name = "Fitop.findByDisponivel", query = "SELECT f FROM Fitop f WHERE f.disponivel = :disponivel")})
+public class Fitop implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_fitop")
+	private Long idFitop;
+	@Size(max = 45)
+    @Column(name = "nome_fp")
+	private String nomeFp;
+	@Column(name = "disponivel")
+	private Boolean disponivel;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fkIdFitop")
+	private List<Fpfoto> fpfotoList;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "fkIdFitop")
+	private List<Compara> comparaList;
+	@JoinColumn(name = "fk_id_usu", referencedColumnName = "id_usuario")
+    @ManyToOne(optional = false)
+	private Usuario fkIdUsu;
+	@JoinColumn(name = "fk_id_pplanta", referencedColumnName = "id_pplanta")
+    @ManyToOne(optional = false)
+	private Pplanta fkIdPplanta;
 
-    //Árvore de informações das tabelas anteriores
-    Filo filo;
-    Classe classe;
-    Ordem ordem;
-    Genero genero;
-    Familia familia;
-    Especie especie;
-    Planta planta;
-    PPlanta pplanta;
-    //Dados da tabela
-    String nome_fp;
-    boolean disponivel;
-    Usuario usuario;
-    ArrayList<Integer> fpfoto;
+	public Fitop() {
+	}
 
-    public FitoP(Filo filo, Classe classe, Ordem ordem, Genero genero, Familia familia, Especie especie, Planta planta, PPlanta pplanta, String nome_fp, boolean disponivel, Usuario usuario, ArrayList<Integer> fpfoto) {
-        this.filo = filo;
-        this.classe = classe;
-        this.ordem = ordem;
-        this.genero = genero;
-        this.familia = familia;
-        this.especie = especie;
-        this.planta = planta;
-        this.pplanta = pplanta;
-        this.nome_fp = nome_fp;
-        this.disponivel = disponivel;
-        this.usuario = usuario;
-        this.fpfoto = fpfoto;
-    }
+	public Fitop(Long idFitop) {
+		this.idFitop = idFitop;
+	}
 
-    public FitoP() {
-        this.filo = new Filo();
-        this.classe = new Classe();
-        this.ordem = new Ordem();
-        this.genero = new Genero();
-        this.familia = new Familia();
-        this.especie = new Especie();
-        this.planta = new Planta();
-        this.pplanta = new PPlanta();
-        this.nome_fp = new String();
-        this.disponivel = false;
-        this.usuario = new Usuario();
-        this.fpfoto = new ArrayList();
-    }
+	public Long getIdFitop() {
+		return idFitop;
+	}
 
-    public Classe getClasse() {
-        return classe;
-    }
+	public void setIdFitop(Long idFitop) {
+		this.idFitop = idFitop;
+	}
 
-    public void setClasse(Classe classe) {
-        this.classe = classe;
-    }
+	public String getNomeFp() {
+		return nomeFp;
+	}
 
-    public boolean isDisponivel() {
-        return disponivel;
-    }
+	public void setNomeFp(String nomeFp) {
+		this.nomeFp = nomeFp;
+	}
 
-    public void setDisponivel(boolean disponivel) {
-        this.disponivel = disponivel;
-    }
+	public Boolean getDisponivel() {
+		return disponivel;
+	}
 
-    public Especie getEspecie() {
-        return especie;
-    }
+	public void setDisponivel(Boolean disponivel) {
+		this.disponivel = disponivel;
+	}
 
-    public void setEspecie(Especie especie) {
-        this.especie = especie;
-    }
+	@XmlTransient
+	public List<Fpfoto> getFpfotoList() {
+		return fpfotoList;
+	}
 
-    public Familia getFamilia() {
-        return familia;
-    }
+	public void setFpfotoList(List<Fpfoto> fpfotoList) {
+		this.fpfotoList = fpfotoList;
+	}
 
-    public void setFamilia(Familia familia) {
-        this.familia = familia;
-    }
+	@XmlTransient
+	public List<Compara> getComparaList() {
+		return comparaList;
+	}
 
-    public Filo getFilo() {
-        return filo;
-    }
+	public void setComparaList(List<Compara> comparaList) {
+		this.comparaList = comparaList;
+	}
 
-    public void setFilo(Filo filo) {
-        this.filo = filo;
-    }
+	public Usuario getFkIdUsu() {
+		return fkIdUsu;
+	}
 
-    public ArrayList<Integer> getFpfoto() {
-        return fpfoto;
-    }
+	public void setFkIdUsu(Usuario fkIdUsu) {
+		this.fkIdUsu = fkIdUsu;
+	}
 
-    public void setFpfoto(ArrayList<Integer> fpfoto) {
-        this.fpfoto = fpfoto;
-    }
+	public Pplanta getFkIdPplanta() {
+		return fkIdPplanta;
+	}
 
-    public Genero getGenero() {
-        return genero;
-    }
+	public void setFkIdPplanta(Pplanta fkIdPplanta) {
+		this.fkIdPplanta = fkIdPplanta;
+	}
 
-    public void setGenero(Genero genero) {
-        this.genero = genero;
-    }
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		hash += (idFitop != null ? idFitop.hashCode() : 0);
+		return hash;
+	}
 
-    public String getNome_fp() {
-        return nome_fp;
-    }
+	@Override
+	public boolean equals(Object object) {
+		// TODO: Warning - this method won't work in the case the id fields are not set
+		if (!(object instanceof Fitop)) {
+			return false;
+		}
+		Fitop other = (Fitop) object;
+		if ((this.idFitop == null && other.idFitop != null) || (this.idFitop != null && !this.idFitop.equals(other.idFitop))) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setNome_fp(String nome_fp) {
-        this.nome_fp = nome_fp;
-    }
-
-    public Ordem getOrdem() {
-        return ordem;
-    }
-
-    public void setOrdem(Ordem ordem) {
-        this.ordem = ordem;
-    }
-
-    public Planta getPlanta() {
-        return planta;
-    }
-
-    public void setPlanta(Planta planta) {
-        this.planta = planta;
-    }
-
-    public PPlanta getPplanta() {
-        return pplanta;
-    }
-
-    public void setPplanta(PPlanta pplanta) {
-        this.pplanta = pplanta;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
+	@Override
+	public String toString() {
+		return "br.unioeste.modelo.Fitop[ idFitop=" + idFitop + " ]";
+	}
+	
 }
