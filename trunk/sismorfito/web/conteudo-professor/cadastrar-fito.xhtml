@@ -62,32 +62,9 @@
 					<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important; margin-left: -20px !important"/>
 					<br/>
 
-					<p:separator/>
-
-					<p:selectOneMenu id="estado" value="#{cadastraFitoManagedBean.estado}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
-						<f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
-						<f:selectItems value="#{cadastraFitoManagedBean.listEstado}"/>
-						<p:ajax update="Submit cidade"
-							listener="#{cadastraFitoManagedBean.fetchAllCidade()}"/>
-					</p:selectOneMenu>
-					<br/>
-					<p:selectOneMenu id="cidade" value="#{cadastraFitoManagedBean.cidade}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
-						<f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
-						<f:selectItems value="#{cadastraFitoManagedBean.listCidade}"/>
-					</p:selectOneMenu>
-
-					<p:separator/>
-
-					<h:outputText value="Retirada: "/>
-					<p:inputMask id="Retirada" value="#{cadastraFitoManagedBean.retirada}" mask="99/99/9999"/> 
-					<br/>
-					<h:outputText value="Disponível para busca?" style="margin-right: 15px !important;"/>
-					<p:selectBooleanCheckbox id="Disponivel" value="#{cadastraFitoManagedBean.disponivel}" style="margin-top: 15px !important;"/>
-
-
                     <p:separator />
 
-					<p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Avançar" id="Submit" action="cadastrar-fito-upload" />
+					<p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Avançar" id="Submit" action="#{cadastraFitoManagedBean.createFitoP()}" />
 <!--					<p:commandButton style="margin-bottom: 4% !important;" value="Avançar" id="Submit" disabled="#{not pesquisaManagedBean.isReady}" action="#{pesquisaManagedBean.findFitoP()}" />-->
 				</p:panel>
             </div>

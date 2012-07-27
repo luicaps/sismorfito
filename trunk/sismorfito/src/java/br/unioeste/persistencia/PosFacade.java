@@ -5,6 +5,7 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Pos;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +26,11 @@ public class PosFacade extends AbstractFacade<Pos> {
 
 	public PosFacade() {
 		super(Pos.class);
+	}
+	
+	public long nextId(){
+		List<Pos> pos = findAll();
+		return (pos.get(pos.size()-1).getIdPos()+1);
 	}
 	
 }

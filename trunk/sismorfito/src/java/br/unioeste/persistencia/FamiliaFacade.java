@@ -47,4 +47,19 @@ public class FamiliaFacade extends AbstractFacade<Familia> {
 		return lista.get(0).getGeneroList();
 
 	}
+	
+	public Familia findFamiliaFromNamme(String nomeFamilia){
+				TypedQuery<Familia> q = getEntityManager().createQuery("select f from Familia f where f.nomeFamilia =:arg1", Familia.class).setParameter("arg1", nomeFamilia);
+
+		q.setMaxResults(1);
+
+		List<Familia> lista = q.getResultList();
+
+		if (lista == null) {
+			return null;
+		}
+
+		return lista.get(0);
+
+	}
 }

@@ -48,4 +48,18 @@ public class OrdemFacade extends AbstractFacade<Ordem> {
 		return lista.get(0).getFamiliaList();
 
 	}
+	
+	public Ordem findOrdemFromName(String nomeOrdem){
+		TypedQuery<Ordem> q = getEntityManager().createQuery("select o from Ordem o where o.nomeOrdem =:arg1", Ordem.class).setParameter("arg1", nomeOrdem);
+
+		q.setMaxResults(1);
+
+		List<Ordem> lista = q.getResultList();
+
+		if (lista == null) {
+			return null;
+		}
+
+		return lista.get(0);
+	}
 }

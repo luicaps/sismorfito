@@ -21,6 +21,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class EspecieFacade extends AbstractFacade<Especie> {
+
 	@PersistenceContext(unitName = "sismorfitoPU")
 	private EntityManager em;
 
@@ -32,28 +33,41 @@ public class EspecieFacade extends AbstractFacade<Especie> {
 	public EspecieFacade() {
 		super(Especie.class);
 	}
-	
+
 	public List<Fitop> findFitopFromEspecie(String nomeEspecie) {
-		
 		TypedQuery<Especie> q = getEntityManager().createQuery("select e from Especie e where e.nomeEspecie =:arg1", Especie.class).setParameter("arg1", nomeEspecie);
-
 		q.setMaxResults(1);
-
 		List<Especie> lista = q.getResultList();
-
 		if (lista == null || lista.get(0).getPlantaList() == null) {
 			return null;
 		}
-
 		List<Fitop> awea = new ArrayList();
-		
 		for (Planta planta : lista.get(0).getPlantaList()) {
 			for (Pplanta pplanta : planta.getPplantaList()) {
 				awea.addAll(pplanta.getFitopList());
 			}
 		}
-		
 		return awea;
+	}
 
+	public Especie findEspecieFromName(String nomeEspecie) {
+		TypedQuery<Especie> q = getEntityManager().createQuery("select e from Especie e where e.nomeEspecie =:arg1", Especie.class).setParameter("arg1", nomeEspecie);
+		q.setMaxResults(1);
+		List<Especie> lista = q.getResultList();
+		if (lista == null) {
+			return null;
+		}
+		return lista.get(0);
+	}
+	
+		public List<Planta> findPlantaFromEspecie(String nomeEspecie) {
+		TypedQuery<Especie> q = getEntityManager().createQuery("select e from Especie e where e.nomeEspecie =:arg1", Especie.class).setParameter("arg1", nomeEspecie);
+		q.setMaxResults(1);
+		List<Especie> lista = q.getResultList();
+		if (lista == null || lista.get(0).getPlantaList() == null) {
+			return null;
+		}
+		List<Planta> awea = lista.get(0).getPlantaList();
+		return awea;
 	}
 }
