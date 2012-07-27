@@ -48,4 +48,20 @@ public class GeneroFacade extends AbstractFacade<Genero> {
 		return lista.get(0).getEspecieList();
 
 	}
+	
+	public Genero findGeneroFromName(String nomeGenero){
+				
+		TypedQuery<Genero> q = getEntityManager().createQuery("select g from Genero g where g.nomeGenero =:arg1", Genero.class).setParameter("arg1", nomeGenero);
+
+		q.setMaxResults(1);
+
+		List<Genero> lista = q.getResultList();
+
+		if (lista == null) {
+			return null;
+		}
+
+		return lista.get(0);
+
+	}
 }

@@ -4,14 +4,22 @@
  */
 package br.unioeste.controle;
 
+import br.unioeste.controle.util.JsfUtil;
 import br.unioeste.modelo.*;
+import br.unioeste.persistencia.CidadeFacade;
 import br.unioeste.persistencia.ClasseFacade;
+import br.unioeste.persistencia.CsoloFacade;
 import br.unioeste.persistencia.EspecieFacade;
 import br.unioeste.persistencia.EstadoFacade;
 import br.unioeste.persistencia.FamiliaFacade;
 import br.unioeste.persistencia.FiloFacade;
+import br.unioeste.persistencia.FitopFacade;
 import br.unioeste.persistencia.GeneroFacade;
 import br.unioeste.persistencia.OrdemFacade;
+import br.unioeste.persistencia.PlantaFacade;
+import br.unioeste.persistencia.PosFacade;
+import br.unioeste.persistencia.PplantaFacade;
+import br.unioeste.persistencia.TvegeFacade;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -52,11 +60,15 @@ public class cadastraFitoManagedBean implements Serializable {
 	String genero;
 	String especie;
 	String Fitolito;
-	double ValDeta;
 	String retirada;
 	boolean disponivel;
 	String estado;
 	String cidade;
+	String tvege;
+	String latitude;
+	String longitude;
+	String partePlanta;
+	String csolo;
 	//Lists
 	int current;
 	ArrayList<String> listFilo;		//1
@@ -68,6 +80,15 @@ public class cadastraFitoManagedBean implements Serializable {
 	ArrayList<String> listFitolito;	//7
 	ArrayList<String> listEstado;	//8
 	ArrayList<String> listCidade;	//9
+	ArrayList<String> listTvege;
+	ArrayList<String> listCsolo;
+	//Models
+	List<Planta> listPlanta;
+	List<Pplanta> listPplanta;
+	List<Fitop> listFitop;
+	Planta selectPlanta;
+	Pplanta selectPplanta;
+	Fitop selectFitop;
 	//Saída para o BD
 	Fitop fitop;
 	Usuario responsavel;
@@ -90,6 +111,20 @@ public class cadastraFitoManagedBean implements Serializable {
 	private GeneroFacade ejbGeneroFacade;
 	@EJB
 	private EspecieFacade ejbEspecieFacade;
+	@EJB
+	private TvegeFacade ejbTvegeFacade;
+	@EJB
+	private FitopFacade ejbFitopFacade;
+	@EJB
+	private CidadeFacade ejbCidadeFacade;
+	@EJB
+	private PosFacade ejbPosFacade;
+	@EJB
+	private PlantaFacade ejbPlantaFacade;
+	@EJB
+	private PplantaFacade ejbPplantaFacade;
+	@EJB
+	private CsoloFacade ejbCsoloFacade;
 
 	/**
 	 * Creates a new instance of cadastraFitoManagedBean
@@ -103,11 +138,15 @@ public class cadastraFitoManagedBean implements Serializable {
 		genero = new String();
 		especie = new String();
 		Fitolito = new String();
-		ValDeta = 0.0;
 		retirada = new String();
 		disponivel = false;
 		estado = new String();
 		cidade = new String();
+		tvege = new String();
+		latitude = new String();
+		longitude = new String();
+		partePlanta = new String();
+		csolo = new String();
 
 		listFilo = new ArrayList();
 		listClasse = new ArrayList();
@@ -118,7 +157,9 @@ public class cadastraFitoManagedBean implements Serializable {
 		listFitolito = new ArrayList();
 		listEstado = new ArrayList();
 		listCidade = new ArrayList();
-
+		listTvege = new ArrayList();
+		listCsolo = new ArrayList();
+		
 		fitop = new Fitop();
 
 		isReady = false;
@@ -130,6 +171,8 @@ public class cadastraFitoManagedBean implements Serializable {
 	public void init() {
 		fetchAllFilos();
 		fetchAllEstado();
+		fetchAllTVege();
+		fetchAllCsolo();
 		LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
 		responsavel = lg.getUsuario();
 	}
@@ -190,12 +233,108 @@ public class cadastraFitoManagedBean implements Serializable {
 		this.ejbEstadoFacade = ejbEstadoFacade;
 	}
 
+	public TvegeFacade getEjbTvegeFacade() {
+		return ejbTvegeFacade;
+	}
+
+	public void setEjbTvegeFacade(TvegeFacade ejbTvegeFacade) {
+		this.ejbTvegeFacade = ejbTvegeFacade;
+	}
+
+	public FitopFacade getEjbFitopFacade() {
+		return ejbFitopFacade;
+	}
+
+	public void setEjbFitopFacade(FitopFacade ejbFitopFacade) {
+		this.ejbFitopFacade = ejbFitopFacade;
+	}
+
+	public CidadeFacade getEjbCidadeFacade() {
+		return ejbCidadeFacade;
+	}
+
+	public void setEjbCidadeFacade(CidadeFacade ejbCidadeFacade) {
+		this.ejbCidadeFacade = ejbCidadeFacade;
+	}
+
+	public PosFacade getEjbPosFacade() {
+		return ejbPosFacade;
+	}
+
+	public void setEjbPosFacade(PosFacade ejbPosFacade) {
+		this.ejbPosFacade = ejbPosFacade;
+	}
+
+	public PlantaFacade getEjbPlantaFacade() {
+		return ejbPlantaFacade;
+	}
+
+	public void setEjbPlantaFacade(PlantaFacade ejbPlantaFacade) {
+		this.ejbPlantaFacade = ejbPlantaFacade;
+	}
+
+	public PplantaFacade getEjbPplantaFacade() {
+		return ejbPplantaFacade;
+	}
+
+	public void setEjbPplantaFacade(PplantaFacade ejbPplantaFacade) {
+		this.ejbPplantaFacade = ejbPplantaFacade;
+	}
+
+	public CsoloFacade getEjbCsoloFacade() {
+		return ejbCsoloFacade;
+	}
+
+	public void setEjbCsoloFacade(CsoloFacade ejbCsoloFacade) {
+		this.ejbCsoloFacade = ejbCsoloFacade;
+	}
+
 	public String getCidade() {
 		return cidade;
 	}
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getTvege() {
+		return tvege;
+	}
+
+	public void setTvege(String tvege) {
+		this.tvege = tvege;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getPartePlanta() {
+		return partePlanta;
+	}
+
+	public void setPartePlanta(String partePlanta) {
+		this.partePlanta = partePlanta;
+	}
+
+	public String getCsolo() {
+		return csolo;
+	}
+
+	public void setCsolo(String csolo) {
+		this.csolo = csolo;
 	}
 
 	public String getEstado() {
@@ -220,14 +359,6 @@ public class cadastraFitoManagedBean implements Serializable {
 
 	public void setRetirada(String retirada) {
 		this.retirada = retirada;
-	}
-
-	public double getValDeta() {
-		return ValDeta;
-	}
-
-	public void setValDeta(double ValDeta) {
-		this.ValDeta = ValDeta;
 	}
 
 	public String getClasse() {
@@ -302,6 +433,22 @@ public class cadastraFitoManagedBean implements Serializable {
 		this.listCidade = listCidade;
 	}
 
+	public ArrayList<String> getListTvege() {
+		return listTvege;
+	}
+
+	public void setListTvege(ArrayList<String> listTvege) {
+		this.listTvege = listTvege;
+	}
+
+	public ArrayList<String> getListCsolo() {
+		return listCsolo;
+	}
+
+	public void setListCsolo(ArrayList<String> listCsolo) {
+		this.listCsolo = listCsolo;
+	}
+
 	public ArrayList<String> getListClasse() {
 		return listClasse;
 	}
@@ -356,6 +503,54 @@ public class cadastraFitoManagedBean implements Serializable {
 
 	public void setListFitolito(ArrayList<String> listFitolito) {
 		this.listFitolito = listFitolito;
+	}
+
+	public List<Fitop> getListFitop() {
+		return listFitop;
+	}
+
+	public void setListFitop(List<Fitop> listFitop) {
+		this.listFitop = listFitop;
+	}
+
+	public List<Planta> getListPlanta() {
+		return listPlanta;
+	}
+
+	public void setListPlanta(List<Planta> listPlanta) {
+		this.listPlanta = listPlanta;
+	}
+
+	public List<Pplanta> getListPplanta() {
+		return listPplanta;
+	}
+
+	public void setListPplanta(List<Pplanta> listPplanta) {
+		this.listPplanta = listPplanta;
+	}
+
+	public Planta getSelectPlanta() {
+		return selectPlanta;
+	}
+
+	public void setSelectPlanta(Planta selectPlanta) {
+		this.selectPlanta = selectPlanta;
+	}
+
+	public Pplanta getSelectPplanta() {
+		return selectPplanta;
+	}
+
+	public void setSelectPplanta(Pplanta selectPplanta) {
+		this.selectPplanta = selectPplanta;
+	}
+
+	public Fitop getSelectFitop() {
+		return selectFitop;
+	}
+
+	public void setSelectFitop(Fitop selectFitop) {
+		this.selectFitop = selectFitop;
 	}
 
 	public boolean isIsReady() {
@@ -461,13 +656,28 @@ public class cadastraFitoManagedBean implements Serializable {
 	}
 
 	public void fetchAllCidade() {
-		System.out.println("Estado: " + estado);
 		List<Cidade> aux = ejbEstadoFacade.findCidadesFromEstado(estado);
 		listCidade = new ArrayList();
 		for (Cidade cidade1 : aux) {
 			listCidade.add(cidade1.getCidade());
 		}
 		cidade = "";
+	}
+
+	public void fetchAllTVege() {
+		List<Tvege> aux = ejbTvegeFacade.findAll();
+		listTvege = new ArrayList();
+		for (Tvege tvege1 : aux) {
+			listTvege.add(tvege1.getNomeVege());
+		}
+	}
+
+	public void fetchAllCsolo() {
+		List<Csolo> aux = ejbCsoloFacade.findAll();
+		listCsolo = new ArrayList();
+		for (Csolo csolo1 : aux) {
+			listCsolo.add(csolo1.getSibcs());
+		}
 	}
 
 	public ArrayList<String> completeFilo(String query) {
@@ -584,79 +794,147 @@ public class cadastraFitoManagedBean implements Serializable {
 //		}
 //		return saida;
 //	}
-	public void findFitoP() {
+	public String createFitoP() {
 
 
 		/*
 		 * Parada da Date
 		 */
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			Date dt = (Date) formatter.parse(retirada);
-		} catch (ParseException ex) {
-			Logger.getLogger(cadastraFitoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
-		}
+//		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//		Date dt = new Date();
+//		try {
+//			dt = (Date) formatter.parse(retirada);
+//		} catch (ParseException ex) {
+//			Logger.getLogger(cadastraFitoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+//		}
 
-		//        //Filo
-		//        Filo f = new Filo();
-		//        f.setNome_filo(filo);
-		//        //Classe
-		//        Classe c = new Classe();
-		//        c.setNome_classe(classe);
-		//        //Ordem
-		//        Ordem o = new Ordem();
-		//        o.setNome_ordem(ordem);
-		//        //Genero
-		//        Genero g = new Genero();
-		//        g.setNome_genero(genero);
-		//        //Familia
-		//        Familia fa = new Familia();
-		//        fa.setNome_familia(familia);
-		//        //Especie
-		//        Especie e = new Especie();
-		//        e.setNome_especie(especie);
-		//        float valdelta = (float) 1.56;
-		//        e.setValdelta(valdelta);
-		//        //Planta
-		//        Planta planta = new Planta();
-		//        planta.setRetirada("10-10-2010");
-		//        TVege tvege = new TVege();
-		//        tvege.setNome_tvege("Vegetacao da loucura");
-		//        planta.setTvege(tvege);
-		//        Cidade cidade = new Cidade();
-		//        cidade.setNome_cidade("Cidade1");
-		//        Estado estado = new Estado();
-		//        estado.setNome_estado("Parana");
-		//        estado.setUF("PR");
-		//        cidade.setEstado(estado);
-		//        Pos pos = new Pos();
-		//        pos.setCidade(cidade);
-		//        pos.setComentario("Comentario sobre a pos");
-		//        pos.setLatitude(10);
-		//        pos.setLongitude(15);
-		//        planta.setPos(pos);
-		//        ArrayList<Integer> foto = new ArrayList();
-		//        int i = 1;
-		//        foto.add(i);
-		//        planta.setFotos(foto);
-		//        //PPlanta
-		//        PPlanta pplanta = new PPlanta();
-		//        pplanta.setNome_pplanta("PPlanta1");
-		//        pplanta.setPpfoto(foto);
-		//        //FitoP
-		//        fitop.setFilo(f);
-		//        fitop.setClasse(c);
-		//        fitop.setOrdem(o);
-		//        fitop.setGenero(g);
-		//        fitop.setFamilia(fa);
-		//        fitop.setEspecie(e);
-		//        fitop.setPlanta(planta);
-		//        fitop.setPplanta(pplanta);
-		//        fitop.setNome_fp(this.Fitolito);
-		//        isReady = true;
-		//        isReady = true;
+		//TESTE
+		System.out.println("Filo: " + filo);
+		System.out.println("Classe: " + classe);
+		System.out.println("Ordem: " + ordem);
+		System.out.println("Genero: " + genero);
+		System.out.println("Familia: " + familia);
+		System.out.println("Especie: " + especie);
+		System.out.println("TVege: " + tvege);
+		System.out.println("Estado: " + estado);
+		System.out.println("Cidade: " + cidade);
+		System.out.println("Latitude: " + latitude);
+		System.out.println("Longitude: " + longitude);
+//		System.out.println("Data: " + dt.toString());
+		System.out.println(retirada);
+		System.out.println("PartePlanta: " + partePlanta);
+		System.out.println("Fitolito: " + Fitolito);
+		System.out.println("Responsavel: " + responsavel.getNome());
+		System.out.println("Disponivel: " + disponivel);
+		//TESTE
+
+		//Filo
+//		Filo f = new Filo();
+//		f.setNomeFilo(filo);
+//		ejbFiloFacade.create(f);
+//		Filo f = ejbFiloFacade.findFiloFromName(filo);
+		//Classe
+//		Classe c = new Classe();
+//		c.setNomeClasse(classe);
+//		c.setFkIdFilo(f);
+//		Classe c = ejbClasseFacade.findClasseFromName(classe);
+		//Ordem
+//		Ordem o = new Ordem();
+//		o.setNomeOrdem(ordem);
+//		o.setFkIdClasse(c);
+//		Ordem o = ejbOrdemFacade.findOrdemFromName(ordem);
+		//Familia
+//		Familia fa = new Familia();
+//		fa.setNomeFamilia(familia);
+//		fa.setFkIdOrdem(o);
+//		Familia fa = ejbfFamiliaFacade.findFamiliaFromNamme(familia);
+		//Genero
+//		Genero g = new Genero();
+//		g.setNomeGenero(genero);
+//		g.setFkIdFamilia(fa);
+//		Genero g = ejbGeneroFacade.findGeneroFromName(genero);
+		//Especie
+//		Especie e = new Especie();
+//		e.setNomeEspecie(especie);
+//		e.setValdelta(ValDelta);
+		Especie e = ejbEspecieFacade.findEspecieFromName(especie);
+		//Vegetação
+//		Tvege vege = new Tvege();
+//		vege.setNomeVege(tvege);
+//		Tvege vege = ejbTvegeFacade.findTvegeFromName(tvege);
+		//Estadoo
+//		Estado est = new Estado();
+//		est.setEstado(estado);
+//		est.setUf("PR");
+		//Cidade
+//		Cidade city = new Cidade();
+//		city.setCidade(cidade);
+//		city.setFkIdEstado(est);
+//		Cidade city = ejbCidadeFacade.findCidadeFromName(cidade);
+		//Csolo
+//		Csolo cs = ejbCsoloFacade.findCsoloFromName(csolo);
+		//Pos
+//		Pos pos = new Pos();
+//		pos.setFkIdCidade(city);
+//		pos.setComentario("NOT USED");
+//		pos.setLatitude(latitude);
+//		pos.setLongitde(longitude);
+//		pos.setIdPos(ejbPosFacade.nextId());
+//		pos.setFkIdCsolo(cs);
+//		ejbPosFacade.create(pos);
+		//Planta
+//		Planta planta = new Planta();
+//		planta.setRetirada(dt);
+//		planta.setFkIdEspecie(e);
+//		planta.setFkIdTvege(vege);
+//		planta.setFkIdPos(pos);
+//		planta.setIdPlanta(ejbPlantaFacade.nextId());
+//		ejbPlantaFacade.create(planta);
+		listPlanta = ejbEspecieFacade.findPlantaFromEspecie(especie);
+		if(listPlanta==null){
+			listPlanta = new ArrayList<Planta>();
+		}
+		//PPlanta
+//		Pplanta pplanta = new Pplanta();
+//		pplanta.setNomePplanta(partePlanta);
+//		pplanta.setFkIdPlanta(planta);
+//		ejbPplantaFacade.create(pplanta);
+//		List<Pplanta> lppl = ejbPplantaFacade.findAll();
+//		pplanta = lppl.get(lppl.size() - 1);
+		//FitoP
+//		fitop.setFkIdPplanta(pplanta);
+//		fitop.setNomeFp(Fitolito);
+//		fitop.setFkIdUsu(responsavel);
+//		fitop.setDisponivel(disponivel);
+//		isReady = true;
+//		ejbFitopFacade.create(fitop);
+		System.out.println("Vou mudar de PAGINA ATENCAOAOAO");
+		return "cadastrar-fito-planta";
+	}
+	
+	public String findPplanta(){
+		if(selectPlanta==null){
+			return null;
+		}
+		listPplanta = ejbPlantaFacade.findPplantaFromPlanta(selectPlanta.getIdPlanta());
+		if(listPplanta==null){
+			listPplanta = new ArrayList<Pplanta>();
+		}
+		return "cadastrar-fito-pplanta";
 	}
 
+	public String findFitop(){
+		if(selectPplanta==null){
+			selectPplanta = new Pplanta();
+		}
+		listFitop = ejbPplantaFacade.findFitopFromPplanta(selectPplanta.getIdPplanta());
+		if(listFitop==null){
+			listFitop = new ArrayList<Fitop>();
+		}
+		return "cadastrar-fito-fitop";
+	}
+	
+	
 	/*
 	 *
 	 * Upload Page Methods

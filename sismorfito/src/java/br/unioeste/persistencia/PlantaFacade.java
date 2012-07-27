@@ -4,10 +4,14 @@
  */
 package br.unioeste.persistencia;
 
+import br.unioeste.modelo.Familia;
 import br.unioeste.modelo.Planta;
+import br.unioeste.modelo.Pplanta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -15,6 +19,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PlantaFacade extends AbstractFacade<Planta> {
+
 	@PersistenceContext(unitName = "sismorfitoPU")
 	private EntityManager em;
 
@@ -26,5 +31,19 @@ public class PlantaFacade extends AbstractFacade<Planta> {
 	public PlantaFacade() {
 		super(Planta.class);
 	}
-	
+
+	public List<Pplanta> findPplantaFromPlanta(Long idPlanta) {
+		TypedQuery<Planta> q = getEntityManager().createQuery("select p from Planta p where p.idPlanta =:arg1", Planta.class).setParameter("arg1", idPlanta);
+		q.setMaxResults(1);
+		List<Planta> lista = q.getResultList();
+		if (lista == null || lista.get(0).getPplantaList() == null) {
+			return null;
+		}
+		return lista.get(0).getPplantaList();
+	}
+
+	public long nextId() {
+		List<Planta> planta = findAll();
+		return (planta.get(planta.size() - 1).getIdPlanta() + 1);
+	}
 }

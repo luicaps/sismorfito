@@ -45,6 +45,19 @@ public class ClasseFacade extends AbstractFacade<Classe> {
 		}
 
 		return lista.get(0).getOrdemList();
+	}
+	
+	public Classe findClasseFromName(String nomeClasse){
+		TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
 
+		q.setMaxResults(1);
+
+		List<Classe> lista = q.getResultList();
+
+		if (lista == null) {
+			return null;
+		}
+
+		return lista.get(0);
 	}
 }

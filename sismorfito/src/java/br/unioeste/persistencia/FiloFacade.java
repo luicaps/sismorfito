@@ -44,6 +44,19 @@ public class FiloFacade extends AbstractFacade<Filo> {
 		}
 
 		return lista.get(0).getClasseList();
+	}
 
+	public Filo findFiloFromName(String nomefilo) {
+		TypedQuery<Filo> q = getEntityManager().createQuery("select f from Filo f where f.nomeFilo =:arg1", Filo.class).setParameter("arg1", nomefilo);
+
+		q.setMaxResults(1);
+
+		List<Filo> lista = q.getResultList();
+
+		if (lista == null) {
+			return null;
+		}
+		
+		return lista.get(0);
 	}
 }
