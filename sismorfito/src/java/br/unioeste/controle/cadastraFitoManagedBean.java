@@ -794,7 +794,7 @@ public class cadastraFitoManagedBean implements Serializable {
 //		}
 //		return saida;
 //	}
-	public String createFitoP() {
+	public String findPlanta() {
 
 
 		/*
@@ -908,7 +908,6 @@ public class cadastraFitoManagedBean implements Serializable {
 //		fitop.setDisponivel(disponivel);
 //		isReady = true;
 //		ejbFitopFacade.create(fitop);
-		System.out.println("Vou mudar de PAGINA ATENCAOAOAO");
 		return "cadastrar-fito-planta";
 	}
 	
@@ -920,7 +919,8 @@ public class cadastraFitoManagedBean implements Serializable {
 		if(listPplanta==null){
 			listPplanta = new ArrayList<Pplanta>();
 		}
-		return "cadastrar-fito-pplanta";
+//		return "cadastrar-fito-pplanta";
+		return "../conteudo-professor/cadastrar-fito-pplanta.xhtml?faces-redirect=true";
 	}
 
 	public String findFitop(){
@@ -931,8 +931,18 @@ public class cadastraFitoManagedBean implements Serializable {
 		if(listFitop==null){
 			listFitop = new ArrayList<Fitop>();
 		}
-		return "cadastrar-fito-fitop";
+		return "../conteudo-professor/cadastrar-fito-fitop.xhtml?faces-redirect=true";
 	}
+        
+        public String createFitop(){
+            fitop = new Fitop(ejbFitopFacade.nextId());
+            fitop.setDisponivel(disponivel);
+            fitop.setNomeFp(Fitolito);
+            fitop.setFkIdPplanta(selectPplanta);
+            fitop.setFkIdUsu(responsavel);
+            ejbFitopFacade.create(fitop);
+            return "../conteudo-professor/cadastrar-fito-pplanta.xhtml?faces-redirect=true";
+        }
 	
 	
 	/*
