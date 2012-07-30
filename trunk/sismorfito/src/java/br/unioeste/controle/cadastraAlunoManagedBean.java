@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
@@ -34,9 +35,6 @@ public class cadastraAlunoManagedBean implements Serializable {
     String sobrenome;
     String email;
     String mensagemsucesso;
-    boolean isLogedAdmin;
-    boolean isLogedProfessor;
-    boolean sucesso;
     Usuario professor;
     @EJB
     private UsuarioFacade ejbUsuarioFacade;
@@ -54,10 +52,6 @@ public class cadastraAlunoManagedBean implements Serializable {
         email = new String();
         mensagemsucesso = new String();
         idusuario = 0;
-        isLogedAdmin = false;
-        isLogedProfessor = false;
-        sucesso = false;
-        System.out.println("Criou novo objeto IDIOTA PORRA");
     }
 
     @PostConstruct
@@ -72,22 +66,6 @@ public class cadastraAlunoManagedBean implements Serializable {
 
     public void setIdusuario(int idusuario) {
         this.idusuario = idusuario;
-    }
-
-    public boolean isIsLogedAdmin() {
-        return isLogedAdmin;
-    }
-
-    public void setIsLogedAdmin(boolean isLogedAdmin) {
-        this.isLogedAdmin = isLogedAdmin;
-    }
-
-    public boolean isIsLogedProfessor() {
-        return isLogedProfessor;
-    }
-
-    public void setIsLogedProfessor(boolean isLogedProfessor) {
-        this.isLogedProfessor = isLogedProfessor;
     }
 
     public String getNome() {
@@ -149,51 +127,38 @@ public class cadastraAlunoManagedBean implements Serializable {
     public void setMensagemsucesso(String mensagemsucesso) {
         this.mensagemsucesso = mensagemsucesso;
     }
-
-    public boolean isSucesso() {
-        return sucesso;
-    }
-
-    public void setSucesso(boolean sucesso) {
-        this.sucesso = sucesso;
-    }
-
-    public void cadastrar() {
-        if (!(senha == null && senha2 == null)){
-            System.out.println("entrou no metodo de cadastro");
-            Usuario us = new Usuario();
-            us.setNome(nome);
-            us.setSobrenome(sobrenome);
-            us.setEmail(email);
-            us.setSenha(senha);
-            us.setFkIdUsuSup(professor);
-            us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
-            System.out.println("cadastro preparado");
-            if (ejbUsuarioFacade.findLogin(us) == null){
-                System.out.println("vai mudar pra true");
-    //            ejbUsuarioFacade.create(us);
-                sucesso = true;
-                mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
-            } else {
-                System.out.println("vai mudar pra falso");
-                sucesso = false;
-                mensagemsucesso = "Este aluno já está cadastrado!";
-            }
-            System.out.println(sucesso);
-            System.out.println("fechou");
-        }
-    }
     
-    public String whichPage(){
-        System.out.println("entrou no which page");
-        System.out.println(nome);
-        System.out.println(sobrenome);
-        System.out.println(sucesso);
-        if (sucesso){ // TA CHEGANDO FALSE NESSA PORRA SEI LA PORQUE...
-            System.out.println("WOLOLO DEU CERTO");
-            return "/conteudo-professor/sobre-professor";
-        }else {
-            return "/conteudo-professor/cadastra-aluno";
+    public String cadastrar() {
+        FacesMessage msg = null;
+
+        if (!senha.equals(senha2)) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar", "As senhas estão incorretas.");
+            return "";
+        }
+        //TODO Verificar o e-mail
+
+        if (senha == null || senha2 == null || email == null || nome == null || sobrenome == null) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar", "Os campos não estão devidamente preenchidos.");
+            return "";
+        }
+
+        System.out.println("entrou no metodo de cadastro");
+
+        Usuario us = new Usuario();
+        us.setNome(nome);
+        us.setIdUsuario(ejbUsuarioFacade.nextId());
+        us.setSobrenome(sobrenome);
+        us.setEmail(email);
+        us.setSenha(senha);
+        us.setFkIdUsuSup(professor);
+        us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
+        if (ejbUsuarioFacade.findLogin(us) == null) {
+            ejbUsuarioFacade.create(us);
+            mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
+            return "../conteudo-professor/sobre-professor.xhtml?faces-redirect=true";
+        } else {
+            mensagemsucesso = "Este aluno já está cadastrado!";
+            return "";
         }
     }
 }
