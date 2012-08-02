@@ -35,13 +35,15 @@
 
                         <p:submenu label="Banco de Dados" icon="ui-icon-note">
                             <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>
-                            <p:menuitem value="Cadastrar" icon="ui-icon-pencil" action="/conteudo-professor/cadastrar-fito.xhtml" ajax="false"/>
+                            <p:submenu label="Gerenciar">
+                                <p:menuitem value="Fitólito de Planta" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-fitop.xhtml" ajax="false"/>
+                            </p:submenu>
                             <p:menuitem value="Alterar" icon="ui-icon-pencil" action="/conteudo-professor/altera-fitop.xhtml" ajax="false"/>
                         </p:submenu>
 
                         <p:submenu label="Pesquisador" icon="ui-icon-person">
                             <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-professor/cadastra-aluno.xhtml" ajax="false" />
-                            <p:menuitem value="Alterar Aluno" icon="ui-icon-note" action="/conteudo-professor/alterar-aluno-lista.xhtml" ajax="false" />
+                            <p:menuitem value="Alterar Aluno" icon="ui-icon-note" action="/conteudo-professor/altera-aluno-lista.xhtml" ajax="false" />
                             <p:menuitem value="Consultar Professor" icon="ui-icon-search" ajax="false"  styleClass="cadprof" />
                             <p:menuitem value="Consultar Aluno" icon="ui-icon-search" ajax="false" />
                         </p:submenu>

@@ -4,7 +4,6 @@
  */
 package br.unioeste.persistencia;
 
-import br.unioeste.modelo.Familia;
 import br.unioeste.modelo.Planta;
 import br.unioeste.modelo.Pplanta;
 import java.util.List;
@@ -42,8 +41,11 @@ public class PlantaFacade extends AbstractFacade<Planta> {
 		return lista.get(0).getPplantaList();
 	}
 
-	public long nextId() {
-		List<Planta> planta = findAll();
-		return (planta.get(planta.size() - 1).getIdPlanta() + 1);
-	}
+ public long nextId() {
+        List<Planta> lista = findAll();
+        if(lista.size()<1){
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getIdPlanta() + 1);
+    }
 }
