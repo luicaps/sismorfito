@@ -5,6 +5,7 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Fpfoto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,16 +16,24 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class FpfotoFacade extends AbstractFacade<Fpfoto> {
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	public FpfotoFacade() {
-		super(Fpfoto.class);
-	}
-	
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public FpfotoFacade() {
+        super(Fpfoto.class);
+    }
+
+    public long nextId() {
+        List<Fpfoto> lista = findAll();
+        if(lista.size()<1){
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getFoto() + 1);
+    }
 }

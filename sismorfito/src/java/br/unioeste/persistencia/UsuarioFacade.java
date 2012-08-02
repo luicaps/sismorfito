@@ -4,7 +4,6 @@
  */
 package br.unioeste.persistencia;
 
-import br.unioeste.modelo.Pos;
 import br.unioeste.modelo.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -44,8 +43,23 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return lista.get(0);
     }
 
+    public List<Usuario> findPplantaFromPlanta(Usuario usuario) {
+//        TypedQuery<Planta> q = getEntityManager().createQuery("select p from Planta p where p.idPlanta =:arg1", Planta.class).setParameter("arg1", idPlanta);
+
+//        List<Planta> lista = q.getResultList();
+//        if (lista == null || lista.get(0).getPplantaList() == null) {
+//            return null;
+//        }
+//        return lista.get(0).getPplantaList();
+        
+        return null;
+    }
+
     public long nextId() {
-        List<Usuario> pos = findAll();
-        return (pos.get(pos.size() - 1).getIdUsuario() + 1);
+        List<Usuario> lista = findAll();
+        if (lista.size() < 1) {
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getIdUsuario() + 1);
     }
 }

@@ -28,9 +28,12 @@ public class PosFacade extends AbstractFacade<Pos> {
 		super(Pos.class);
 	}
 	
-	public long nextId(){
-		List<Pos> pos = findAll();
-		return (pos.get(pos.size()-1).getIdPos()+1);
-	}
+ public long nextId() {
+        List<Pos> lista = findAll();
+        if(lista.size()<1){
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getIdPos() + 1);
+    }
 	
 }

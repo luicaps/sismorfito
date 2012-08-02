@@ -4,7 +4,6 @@
  */
 package br.unioeste.persistencia;
 
-import br.unioeste.modelo.Classe;
 import br.unioeste.modelo.Csolo;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -45,22 +44,11 @@ public class CsoloFacade extends AbstractFacade<Csolo> {
 		return lista.get(0);
 	}
 
-	public long nextId() {
-		List<Csolo> cs = findAll();
-		long r = Long.MIN_VALUE;
-		System.out.println("iteracoes");
-		System.out.println("---------------------------------------");
-		for (Csolo csolo : cs) {
-			System.out.println("ID: " + csolo.getIdCsolo());
-			System.out.println("r: " + r);
-			if (csolo.getIdCsolo() > r) {
-				r = csolo.getIdCsolo();
-			}
-		}
-		System.out.println("---------------------------------------");
-		System.out.println("O ID maior foi : " + r);
-		r += 1;
-		System.out.println("Com a soma ficou: " + r);
-		return r;
-	}
+	 public long nextId() {
+        List<Csolo> lista = findAll();
+        if(lista.size()<1){
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getIdCsolo() + 1);
+    }
 }

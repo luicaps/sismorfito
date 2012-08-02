@@ -5,7 +5,6 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Fitop;
-import br.unioeste.modelo.Pos;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,8 +29,11 @@ public class FitopFacade extends AbstractFacade<Fitop> {
         super(Fitop.class);
     }
 
-    public long nextId() {
-        List<Fitop> pos = findAll();
-        return (pos.get(pos.size() - 1).getIdFitop() + 1);
+ public long nextId() {
+        List<Fitop> lista = findAll();
+        if(lista.size()<1){
+            return 1;
+        }
+        return (lista.get(lista.size() - 1).getIdFitop() + 1);
     }
 }

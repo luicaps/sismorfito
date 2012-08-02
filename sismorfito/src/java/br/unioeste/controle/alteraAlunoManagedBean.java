@@ -6,14 +6,18 @@ package br.unioeste.controle;
 
 import br.unioeste.modelo.AeSimpleSHA1;
 import br.unioeste.modelo.Usuario;
+import br.unioeste.persistencia.UsuarioFacade;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -21,38 +25,55 @@ import javax.faces.context.FacesContext;
  * @author Richetti
  */
 @ManagedBean
-@ViewScoped
+@SessionScoped
 public class alteraAlunoManagedBean {
 
     List<Usuario> alunos;
+    Usuario aluno;
     String senha;
     String senha2;
-    String nome;
-    String sobrenome;
-    String email;
-    
+    String sen;
+    @EJB
+    UsuarioFacade ejbUsuarioFacade;
+
     public alteraAlunoManagedBean() {
         senha = new String();
         senha2 = new String();
-        nome = new String();
-        sobrenome = new String();
-        email = new String();
     }
 
-    public String getEmail() {
-        return email;
+    @PostConstruct
+    public void init() {
+        LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
+        Usuario resp = lg.getUsuario();
+        alunos = resp.getUsuarioList();
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public UsuarioFacade getEjbUsuarioFacade() {
+        return ejbUsuarioFacade;
     }
 
-    public String getNome() {
-        return nome;
+    public void setEjbUsuarioFacade(UsuarioFacade ejbUsuarioFacade) {
+        this.ejbUsuarioFacade = ejbUsuarioFacade;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public Usuario getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Usuario aluno) {
+        this.aluno = aluno;
+        System.out.println("setou");
+        System.out.println(aluno.getEmail());
+        System.out.println(aluno.getNome());
+        System.out.println(aluno.getSobrenome());
+    }
+
+    public List<Usuario> getAlunos() {
+        return alunos;
+    }
+
+    public void setAlunos(List<Usuario> alunos) {
+        this.alunos = alunos;
     }
 
     public String getSenha() {
@@ -83,24 +104,49 @@ public class alteraAlunoManagedBean {
         }
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public String getSen() {
+        return sen;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setSen(String sen) {
+        try {
+            this.sen = AeSimpleSHA1.SHA1(sen);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(alteraAlunoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(alteraAlunoManagedBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    public void alterar (){
-        System.out.println("Entrou no Metodo");
-        System.out.println("Email: " + email);
-        System.out.println("Senha: " + senha);
-        System.out.println("Senha2: " + senha2);
-        System.out.println("Nome: " + nome);
-        System.out.println("Sobrenome: " + sobrenome);
+
+    public String alterar() {
+        System.out.println("Fui chamado");
+        if (!senha.equals(senha2)) {
+            System.out.println("senhas diferentes");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao alterar", "As senhas não conferem.");
+            return "";
+        }
+
+        if (!sen.equals(aluno.getSenha())) {
+            System.out.println("senha invalida");
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao alterar", "Senha incorreta.");
+            return "";
+        }
+
+        if (senha.equals("") || senha == null) {
+            System.out.println("vazio");
+        } else {
+            System.out.println("mudou nova senha");
+            aluno.setSenha(senha);
+        }
+
+        System.out.println("alterou");
+        ejbUsuarioFacade.edit(aluno);
+
+        System.out.println("saiu");
+        return "../conteudo-professor/altera-aluno-lista.xhtml?faces-redirect=true";
     }
-    
-    public void onRowSelect (){
+
+    public void onRowSelect() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("conteudo-professor/altera-aluno.xhtml");
         } catch (IOException ex) {
