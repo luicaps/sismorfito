@@ -5,6 +5,7 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Csolo;
+import br.unioeste.modelo.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,37 +19,46 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class CsoloFacade extends AbstractFacade<Csolo> {
 
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public CsoloFacade() {
-		super(Csolo.class);
-	}
+    public CsoloFacade() {
+        super(Csolo.class);
+    }
 
-	public Csolo findCsoloFromName(String nomeCsolo) {
-		TypedQuery<Csolo> q = getEntityManager().createQuery("select cs from Csolo cs where cs.sibcs =:arg1", Csolo.class).setParameter("arg1", nomeCsolo);
+    public Csolo findCsoloFromName(String nomeCsolo) {
+        TypedQuery<Csolo> q = getEntityManager().createQuery("select cs from Csolo cs where cs.sibcs =:arg1", Csolo.class).setParameter("arg1", nomeCsolo);
 
-		q.setMaxResults(1);
+        q.setMaxResults(1);
 
-		List<Csolo> lista = q.getResultList();
+        List<Csolo> lista = q.getResultList();
 
-		if (lista == null) {
-			return null;
-		}
+        if (lista == null) {
+            return null;
+        }
 
-		return lista.get(0);
-	}
+        return lista.get(0);
+    }
 
-	 public long nextId() {
+    public long nextId() {
         List<Csolo> lista = findAll();
-        if(lista.size()<1){
+        if (lista.size() < 1) {
             return 1;
         }
-        return (lista.get(lista.size() - 1).getIdCsolo() + 1);
+
+        long saida = Integer.MIN_VALUE;
+
+        for (Csolo csolo : lista) {
+            if (csolo.getIdCsolo() > saida) {
+                saida = csolo.getIdCsolo();
+            }
+        }
+
+        return saida + 1;
     }
 }

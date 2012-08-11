@@ -19,45 +19,45 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class ClasseFacade extends AbstractFacade<Classe> {
 
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public ClasseFacade() {
-		super(Classe.class);
-	}
+    public ClasseFacade() {
+        super(Classe.class);
+    }
 
-	public List<Ordem> findOrdemFromClasse(String nomeClasse) {
+    public List<Ordem> findOrdemFromClasse(String nomeClasse) {
 
-	
-		TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
 
-		q.setMaxResults(1);
+        TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
 
-		List<Classe> lista = q.getResultList();
+        q.setMaxResults(1);
 
-		if (lista == null || lista.get(0).getOrdemList() == null) {
-			return null;
-		}
+        List<Classe> lista = q.getResultList();
 
-		return lista.get(0).getOrdemList();
-	}
-	
-	public Classe findClasseFromName(String nomeClasse){
-		TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
+        if (lista == null || lista.get(0).getOrdemList() == null) {
+            return null;
+        }
 
-		q.setMaxResults(1);
+        return lista.get(0).getOrdemList();
+    }
 
-		List<Classe> lista = q.getResultList();
+    public Classe findClasseFromName(String nomeClasse) {
+        TypedQuery<Classe> q = getEntityManager().createQuery("select c from Classe c where c.nomeClasse =:arg1", Classe.class).setParameter("arg1", nomeClasse);
 
-		if (lista == null) {
-			return null;
-		}
+        q.setMaxResults(1);
 
-		return lista.get(0);
-	}
+        List<Classe> lista = q.getResultList();
+
+        if (lista == null) {
+            return null;
+        }
+
+        return lista.get(0);
+    }
 }

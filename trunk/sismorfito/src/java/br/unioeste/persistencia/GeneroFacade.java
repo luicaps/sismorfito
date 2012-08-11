@@ -20,48 +20,47 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class GeneroFacade extends AbstractFacade<Genero> {
 
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public GeneroFacade() {
-		super(Genero.class);
-	}
+    public GeneroFacade() {
+        super(Genero.class);
+    }
 
-	
-	public List<Especie> findEspeciesFromGenero(String nomeGenero) {
-		
-		TypedQuery<Genero> q = getEntityManager().createQuery("select g from Genero g where g.nomeGenero =:arg1", Genero.class).setParameter("arg1", nomeGenero);
+    public List<Especie> findEspeciesFromGenero(String nomeGenero) {
 
-		q.setMaxResults(1);
+        TypedQuery<Genero> q = getEntityManager().createQuery("select g from Genero g where g.nomeGenero =:arg1", Genero.class).setParameter("arg1", nomeGenero);
 
-		List<Genero> lista = q.getResultList();
+        q.setMaxResults(1);
 
-		if (lista == null || lista.get(0).getEspecieList() == null) {
-			return null;
-		}
+        List<Genero> lista = q.getResultList();
 
-		return lista.get(0).getEspecieList();
+        if (lista == null || lista.get(0).getEspecieList() == null) {
+            return null;
+        }
 
-	}
-	
-	public Genero findGeneroFromName(String nomeGenero){
-				
-		TypedQuery<Genero> q = getEntityManager().createQuery("select g from Genero g where g.nomeGenero =:arg1", Genero.class).setParameter("arg1", nomeGenero);
+        return lista.get(0).getEspecieList();
 
-		q.setMaxResults(1);
+    }
 
-		List<Genero> lista = q.getResultList();
+    public Genero findGeneroFromName(String nomeGenero) {
 
-		if (lista == null) {
-			return null;
-		}
+        TypedQuery<Genero> q = getEntityManager().createQuery("select g from Genero g where g.nomeGenero =:arg1", Genero.class).setParameter("arg1", nomeGenero);
 
-		return lista.get(0);
+        q.setMaxResults(1);
 
-	}
+        List<Genero> lista = q.getResultList();
+
+        if (lista == null) {
+            return null;
+        }
+
+        return lista.get(0);
+
+    }
 }

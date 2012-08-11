@@ -15,16 +15,16 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class ComparaFacade extends AbstractFacade<Compara> {
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	public ComparaFacade() {
-		super(Compara.class);
-	}
-	
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public ComparaFacade() {
+        super(Compara.class);
+    }
 }

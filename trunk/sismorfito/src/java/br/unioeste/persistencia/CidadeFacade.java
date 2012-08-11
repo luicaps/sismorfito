@@ -5,7 +5,7 @@
 package br.unioeste.persistencia;
 
 import br.unioeste.modelo.Cidade;
-import br.unioeste.modelo.Ordem;
+import br.unioeste.modelo.Pos;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,5 +43,21 @@ public class CidadeFacade extends AbstractFacade<Cidade> {
 		}
 
 		return lista.get(0);
+	}
+        
+        public List<Pos> findPosFromCidade(String cidade) {
+
+		TypedQuery<Cidade> q = getEntityManager().createQuery("select c from Cidade c where c.cidade =:arg1", Cidade.class).setParameter("arg1", cidade);
+
+		q.setMaxResults(1);
+
+		List<Cidade> lista = q.getResultList();
+
+		if (lista == null || lista.get(0).getPosList() == null) {
+			return null;
+		}
+
+		return lista.get(0).getPosList();
+
 	}
 }
