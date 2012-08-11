@@ -20,46 +20,46 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class OrdemFacade extends AbstractFacade<Ordem> {
 
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-	public OrdemFacade() {
-		super(Ordem.class);
-	}
+    public OrdemFacade() {
+        super(Ordem.class);
+    }
 
-	public List<Familia> findFamiliasFromOrdem(String nomeOrdem) {
+    public List<Familia> findFamiliasFromOrdem(String nomeOrdem) {
 
 
-		TypedQuery<Ordem> q = getEntityManager().createQuery("select o from Ordem o where o.nomeOrdem =:arg1", Ordem.class).setParameter("arg1", nomeOrdem);
+        TypedQuery<Ordem> q = getEntityManager().createQuery("select o from Ordem o where o.nomeOrdem =:arg1", Ordem.class).setParameter("arg1", nomeOrdem);
 
-		q.setMaxResults(1);
+        q.setMaxResults(1);
 
-		List<Ordem> lista = q.getResultList();
+        List<Ordem> lista = q.getResultList();
 
-		if (lista == null || lista.get(0).getFamiliaList() == null) {
-			return null;
-		}
+        if (lista == null || lista.get(0).getFamiliaList() == null) {
+            return null;
+        }
 
-		return lista.get(0).getFamiliaList();
+        return lista.get(0).getFamiliaList();
 
-	}
-	
-	public Ordem findOrdemFromName(String nomeOrdem){
-		TypedQuery<Ordem> q = getEntityManager().createQuery("select o from Ordem o where o.nomeOrdem =:arg1", Ordem.class).setParameter("arg1", nomeOrdem);
+    }
 
-		q.setMaxResults(1);
+    public Ordem findOrdemFromName(String nomeOrdem) {
+        TypedQuery<Ordem> q = getEntityManager().createQuery("select o from Ordem o where o.nomeOrdem =:arg1", Ordem.class).setParameter("arg1", nomeOrdem);
 
-		List<Ordem> lista = q.getResultList();
+        q.setMaxResults(1);
 
-		if (lista == null) {
-			return null;
-		}
+        List<Ordem> lista = q.getResultList();
 
-		return lista.get(0);
-	}
+        if (lista == null) {
+            return null;
+        }
+
+        return lista.get(0);
+    }
 }

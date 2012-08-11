@@ -31,9 +31,18 @@ public class FpfotoFacade extends AbstractFacade<Fpfoto> {
 
     public long nextId() {
         List<Fpfoto> lista = findAll();
-        if(lista.size()<1){
+        if (lista.size() < 1) {
             return 1;
         }
-        return (lista.get(lista.size() - 1).getFoto() + 1);
+
+        long saida = Integer.MIN_VALUE;
+
+        for (Fpfoto fpfoto : lista) {
+            if (fpfoto.getFoto() > saida) {
+                saida = fpfoto.getFoto();
+            }
+        }
+
+        return saida + 1;
     }
 }

@@ -29,11 +29,20 @@ public class FitopFacade extends AbstractFacade<Fitop> {
         super(Fitop.class);
     }
 
- public long nextId() {
+    public long nextId() {
         List<Fitop> lista = findAll();
-        if(lista.size()<1){
+        if (lista.size() < 1) {
             return 1;
         }
-        return (lista.get(lista.size() - 1).getIdFitop() + 1);
+
+        long saida = Integer.MIN_VALUE;
+
+        for (Fitop fitop : lista) {
+            if (fitop.getIdFitop() > saida) {
+                saida = fitop.getIdFitop();
+            }
+        }
+
+        return saida + 1;
     }
 }

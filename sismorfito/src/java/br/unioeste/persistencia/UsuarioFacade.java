@@ -51,7 +51,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 //            return null;
 //        }
 //        return lista.get(0).getPplantaList();
-        
+
         return null;
     }
 
@@ -60,6 +60,15 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         if (lista.size() < 1) {
             return 1;
         }
-        return (lista.get(lista.size() - 1).getIdUsuario() + 1);
+
+        long saida = Integer.MIN_VALUE;
+
+        for (Usuario usuario : lista) {
+            if (usuario.getIdUsuario() > saida) {
+                saida = usuario.getIdUsuario();
+            }
+        }
+
+        return saida + 1;
     }
 }

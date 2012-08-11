@@ -18,35 +18,31 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class TvegeFacade extends AbstractFacade<Tvege> {
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	public TvegeFacade() {
-		super(Tvege.class);
-	}
-	
-	public Tvege findTvegeFromName(String nomeTvege){
-				
-		TypedQuery<Tvege> q = getEntityManager().createQuery("select tv from Tvege tv where tv.nomeVege =:arg1", Tvege.class).setParameter("arg1", nomeTvege);
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
 
-		q.setMaxResults(1);
+    public TvegeFacade() {
+        super(Tvege.class);
+    }
 
-		List<Tvege> lista = q.getResultList();
+    public Tvege findTvegeFromName(String nomeTvege) {
 
-		System.out.println("Em Busca de TVEGE");
-		System.out.println(lista.get(0).getNomeVege());
-		System.out.println("Deu?");
-		
-		if (lista == null) {
-			return null;
-		}
-		
-		return lista.get(0);
-	}
-	
+        TypedQuery<Tvege> q = getEntityManager().createQuery("select tv from Tvege tv where tv.nomeVege =:arg1", Tvege.class).setParameter("arg1", nomeTvege);
+
+        q.setMaxResults(1);
+
+        List<Tvege> lista = q.getResultList();
+
+        if (lista == null) {
+            return null;
+        }
+
+        return lista.get(0);
+    }
 }

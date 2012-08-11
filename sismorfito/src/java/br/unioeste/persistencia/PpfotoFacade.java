@@ -15,16 +15,16 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class PpfotoFacade extends AbstractFacade<Ppfoto> {
-	@PersistenceContext(unitName = "sismorfitoPU")
-	private EntityManager em;
 
-	@Override
-	protected EntityManager getEntityManager() {
-		return em;
-	}
+    @PersistenceContext(unitName = "sismorfitoPU")
+    private EntityManager em;
 
-	public PpfotoFacade() {
-		super(Ppfoto.class);
-	}
-	
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public PpfotoFacade() {
+        super(Ppfoto.class);
+    }
 }

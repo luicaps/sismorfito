@@ -70,6 +70,8 @@ public class cadastraFitoManagedBean implements Serializable {
     String longitude;
     String partePlanta;
     String csolo;
+    //Cadastro
+    String nfilo;
     //Lists
     int current;
     ArrayList<String> listFilo;		//1
@@ -564,16 +566,12 @@ public class cadastraFitoManagedBean implements Serializable {
         this.selectFitop = selectFitop;
     }
 
-    public boolean isIsReady() {
-        if (filo.equals("")) {
-            return false;
-        } else {
-            return true;
-        }
+    public String getNfilo() {
+        return nfilo;
     }
 
-    public void setIsReady(boolean isReady) {
-        this.isReady = isReady;
+    public void setNfilo(String nfilo) {
+        this.nfilo = nfilo;
     }
 
     public Fitop getFitop() {
@@ -582,6 +580,19 @@ public class cadastraFitoManagedBean implements Serializable {
 
     public void setFitop(Fitop fitop) {
         this.fitop = fitop;
+    }
+
+    public String newFilo() {
+        Filo f = new Filo(ejbFiloFacade.nextId());
+        f.setNomeFilo(nfilo);
+        ejbFiloFacade.create(f);
+        fetchAllFilos();
+        for (String string : listFilo) {
+            if (string.compareTo(nfilo) == 0) {
+                filo = string;
+            }
+        }
+        return "filocad.hide()";
     }
 
     public void fetchAllFilos() {
@@ -691,120 +702,6 @@ public class cadastraFitoManagedBean implements Serializable {
         }
     }
 
-    public ArrayList<String> completeFilo(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFilo) {
-            if (string.equalsIgnoreCase(query)) {
-                saida.add(string);
-            } else {
-                if (string.length() >= query.length()) {
-                    if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                        saida.add(string);
-                    }
-                }
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeClasse(String query) {
-        System.out.println("chamou o metodo do piru d coco");
-
-        ArrayList<String> saida = new ArrayList();
-        if (!filo.equals(null) || !filo.equals("")) {
-            listClasse = new ArrayList();
-            List<Classe> aux = ejbFiloFacade.findClassesFromFilo(filo);
-            if (!(aux == null)) {
-                for (Classe classe1 : aux) {
-                    this.listClasse.add(classe1.getNomeClasse());
-                    System.out.println(classe1.getNomeClasse());
-                }
-            }
-
-            for (String string : listClasse) {
-                if (string.equalsIgnoreCase(query)) {
-                    saida.add(string);
-                } else {
-                    if (string.length() >= query.length()) {
-                        if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                            saida.add(string);
-                        }
-                    }
-                }
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeOrdem(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listOrdem) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeFamilia(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFamilia) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeGenero(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listGenero) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeEspecie(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listEspecie) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeFitolito(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listFitolito) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-    public ArrayList<String> completeCidade(String query) {
-        ArrayList<String> saida = new ArrayList();
-        for (String string : listCidade) {
-            if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-                saida.add(string);
-            }
-        }
-        return saida;
-    }
-
-//	public ArrayList<String> completeEstado(String query) {
-//		ArrayList<String> saida = new ArrayList();
-//		for (String string : listEstado) {
-//			if (string.substring(0, query.length()).equalsIgnoreCase(query)) {
-//				saida.add(string);
-//			}
-//		}
-//		return saida;
-//	}
     public String findPlanta() {
 
 
@@ -852,121 +749,34 @@ public class cadastraFitoManagedBean implements Serializable {
     }
 
     public String createFitop() {
-        fitop = new Fitop(ejbFitopFacade.nextId());
-        fitop.setDisponivel(disponivel);
-        fitop.setNomeFp(Fitolito);
-        fitop.setFkIdPplanta(selectPplanta);
-        fitop.setFkIdUsu(responsavel);
-        ejbFitopFacade.create(fitop);
-        listFitop = ejbPplantaFacade.findFitopFromPplanta(selectPplanta.getIdPplanta());
+        Fitop fitop1 = new Fitop(ejbFitopFacade.nextId());
+        fitop1.setDisponivel(disponivel);
+        fitop1.setNomeFp(Fitolito);
+        fitop1.setFkIdPplanta(selectPplanta);
+        fitop1.setFkIdUsu(responsavel);
+        ejbFitopFacade.create(fitop1);
+//        listFitop = ejbPplantaFacade.findFitopFromPplanta(selectPplanta.getIdPplanta());
         if (listFitop == null) {
             listFitop = new ArrayList<Fitop>();
         }
+        listFitop.add(fitop1);
         return "../conteudo-professor/gerenciar-list-fitop.xhtml?faces-redirect=true";
     }
-    
-    public String changeFitop(){
+
+    public String changeFitop() {
         ejbFitopFacade.edit(selectFitop);
         return "../conteudo-professor/gerenciar-list-fitop.xhtml?faces-redirect=true";
-    }
-
-    /*
-     *
-     * Upload Page Methods
-     *
-     */
-    public String getUploadCase() {
-        return uploadCase;
-    }
-
-    public void setUploadCase(String uploadCase) {
-        this.uploadCase = uploadCase;
-    }
-
-    public boolean changeUploadCaseFPFoto() {
-        if (uCase == 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean changeUploadCasePlFoto() {
-        if (uCase == 1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean changeUploadCasePPFoto() {
-        if (uCase == 2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isVoltar() {
-        if (uCase > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isAvancar() {
-        if (uCase < 2) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void handleAvancar() {
-        uCase++;
-        if (uCase == 1) {
-            changeUploadStringPlFoto();
-        }
-        if (uCase == 2) {
-            changeUploadStringPPFoto();
-        }
-    }
-
-    public void handleVoltar() {
-        uCase--;
-        if (uCase == 0) {
-            changeUploadStringFPFoto();
-        }
-        if (uCase == 1) {
-            changeUploadStringPlFoto();
-        }
-    }
-
-    public void changeUploadStringFPFoto() {
-        uploadCase = "Fotos do Morfotipo do Fitólito";
-    }
-
-    public void changeUploadStringPlFoto() {
-        uploadCase = "Fotos da planta extraída";
-    }
-
-    public void changeUploadStringPPFoto() {
-        uploadCase = "Fotos da parte da planta extraída";
     }
 
     public void handleFileUploadFPFoto(FileUploadEvent event) {
         long fNome = ejbFpfotoFacade.nextId();
         String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
 
-        System.out.println("Estamos no método de upar imagens");
 
         try {
 
             File saida = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/") + dirFPFoto + fNome + ext);
-            
-            System.out.println("Diretorio de saida:");
-            System.out.println(saida.getAbsolutePath());
+
 
             if (!saida.exists()) {
                 saida.createNewFile();
