@@ -182,126 +182,6 @@ public class cadastraFitoManagedBean implements Serializable {
         responsavel = lg.getUsuario();
     }
 
-    public FiloFacade getEjbFiloFacade() {
-        return ejbFiloFacade;
-    }
-
-    public void setEjbFiloFacade(FiloFacade ejbFiloFacade) {
-        this.ejbFiloFacade = ejbFiloFacade;
-    }
-
-    public ClasseFacade getEjbClasseFacade() {
-        return ejbClasseFacade;
-    }
-
-    public void setEjbClasseFacade(ClasseFacade ejbClasseFacade) {
-        this.ejbClasseFacade = ejbClasseFacade;
-    }
-
-    public OrdemFacade getEjbOrdemFacade() {
-        return ejbOrdemFacade;
-    }
-
-    public void setEjbOrdemFacade(OrdemFacade ejbOrdemFacade) {
-        this.ejbOrdemFacade = ejbOrdemFacade;
-    }
-
-    public FamiliaFacade getEjbfFamiliaFacade() {
-        return ejbfFamiliaFacade;
-    }
-
-    public void setEjbfFamiliaFacade(FamiliaFacade ejbfFamiliaFacade) {
-        this.ejbfFamiliaFacade = ejbfFamiliaFacade;
-    }
-
-    public GeneroFacade getEjbGeneroFacade() {
-        return ejbGeneroFacade;
-    }
-
-    public void setEjbGeneroFacade(GeneroFacade ejbGeneroFacade) {
-        this.ejbGeneroFacade = ejbGeneroFacade;
-    }
-
-    public EspecieFacade getEjbEspecieFacade() {
-        return ejbEspecieFacade;
-    }
-
-    public void setEjbEspecieFacade(EspecieFacade ejbEspecieFacade) {
-        this.ejbEspecieFacade = ejbEspecieFacade;
-    }
-
-    public EstadoFacade getEjbEstadoFacade() {
-        return ejbEstadoFacade;
-    }
-
-    public void setEjbEstadoFacade(EstadoFacade ejbEstadoFacade) {
-        this.ejbEstadoFacade = ejbEstadoFacade;
-    }
-
-    public TvegeFacade getEjbTvegeFacade() {
-        return ejbTvegeFacade;
-    }
-
-    public void setEjbTvegeFacade(TvegeFacade ejbTvegeFacade) {
-        this.ejbTvegeFacade = ejbTvegeFacade;
-    }
-
-    public FitopFacade getEjbFitopFacade() {
-        return ejbFitopFacade;
-    }
-
-    public void setEjbFitopFacade(FitopFacade ejbFitopFacade) {
-        this.ejbFitopFacade = ejbFitopFacade;
-    }
-
-    public CidadeFacade getEjbCidadeFacade() {
-        return ejbCidadeFacade;
-    }
-
-    public void setEjbCidadeFacade(CidadeFacade ejbCidadeFacade) {
-        this.ejbCidadeFacade = ejbCidadeFacade;
-    }
-
-    public PosFacade getEjbPosFacade() {
-        return ejbPosFacade;
-    }
-
-    public void setEjbPosFacade(PosFacade ejbPosFacade) {
-        this.ejbPosFacade = ejbPosFacade;
-    }
-
-    public PlantaFacade getEjbPlantaFacade() {
-        return ejbPlantaFacade;
-    }
-
-    public void setEjbPlantaFacade(PlantaFacade ejbPlantaFacade) {
-        this.ejbPlantaFacade = ejbPlantaFacade;
-    }
-
-    public PplantaFacade getEjbPplantaFacade() {
-        return ejbPplantaFacade;
-    }
-
-    public void setEjbPplantaFacade(PplantaFacade ejbPplantaFacade) {
-        this.ejbPplantaFacade = ejbPplantaFacade;
-    }
-
-    public CsoloFacade getEjbCsoloFacade() {
-        return ejbCsoloFacade;
-    }
-
-    public void setEjbCsoloFacade(CsoloFacade ejbCsoloFacade) {
-        this.ejbCsoloFacade = ejbCsoloFacade;
-    }
-
-    public FpfotoFacade getEjbFpfotoFacade() {
-        return ejbFpfotoFacade;
-    }
-
-    public void setEjbFpfotoFacade(FpfotoFacade ejbFpfotoFacade) {
-        this.ejbFpfotoFacade = ejbFpfotoFacade;
-    }
-
     public String getCidade() {
         return cidade;
     }
@@ -594,6 +474,11 @@ public class cadastraFitoManagedBean implements Serializable {
         }
         return "filocad.hide()";
     }
+    
+    public void cancelaFilo(){
+        System.out.println("PIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRU");
+        System.out.println("vc deveria estar escrevendo isso, ok? ok?");
+    }
 
     public void fetchAllFilos() {
         List<Filo> aux = ejbFiloFacade.findAll();
@@ -701,7 +586,7 @@ public class cadastraFitoManagedBean implements Serializable {
             listCsolo.add(csolo1.getSibcs());
         }
     }
-
+    
     public String findPlanta() {
 
 
@@ -755,7 +640,6 @@ public class cadastraFitoManagedBean implements Serializable {
         fitop1.setFkIdPplanta(selectPplanta);
         fitop1.setFkIdUsu(responsavel);
         ejbFitopFacade.create(fitop1);
-//        listFitop = ejbPplantaFacade.findFitopFromPplanta(selectPplanta.getIdPplanta());
         if (listFitop == null) {
             listFitop = new ArrayList<Fitop>();
         }
