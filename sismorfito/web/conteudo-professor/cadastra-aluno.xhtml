@@ -6,10 +6,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="corpo">
-
-        <h:form id="form">
-
-
+        <h:form>
             <div style="margin-left: 30%; width: 500p !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
                     <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
@@ -38,19 +35,9 @@
                     </h:panelGrid>
                     <p:separator />
 
-                    <p:commandButton value="Cadastrar" id="Cadastrar" action="#{cadastraAlunoManagedBean.cadastrar}" />
+                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{cadastraAlunoManagedBean.cadastrar}" />
 
                 </p:panel>
-
-                <p:dialog id="dialog" header="Cadastro" widgetVar="completeDialog" resizable="false" showEffect="explode" hideEffect="explode">
-
-                    <h:panelGrid id="display" columns="1" >
-
-                        <h:outputText id="text" value="#{cadastraAlunoManagedBean.mensagemsucesso}" />
-                        <p:commandButton value="Ok" id="Ok" action="#{cadastraAlunoManagedBean.whichPage()}" ajax="false"/>        
-                    </h:panelGrid>
-                </p:dialog>
-
             </div>
         </h:form>       
     </ui:define>

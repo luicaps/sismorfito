@@ -11,6 +11,7 @@ import br.unioeste.persistencia.UsuarioFacade;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -34,8 +35,11 @@ public class cadastraAlunoManagedBean implements Serializable {
     String nome;
     String sobrenome;
     String email;
-    String mensagemsucesso;
     Usuario professor;
+    
+    List<Usuario> listAluno;
+    Usuario alunoSelect;
+    
     @EJB
     private UsuarioFacade ejbUsuarioFacade;
     @EJB
@@ -50,7 +54,6 @@ public class cadastraAlunoManagedBean implements Serializable {
         nome = new String();
         sobrenome = new String();
         email = new String();
-        mensagemsucesso = new String();
         idusuario = 0;
     }
 
@@ -58,6 +61,23 @@ public class cadastraAlunoManagedBean implements Serializable {
     public void init() {
         LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
         professor = lg.getUsuario();
+        listAluno = ejbUsuarioFacade.findAlunoFromProfessor(professor);
+    }
+
+    public Usuario getAlunoSelect() {
+        return alunoSelect;
+    }
+
+    public void setAlunoSelect(Usuario alunoSelect) {
+        this.alunoSelect = alunoSelect;
+    }
+
+    public List<Usuario> getListAluno() {
+        return listAluno;
+    }
+
+    public void setListAluno(List<Usuario> listAluno) {
+        this.listAluno = listAluno;
     }
 
     public int getIdusuario() {
@@ -119,14 +139,6 @@ public class cadastraAlunoManagedBean implements Serializable {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public String getMensagemsucesso() {
-        return mensagemsucesso;
-    }
-
-    public void setMensagemsucesso(String mensagemsucesso) {
-        this.mensagemsucesso = mensagemsucesso;
-    }
     
     public String cadastrar() {
         FacesMessage msg = null;
@@ -154,11 +166,15 @@ public class cadastraAlunoManagedBean implements Serializable {
         us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
         if (ejbUsuarioFacade.findLogin(us) == null) {
             ejbUsuarioFacade.create(us);
-            mensagemsucesso = "O Cadastro foi Realizado com Sucesso!";
             return "../conteudo-professor/sobre-professor.xhtml?faces-redirect=true";
         } else {
-            mensagemsucesso = "Este aluno já está cadastrado!";
             return "";
         }
+    }
+    
+    public String remover(){
+        ejbUsuarioFacade.remove(alunoSelect);
+        listAluno.remove(alunoSelect);
+        return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
     }
 }

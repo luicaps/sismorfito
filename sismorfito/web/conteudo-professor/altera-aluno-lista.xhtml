@@ -9,26 +9,14 @@
         <h:form>
             <div style="margin-left: 30%; width: 500p !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
-                    <p:dataTable id="aluno" var="aluno" value="#{alteraAlunoManagedBean.alunos}" widgetVar="alunoTable"
-                                 emptyMessage="Não foram encontradas partes de planta" paginator="true" rows="10">
-
-                        <p:column id="nome" headerText="Nome">
-                            <h:outputText value="#{aluno.nome}"/>
-                        </p:column>
+                    <p:dataTable id="Alunos" var="aluno" value="#{alteraAlunoManagedBean.LISTADEALUNOS}" paginator="true" rows="15"
+                                 selection="#{alteraAlunoManagedBean.VARIAVELPARAALUNOESCOLHIDO}" selectionMode="single">
+                    
                         
-                        <p:column id="email" headerText="E-mail">
-                            <h:outputText value="#{aluno.email}"/>
-                        </p:column>
-
-                        <p:column id="Seleção">
-                            <p:commandButton icon="ui-icon-pencil" action="altera-aluno">
-                                <f:setPropertyActionListener value="#{aluno}" target="#{alteraAlunoManagedBean.aluno}"/>
-                            </p:commandButton>
-                        </p:column>
-
+                        
                     </p:dataTable>
                 </p:panel>
             </div>
-        </h:form>
+        </h:form>       
     </ui:define>
 </ui:composition>
