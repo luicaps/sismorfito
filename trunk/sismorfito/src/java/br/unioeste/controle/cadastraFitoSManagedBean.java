@@ -130,12 +130,15 @@ public class cadastraFitoSManagedBean implements Serializable {
         }
         fitos.setRetirada(data);
         ejbFitosFacade.create(fitos);
+        listFitos.add(fitos);
         return "../conteudo-professor/gerenciar-fitos.xhtml?faces-redirect=true";
     }
 
     public String changeFitos() {
         System.out.println("foifoifoifoifoifoifoifoifoifoi");
-//        ejbFitosFacade.edit(fitos);
+        fitos.setRetirada(new Date(retirada));
+        fitos.setDisponivel(disponivel);
+        ejbFitosFacade.edit(fitos);
         return "../conteudo-professor/gerenciar-fitos.xhtml?faces-redirect=true";
     }
 

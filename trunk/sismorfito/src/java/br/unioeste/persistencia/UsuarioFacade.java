@@ -43,16 +43,21 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return lista.get(0);
     }
 
-    public List<Usuario> findPplantaFromPlanta(Usuario usuario) {
-//        TypedQuery<Planta> q = getEntityManager().createQuery("select p from Planta p where p.idPlanta =:arg1", Planta.class).setParameter("arg1", idPlanta);
+    public List<Usuario> findAlunoFromProfessor(Usuario usuario) {
 
-//        List<Planta> lista = q.getResultList();
-//        if (lista == null || lista.get(0).getPplantaList() == null) {
-//            return null;
-//        }
-//        return lista.get(0).getPplantaList();
+        TypedQuery<Usuario> q = getEntityManager().createQuery("select u from Usuario u where u.email =:arg1", Usuario.class).setParameter("arg1", usuario.getEmail());
 
-        return null;
+        q.setMaxResults(1);
+
+
+        List<Usuario> lista = q.getResultList();
+
+        if (lista == null || lista.size() != 1) {
+            return null;
+        }
+
+        return lista.get(0).getUsuarioList();
+
     }
 
     public long nextId() {
