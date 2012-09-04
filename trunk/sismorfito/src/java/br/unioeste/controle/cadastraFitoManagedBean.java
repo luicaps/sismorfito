@@ -649,6 +649,7 @@ public class cadastraFitoManagedBean implements Serializable {
 
     public String changeFitop() {
         ejbFitopFacade.edit(selectFitop);
+        selectFitop = new Fitop();
         return "../conteudo-professor/gerenciar-list-fitop.xhtml?faces-redirect=true";
     }
 

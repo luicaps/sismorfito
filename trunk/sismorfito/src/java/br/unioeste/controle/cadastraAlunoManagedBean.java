@@ -36,10 +36,10 @@ public class cadastraAlunoManagedBean implements Serializable {
     String sobrenome;
     String email;
     Usuario professor;
-    
+    //GAAAMBIS
+    long id;
     List<Usuario> listAluno;
     Usuario alunoSelect;
-    
     @EJB
     private UsuarioFacade ejbUsuarioFacade;
     @EJB
@@ -49,6 +49,7 @@ public class cadastraAlunoManagedBean implements Serializable {
      * Creates a new instance of cadastraUsuarioManagedBean
      */
     public cadastraAlunoManagedBean() {
+        System.out.println("CHAMANDO O CONSTRUTOREE");
         senha = new String();
         senha2 = new String();
         nome = new String();
@@ -139,7 +140,14 @@ public class cadastraAlunoManagedBean implements Serializable {
             Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public boolean isAtivo(Usuario usuario) {
+        if (usuario.getSenha().equals("")) {
+            return false;
+        }
+        return true;
+    }
+
     public String cadastrar() {
         FacesMessage msg = null;
 
@@ -154,8 +162,6 @@ public class cadastraAlunoManagedBean implements Serializable {
             return "";
         }
 
-        System.out.println("entrou no metodo de cadastro");
-
         Usuario us = new Usuario();
         us.setNome(nome);
         us.setIdUsuario(ejbUsuarioFacade.nextId());
@@ -166,15 +172,78 @@ public class cadastraAlunoManagedBean implements Serializable {
         us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
         if (ejbUsuarioFacade.findLogin(us) == null) {
             ejbUsuarioFacade.create(us);
+            listAluno.add(us);
+            nome = new String();
+            sobrenome = new String();
+            email = new String();
+            senha = new String();
+            senha2 = new String();
             return "../conteudo-professor/sobre-professor.xhtml?faces-redirect=true";
         } else {
             return "";
         }
     }
-    
-    public String remover(){
-        ejbUsuarioFacade.remove(alunoSelect);
-        listAluno.remove(alunoSelect);
+
+    public String changeAluno() {
+        FacesMessage msg = null;
+
+        if (!senha.equals(senha2)) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar", "As senhas estão incorretas.");
+            return "";
+        }
+        //TODO Verificar o e-mail
+
+        if (senha == null || senha2 == null || email == null || nome == null || sobrenome == null) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar", "Os campos não estão devidamente preenchidos.");
+            return "";
+        }
+        
+        System.out.println("Meu id eh: " + id);
+        
+        Usuario usuario = ejbUsuarioFacade.usuarioById(id);
+        
+        System.out.println("Encontrado o nome: " + usuario.getNome());
+        
+        usuario.setNome(nome);
+        usuario.setSobrenome(sobrenome);
+        usuario.setEmail(email);
+        if (!senha.equals("")) {
+            usuario.setSenha(senha);
+        }
+        ejbUsuarioFacade.edit(usuario);
+        senha = new String();
+        senha2 = new String();
+        
+        for (Usuario usuario1 : listAluno) {
+            if(usuario1.getIdUsuario()==usuario.getIdUsuario()){
+                int i = listAluno.indexOf(usuario1);
+                listAluno.remove(usuario1);
+                listAluno.add(i, usuario);
+            }
+        }
+        
         return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
+    }
+
+    public String remover(Usuario usuario) {
+        usuario.setSenha("");
+        ejbUsuarioFacade.edit(usuario);
+        return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
+
+    }
+
+    public String ganbis(Usuario us) {
+        alunoSelect = us;
+        id = us.getIdUsuario();
+        nome = us.getNome();
+        sobrenome = us.getSobrenome();
+        email = us.getEmail();
+        senha = new String();
+        senha2 = new String();
+        
+        System.out.println("Nome: " + nome);
+        System.out.println("Id: " + id);
+        
+        return "altera-aluno";
     }
 }

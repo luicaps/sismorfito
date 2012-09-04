@@ -43,6 +43,25 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return lista.get(0);
     }
 
+    public Usuario usuarioById(long id) {
+        
+        System.out.println("FOMOS CHAMADOS");
+
+        TypedQuery<Usuario> q = getEntityManager().createQuery("select u from Usuario u where u.idUsuario =:arg1", Usuario.class).setParameter("arg1", id);
+
+        q.setMaxResults(1);
+
+        List<Usuario> lista = q.getResultList();
+
+        if (lista == null || lista.size() != 1) {
+            return null;
+        }
+
+        System.out.println("AQUI EH O FACADE, NOS ENCONTRAMOS ESTE REGISTRO: " + lista.get(0).getNome());
+
+        return lista.get(0);
+    }
+
     public List<Usuario> findAlunoFromProfessor(Usuario usuario) {
 
         TypedQuery<Usuario> q = getEntityManager().createQuery("select u from Usuario u where u.email =:arg1", Usuario.class).setParameter("arg1", usuario.getEmail());
@@ -55,6 +74,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         if (lista == null || lista.size() != 1) {
             return null;
         }
+
 
         return lista.get(0).getUsuarioList();
 
