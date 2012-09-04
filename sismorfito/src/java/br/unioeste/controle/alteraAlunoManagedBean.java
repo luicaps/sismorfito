@@ -37,6 +37,10 @@ public class alteraAlunoManagedBean {
     UsuarioFacade ejbUsuarioFacade;
 
     public alteraAlunoManagedBean() {
+        aluno = new Usuario();
+        aluno.setEmail("email");
+        aluno.setNome("nome");
+        aluno.setSobrenome("sobrenome");
         senha = new String();
         senha2 = new String();
     }
@@ -45,7 +49,8 @@ public class alteraAlunoManagedBean {
     public void init() {
         LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
         Usuario resp = lg.getUsuario();
-        alunos = resp.getUsuarioList();
+        cadastraAlunoManagedBean cad = (cadastraAlunoManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cadastraAlunoManagedBean");
+        aluno = cad.getAlunoSelect();
     }
 
     public UsuarioFacade getEjbUsuarioFacade() {
