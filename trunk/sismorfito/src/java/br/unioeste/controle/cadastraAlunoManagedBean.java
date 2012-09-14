@@ -185,6 +185,7 @@ public class cadastraAlunoManagedBean implements Serializable {
     }
 
     public String changeAluno() {
+        System.out.println("Entramos na função de alterar as parads");
         FacesMessage msg = null;
 
         if (!senha.equals(senha2)) {
@@ -197,13 +198,13 @@ public class cadastraAlunoManagedBean implements Serializable {
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar", "Os campos não estão devidamente preenchidos.");
             return "";
         }
-        
+
         System.out.println("Meu id eh: " + id);
-        
+
         Usuario usuario = ejbUsuarioFacade.usuarioById(id);
-        
+
         System.out.println("Encontrado o nome: " + usuario.getNome());
-        
+
         usuario.setNome(nome);
         usuario.setSobrenome(sobrenome);
         usuario.setEmail(email);
@@ -213,15 +214,15 @@ public class cadastraAlunoManagedBean implements Serializable {
         ejbUsuarioFacade.edit(usuario);
         senha = new String();
         senha2 = new String();
-        
+
         for (Usuario usuario1 : listAluno) {
-            if(usuario1.getIdUsuario()==usuario.getIdUsuario()){
+            if (usuario1.getIdUsuario() == usuario.getIdUsuario()) {
                 int i = listAluno.indexOf(usuario1);
                 listAluno.remove(usuario1);
                 listAluno.add(i, usuario);
             }
         }
-        
+
         return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
     }
 
@@ -240,10 +241,14 @@ public class cadastraAlunoManagedBean implements Serializable {
         email = us.getEmail();
         senha = new String();
         senha2 = new String();
-        
+
         System.out.println("Nome: " + nome);
         System.out.println("Id: " + id);
-        
+
         return "altera-aluno";
+    }
+
+    public void teste() {
+        System.out.println("PINTO");
     }
 }

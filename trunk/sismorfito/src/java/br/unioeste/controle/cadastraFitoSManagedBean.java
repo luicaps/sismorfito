@@ -110,6 +110,24 @@ public class cadastraFitoSManagedBean implements Serializable {
             listPos.add(pos1.getLatitude() + ", " + pos1.getLongitde());
         }
     }
+    
+        public boolean isAtivo(Fitos fitos) {
+        if (!fitos.getDisponivel()) {
+            return false;
+        }
+        return true;
+    }
+
+    public String changeDisponivelState(Fitos fitos) {
+        System.out.println("VAMOS MUDAR O ESTADO");
+        if(fitos.getDisponivel()){
+            fitos.setDisponivel(false);
+        } else {
+            fitos.setDisponivel(true);
+        }
+        ejbFitosFacade.edit(fitos);
+        return "../conteudo-professor/gerenciar-fitos.xhtml?faces-redirect=true";
+    }
 
     public String newFitos() {
         fetchAllEstado();

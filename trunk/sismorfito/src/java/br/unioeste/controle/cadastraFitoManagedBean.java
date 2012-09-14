@@ -474,8 +474,8 @@ public class cadastraFitoManagedBean implements Serializable {
         }
         return "filocad.hide()";
     }
-    
-    public void cancelaFilo(){
+
+    public void cancelaFilo() {
         System.out.println("PIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRUPIRU");
         System.out.println("vc deveria estar escrevendo isso, ok? ok?");
     }
@@ -586,7 +586,25 @@ public class cadastraFitoManagedBean implements Serializable {
             listCsolo.add(csolo1.getSibcs());
         }
     }
-    
+
+    public boolean isAtivo(Fitop fitop) {
+        if (!fitop.getDisponivel()) {
+            return false;
+        }
+        return true;
+    }
+
+    public String changeDisponivelState(Fitop fitop) {
+        System.out.println("VAMOS MUDAR O ESTADO");
+        if(fitop.getDisponivel()){
+            fitop.setDisponivel(false);
+        } else {
+            fitop.setDisponivel(true);
+        }
+        ejbFitopFacade.edit(fitop);
+        return "../conteudo-professor/gerenciar-list-fitop.xhtml?faces-redirect=true";
+    }
+
     public String findPlanta() {
 
 
