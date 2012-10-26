@@ -4,7 +4,6 @@
  */
 package br.unioeste.controle;
 
-import br.unioeste.controle.util.JsfUtil;
 import br.unioeste.modelo.*;
 import br.unioeste.persistencia.CidadeFacade;
 import br.unioeste.persistencia.ClasseFacade;
@@ -25,14 +24,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;

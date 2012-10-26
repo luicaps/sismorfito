@@ -141,7 +141,7 @@ public class cadastraAlunoManagedBean implements Serializable {
         }
     }
 
-    public boolean isAtivo(Usuario usuario) {
+	public boolean isAtivo(Usuario usuario) {
         if (usuario.getSenha().equals("")) {
             return false;
         }
