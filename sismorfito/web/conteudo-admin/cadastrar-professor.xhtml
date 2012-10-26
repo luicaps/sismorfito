@@ -13,29 +13,29 @@
                     <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
 
                         <h:outputText value="E-Mail: "/>
-                        <p:inputText id="EMail" value="#{cadastraProfessorManagedBean.email}" required="true"/>
+                        <p:inputText id="EMail" value="#{gerenciaProfessorManagedBean.email}" required="true"/>
 
                         <h:outputText value="Senha: "/>
-                        <p:password id="Password" value="#{cadastraProfessorManagedBean.senha}" feedback="true" required="true"
+                        <p:password id="Password" value="#{gerenciaProfessorManagedBean.senha}" feedback="true" required="true"
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
                                     match="Password2"/>
 
                         <h:outputText value="Senha Novamente: "/>
-                        <p:password id="Password2" value="#{cadastraProfessorManagedBean.senha2}" feedback="true" required="true"
+                        <p:password id="Password2" value="#{gerenciaProfessorManagedBean.senha2}" feedback="true" required="true"
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
 
 
                         <h:outputText value="Nome: "/>
-                        <p:inputText id="Nome" value="#{cadastraProfessorManagedBean.nome}" required="true"/>
+                        <p:inputText id="Nome" value="#{gerenciaProfessorManagedBean.nome}" required="true"/>
 
                         <h:outputText value="Sobrenome: "/>
-                        <p:inputText id="Sobrenome" value="#{cadastraProfessorManagedBean.sobrenome}" required="true"/>
+                        <p:inputText id="Sobrenome" value="#{gerenciaProfessorManagedBean.sobrenome}" required="true"/>
 
 
                     </h:panelGrid>
                     <p:separator />
 
-                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{cadastraProfessorManagedBean.cadastrar}" />
+                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{gerenciaProfessorManagedBean.cadastrar}" ajax="false"/>
 
                 </p:panel>
             </div>
