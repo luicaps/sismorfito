@@ -25,12 +25,18 @@ root {
 .cabecalho {
     height: 184px;
     background-color: #d3effe;
+    padding: 2% 10px 0px 2%;
+}
+
+/*.cabecalho {
+    height: 184px;
+    background-color: #d3effe;
     /*background-image: url('../img/header.jpg') !important;         com imagem
     background-repeat: repeat-x !important;
     background-position-x: 100% !important;
-    background-color: #d4e2d3 !important;*/
+    background-color: #d4e2d3 !important;*
     padding: 2% 10px 0px 2%;
-}
+}*/
 
 .corpo {
     min-height: 460px;
@@ -76,7 +82,7 @@ root {
 	font-size: 13px !important;
 	float: right !important;
 	margin-top: 10% !important;
-	margin-right: 5% !important;
+	margin-right: 0% !important;
 }
 
 .pJanela {
@@ -93,17 +99,18 @@ root {
     margin-top: 10% !important;
     font-size: 12px !important;
     /*width: 430px !important;*/
-    width: 42% !important;
+    width: 44% !important;
 }
 
 .menuAdmin {
-    margin-top: 5% !important;
+    margin-top: -3.5% !important;
     font-size: 12px !important;
-    width: 230px !important;    
+    /*width: 430px !important;*/
+    width: 28% !important;
 }
 
 .menuProfessor {
-    margin-top: 5% !important;
+    margin-top: -3.5% !important;
     font-size: 12px !important;
     width: 380px !important;    
 }

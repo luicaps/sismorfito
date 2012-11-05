@@ -102,7 +102,7 @@ public class cadastraFitoManagedBean implements Serializable {
     @EJB
     private EstadoFacade ejbEstadoFacade;
     @EJB
-    private FamiliaFacade ejbfFamiliaFacade;
+    private FamiliaFacade ejbFamiliaFacade;
     @EJB
     private GeneroFacade ejbGeneroFacade;
     @EJB
@@ -515,7 +515,7 @@ public class cadastraFitoManagedBean implements Serializable {
     }
 
     public void fetchAllGenero() {
-        List<Genero> aux = ejbfFamiliaFacade.findGenerosFromFamilia(familia);
+        List<Genero> aux = ejbFamiliaFacade.findGenerosFromFamilia(familia);
         listGenero = new ArrayList();
         if (!(aux == null)) {
             for (Genero genero1 : aux) {
