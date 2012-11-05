@@ -43,10 +43,20 @@
 
         <div class="screen">             
             <div Class="cabecalho">
+				<!--<p:graphicImage value="../img/logo2.png" height="80" style="float: right !important;"/>-->
 
-                <h:form id="loga">
-                    <p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>
-                </h:form>
+				<div style="float: right !important; position: relative !important; text-align: center !important;">
+					<img src="../img/logo2.png" height="80" /><br/>
+					<h:outputText value="Beta 0.1.41" style="padding: 10px 0px 0px 0px !important;"/><br/>
+					<h:form id="loga" style="padding: 0px 33px 0px 33px !important;">
+						<p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>
+					</h:form>
+				</div>
+				<!--<h:outputText value="Beta 0.1.41" style="float: right !important; margin-top: 110px !important;"/>-->
+				<!--				<div style="background-image: url('../img/logo2.png') !important; height: 30% !important; float: right !important; 
+									background-repeat: no-repeat !important; padding: 0px 7% 5px 5px !important; background-size: 80px !important;"/> -->
+
+
                 <h:form>
 
                     <p:growl id="messages"/>

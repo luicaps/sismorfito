@@ -4,11 +4,16 @@
  */
 package br.unioeste.persistencia;
 
+import br.unioeste.modelo.Especie;
 import br.unioeste.modelo.Fitop;
+import br.unioeste.modelo.Planta;
+import br.unioeste.modelo.Pplanta;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -45,4 +50,15 @@ public class FitopFacade extends AbstractFacade<Fitop> {
 
         return saida + 1;
     }
+	
+	public Fitop findByName(String name) {
+		TypedQuery<Fitop> q = getEntityManager().createQuery("select f from Fitop f where f.nomeFp =:arg1", Fitop.class).setParameter("arg1", name);
+        q.setMaxResults(1);
+        List<Fitop> lista = q.getResultList();
+        if (lista == null || lista.get(0) == null) {
+            return null;
+        }
+		return lista.get(0);
+	}
+	
 }

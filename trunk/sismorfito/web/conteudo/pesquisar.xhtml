@@ -14,7 +14,7 @@
         <p:dialog header="#{pesquisaManagedBean.fitop.nomeFp}" id="dlg" widgetVar="dial" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="500" style="text-align: left !important; font-size: 13px !important; width: 100% !important;">
             <h:form>
                 <h:panelGrid columns="3">
-                    <p:panel footer="Fitolito">
+                    <p:panel footer="Fitolito" rendered="#{pesquisaManagedBean.fpfoto}">
                         <p:commandButton type="button" onclick="FPFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
                         <p:commandButton type="button" onclick="FPFoto.next();"
@@ -26,7 +26,7 @@
                             </ui:repeat>
                         </p:imageSwitch>
                     </p:panel>
-                    <p:panel footer="Planta">
+                    <p:panel footer="Planta" rendered="#{pesquisaManagedBean.plfoto}">
 
                         <p:commandButton type="button" onclick="PlFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
@@ -40,7 +40,7 @@
                         </p:imageSwitch>
 
                     </p:panel>
-                    <p:panel footer="Parte da Planta">
+                    <p:panel footer="Parte da Planta" rendered="#{pesquisaManagedBean.ppfoto}">
 
                         <p:commandButton type="button" onclick="PPFoto.previous();"
                                          icon="ui-icon-circle-triangle-w" style="font-size: 10px !important;"/>
