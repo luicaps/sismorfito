@@ -1,0 +1,58 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+            Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
+        </p:panel>
+        <h:form id="pa">
+            <p:growl id="message" showDetail="true" life="5000"/>
+            
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
+
+                    <p:dataTable id="Fitos" var="fitos" value="#{cadastraFitoSManagedBean.listFitos}" widgetVar="plantTable"
+                                 emptyMessage="Não foram encontradas fitólitos de solo" paginator="true" rows="10">
+                        
+                        <p:column id="ativo" headerText="Disponível">
+                            <p:commandButton value="Ativo" action="#{cadastraFitoSManagedBean.changeDisponivelState(fitos)}" rendered="#{cadastraFitoSManagedBean.isAtivo(fitos)}"/>
+                            <p:commandButton value="Inativo" action="#{cadastraFitoSManagedBean.changeDisponivelState(fitos)}" rendered="#{not cadastraFitoSManagedBean.isAtivo(fitos)}"/>
+                        </p:column>
+
+                        <p:column id="retirada" headerText="Retirada">
+                            <h:outputText value="#{fitos.retirada}"/>
+                        </p:column>
+                        
+                        <p:column id="latitude" headerText="Latitude">
+                            <h:outputText value="#{fitos.fkIdPos.latitude}"/>
+                        </p:column>
+                        
+                        <p:column id="longitude" headerText="Longitude">
+                            <h:outputText value="#{fitos.fkIdPos.longitde}"/>
+                        </p:column>
+                        
+                        <p:column id="sibcs" headerText="Sibcs">
+                            <h:outputText value="#{fitos.fkIdPos.fkIdCsolo.sibcs}"/>
+                        </p:column>
+                        
+                        <p:column id="Seleção">
+                            <p:commandButton icon="ui-icon-pencil" action="altera-fitos">
+                                <f:setPropertyActionListener value="#{fitos}" target="#{cadastraFitoSManagedBean.fitos}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator />
+
+                    <p:commandButton value="Novo" action="#{cadastraFitoSManagedBean.newFitos()}"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Concluir" id="Submit"/>
+                </p:panel>
+            </div>
+        </h:form>
+    </ui:define>
+</ui:composition>

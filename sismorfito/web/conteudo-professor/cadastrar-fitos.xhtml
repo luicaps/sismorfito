@@ -1,0 +1,51 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form id="pa">
+            <p:growl id="message" showDetail="true" life="5000"/>
+
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <p:panel style="font-size: 12px !important;">
+                    <p:panelGrid columns="2">
+                        <h:outputText value="Retirada: "/>
+                        <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999"/> 
+                        <h:outputText value="Disponivel para busca?"/>
+                        <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.disponivel}"/>
+                    </p:panelGrid>
+                    
+                    <p:selectOneMenu id="Estado" value="#{cadastraFitoSManagedBean.estado}" height="150">
+                        <f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
+                        <f:selectItems value="#{cadastraFitoSManagedBean.listEstado}"/>
+                        <p:ajax update="Cidade Pos"
+                                listener="#{cadastraFitoSManagedBean.fetchAllCidade()}" />
+                    </p:selectOneMenu>
+                    <br/>
+                    <p:selectOneMenu id="Cidade" value="#{cadastraFitoSManagedBean.cidade}" height="150">
+                        <f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
+                        <f:selectItems value="#{cadastraFitoSManagedBean.listCidade}" />
+                        <p:ajax update="Pos"
+                                listener="#{cadastraFitoSManagedBean.fetchAllPos()}" />
+                    </p:selectOneMenu>
+                    <br/>
+                    <p:selectOneMenu id="Pos" value="#{cadastraFitoSManagedBean.pos}" height="150">
+                        <f:selectItem itemLabel="Lat, Long" itemValue="" itemDisabled="true"/>
+                        <f:selectItems value="#{cadastraFitoSManagedBean.listPos}" />
+                    </p:selectOneMenu>
+                    
+                    <p:separator />
+
+                    <p:commandButton value="Concluir" action="#{cadastraFitoSManagedBean.createFitos()}"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Cancelar" id="Submit" 
+                                     action="../conteudo-professor/gerenciar-fitos.xhtml?faces-redirect=true"/>
+
+                </p:panel>
+            </div>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

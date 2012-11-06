@@ -1,0 +1,71 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+            Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
+        </p:panel>
+        <h:form id="pa">
+            <p:growl id="message" showDetail="true" life="5000"/>
+
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <p:panel id="oi" style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
+
+                    <p:dataTable id="Alunos" var="aluno" value="#{cadastraAlunoManagedBean.listAluno}" widgetVar="alunoTable"
+                                 emptyMessage="Não há alunos disponíveis" paginator="true" rows="10">
+
+                        <p:column id="ativo" headerText="Ativo">
+<!--                            <p:graphicImage rendered="#{cadastraAlunoManagedBean.isAtivo(aluno)}"
+                                            value="../img/yes.png"/>
+                            <p:graphicImage rendered="#{not cadastraAlunoManagedBean.isAtivo(aluno)}"
+                                            value="../img/no.jpg"/>-->
+                            <h:outputText value="Sim" rendered="#{cadastraAlunoManagedBean.isAtivo(aluno)}"/>
+                            <h:outputText value="Não" rendered="#{not cadastraAlunoManagedBean.isAtivo(aluno)}"/>
+                        </p:column>
+                        
+                        <p:column id="email" headerText="e-mail">
+                            <h:outputText value="#{aluno.email}"/>
+                        </p:column>
+
+                        <p:column id="nome" headerText="Nome">
+                            <h:outputText value="#{aluno.nome}"/>
+                        </p:column>
+
+                        <p:column id="sobrenome" headerText="Sobrenome">
+                            <h:outputText value="#{aluno.sobrenome}"/>
+                        </p:column>
+
+                        <p:column id="Seleção">
+                            <p:commandButton icon="ui-icon-pencil" action="#{cadastraAlunoManagedBean.ganbis(aluno)}">
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-trash" update="ativo" action="#{cadastraAlunoManagedBean.remover(aluno)}"
+                                             rendered="#{cadastraAlunoManagedBean.isAtivo(aluno)}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator />
+
+                    <p:commandButton value="Novo" action="../conteudo-professor/cadastrar-aluno.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Concluir" id="Submit"/>
+                </p:panel>
+            </div>
+            <p:dialog widgetVar="confirma" id="Dial" header="Confirmação">
+                <h:outputText value="Deseja realmente inabilitar #{cadastraAlunoManagedBean.alunoSelect.nome}?"/>
+                <br/>
+                <p:commandButton value="Sim"/>
+                <p:commandButton value="Não"/>
+            </p:dialog>
+           
+            <p:confirmDialog widgetVar="deletar" header="Realizar exclusão" message="Tem certeza que deseja realizar esta ação?" severity="alert">
+                <p:commandButton id="confirma" value="Sim" update="Alunos" oncomplete="deletar.hide()"/>
+                <p:commandButton id="desconfirma" value="Não" onclick="deletar.hide()"/>
+            </p:confirmDialog>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>
