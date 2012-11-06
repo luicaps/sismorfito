@@ -1,0 +1,73 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <h:form id="pa">
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
+
+                    <p:dataTable id="PPlantas" var="plant" value="#{cadastraFitoManagedBean.listPplanta}" widgetVar="plantTable"
+                                 emptyMessage="Não foram encontradas partes de planta">
+
+                        <p:column id="Pplanta" headerText="Parte da planta" filterMatchMode="contains">
+                            <h:outputText value="#{plant.nomePplanta}"/>
+                        </p:column>
+
+                        <p:column id="Seleção">
+                            <p:commandButton icon="ui-icon-pencil" action="#{cadastraFitoManagedBean.findFitop()}">
+                                <f:setPropertyActionListener value="#{plant}" target="#{cadastraFitoManagedBean.selectPplanta}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator />
+
+                    <p:commandButton value="Novo"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Concluir" id="Submit" />
+                </p:panel>
+            </div>
+            <p:dialog>
+                <p:selectOneMenu id="estado" value="#{cadastraFitoManagedBean.estado}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
+                    <f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
+                    <f:selectItems value="#{cadastraFitoManagedBean.listEstado}"/>
+                    <p:ajax update="Submit cidade"
+                            listener="#{cadastraFitoManagedBean.fetchAllCidade()}"/>
+                </p:selectOneMenu>
+                <br/>
+                <p:selectOneMenu id="cidade" value="#{cadastraFitoManagedBean.cidade}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
+                    <f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
+                    <f:selectItems value="#{cadastraFitoManagedBean.listCidade}"/>
+                </p:selectOneMenu>
+                <br/>
+
+                <p:selectOneMenu id="csolo" value="#{cadastraFitoManagedBean.csolo}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
+                    <f:selectItem itemLabel="Sibcs" itemValue="" itemDisabled="true"/>
+                    <f:selectItems value="#{cadastraFitoManagedBean.listCsolo}"/>
+                </p:selectOneMenu>
+
+                <p:panelGrid columns="2">
+                    <h:outputText value="Latitude"/>
+                    <p:inputText id="latitude" value="#{cadastraFitoManagedBean.latitude}"/>
+                    <h:outputText value="Longitude"/>
+                    <p:inputText id="longitude" value="#{cadastraFitoManagedBean.longitude}"/>
+                </p:panelGrid>
+
+                <p:separator/>
+
+                <h:outputText value="Retirada: "/>
+                <p:inputMask id="Retirada" value="#{cadastraFitoManagedBean.retirada}" mask="99/99/9999"/> 
+                <br/>
+                <h:outputText value="Disponível para busca?" style="margin-right: 15px !important;"/>
+                <p:selectBooleanCheckbox id="Disponivel" value="#{cadastraFitoManagedBean.disponivel}" style="margin-top: 15px !important;"/>
+
+            </p:dialog>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<ui:composition template="/template/template-professor.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+        <p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+            Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
+        </p:panel>
+        <h:form id="pa">
+            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
+
+                    <p:dataTable id="Plantas" var="plant" value="#{cadastraFitoManagedBean.listPlanta}" widgetVar="plantTable"
+                                 emptyMessage="Não foram encontradas plantas">
+
+                        <p:column id="Retirada" headerText="Data de Retirada" filterMatchMode="contains">
+                            <h:outputText value="#{plant.retirada}"/>
+                        </p:column>
+
+                        <p:column id="Pos" headerText="Posição">
+                            <h:outputText value="#{plant.fkIdPos.latitude}, #{plant.fkIdPos.longitde}"/>
+                        </p:column>
+
+                        <p:column id="Cidade" headerText="Cidade">
+                            <h:outputText value="#{plant.fkIdPos.fkIdCidade.cidade}"/>
+                        </p:column>
+
+                        <p:column id="Estado" headerText="Estado">
+                            <h:outputText value="#{plant.fkIdPos.fkIdCidade.fkIdEstado.uf}"/>
+                        </p:column>
+
+                        <p:column id="Seleção">
+                            <p:commandButton icon="ui-icon-pencil" action="#{cadastraFitoManagedBean.findPplanta()}" title="View">
+                                <f:setPropertyActionListener value="#{plant}" target="#{cadastraFitoManagedBean.selectPlanta}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:separator />
+
+                    <p:commandButton value="Novo"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Concluir" id="Submit"/>
+                </p:panel>
+            </div>
+
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>
