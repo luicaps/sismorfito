@@ -1,8 +1,0 @@
-
---This line, and those below, will be ignored--
-
-M    src/java/br/unioeste/controle/cadastraFitoManagedBean.java
-M    src/java/br/unioeste/controle/cadastraAlunoManagedBean.java
-M    web/conteudo-professor/altera-aluno.xhtml
-M    web/conteudo-admin/cadastrar-professor.xhtml
-M    web/template/template-admin.xhtml

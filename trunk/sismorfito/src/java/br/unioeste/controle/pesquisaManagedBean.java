@@ -353,7 +353,9 @@ public class pesquisaManagedBean implements Serializable {
 		listFitolito = new ArrayList();
 		if (!(aux == null)) {
 			for (Fitop fitop1 : aux) {
-				this.listFitolito.add(fitop1.getNomeFp());
+				if (fitop1.getDisponivel()) {
+					this.listFitolito.add(fitop1.getNomeFp());
+				}
 			}
 		}
 		Fitolito = "";

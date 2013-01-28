@@ -599,6 +599,7 @@ public class cadastraFitoManagedBean implements Serializable {
     }
 
     public String findPlanta() {
+		System.out.println("Método chamado");
 
 
         /*

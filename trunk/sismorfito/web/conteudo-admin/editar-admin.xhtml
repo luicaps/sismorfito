@@ -1,0 +1,48 @@
+<ui:composition template="/template/template-admin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:define name="corpo">
+
+	<h:form id="tela">
+	    <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+		<p:panel style="">
+		    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
+		    <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
+
+			<h:outputText value="E-Mail: "/>
+			<p:inputText id="EMail" value="#{gerenciaProfessorManagedBean.admin.email}" required="true"/>
+
+			<h:outputText value="Nome: "/>
+			<p:inputText id="Nome" value="#{gerenciaProfessorManagedBean.admin.nome}" required="true"/>
+
+			<h:outputText value="Sobrenome: "/>
+			<p:inputText id="Sobrenome" value="#{gerenciaProfessorManagedBean.admin.sobrenome}" required="true"/>
+
+			<h:outputText value="Senha atual: "/>
+			<p:password id="SenhaAtual" value="#{gerenciaProfessorManagedBean.senha3}" required="true"/>
+
+			<h:outputText value="Senha: "/>
+			<p:password id="Password" value="#{gerenciaProfessorManagedBean.senha}" feedback="true"
+				    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+				    />
+
+			<h:outputText value="Senha Novamente: "/>
+			<p:password id="Password2" value="#{gerenciaProfessorManagedBean.senha2}" feedback="true"
+				    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+		    </h:panelGrid>
+
+		    <p:separator />
+
+                    <p:commandButton value="Concluir" action="#{gerenciaProfessorManagedBean.alterarAdmin}"/>
+                    <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Cancelar" id="cancela" 
+                                     action="../conteudo-admin/sobre-admin.xhtml?faces-redirect=true"/>
+		</p:panel>
+	    </div>
+	</h:form>
+
+    </ui:define>
+</ui:composition>

@@ -6,9 +6,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <ui:define name="corpo">
-        <p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
+        <!--<p:panel style="font-size: 10px !important; margin-bottom: 5% !important;">
             Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
-        </p:panel>
+        </p:panel>-->
         <h:form id="pa">
             <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
                 <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
@@ -19,7 +19,7 @@
                         <p:ajax update="classe ordem familia genero especie Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllClasses()}" />
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;" onclick="FiloDial.show()"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;" onclick="FiloDial.show()"/>-->
                     <br/>
                     <p:selectOneMenu id="classe" value="#{cadastraFitoManagedBean.classe}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Classe" itemValue="" itemDisabled="true"/>
@@ -27,7 +27,7 @@
                         <p:ajax update="ordem familia genero especie Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllOrdens()}" />
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>-->
                     <br/>
                     <p:selectOneMenu id="ordem" value="#{cadastraFitoManagedBean.ordem}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Ordem" itemValue="" itemDisabled="true"/>
@@ -35,7 +35,7 @@
                         <p:ajax update="familia genero especie Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllFamilias()}" />
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>-->
                     <br/>
                     <p:selectOneMenu id="familia" value="#{cadastraFitoManagedBean.familia}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Familia" itemValue="" itemDisabled="true"/>
@@ -43,7 +43,7 @@
                         <p:ajax update="genero especie Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllGenero()}" />
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>-->
                     <br/>
                     <p:selectOneMenu id="genero" value="#{cadastraFitoManagedBean.genero}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Genero" itemValue="" itemDisabled="true"/>
@@ -51,7 +51,7 @@
                         <p:ajax update="especie Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllEspecie()}" />
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>-->
                     <br/>
                     <p:selectOneMenu id="especie" value="#{cadastraFitoManagedBean.especie}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Especie" itemValue="" itemDisabled="true"/>
@@ -59,7 +59,7 @@
                         <p:ajax update="Submit"
                                 listener="#{cadastraFitoManagedBean.fetchAllFitolito()}"/>
                     </p:selectOneMenu>
-                    <p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>
+                    <!--<p:commandButton icon="ui-icon-plus" style="font-size: 10px !important; float: right !important;"/>-->
                     <br/>
 
                     <p:separator />

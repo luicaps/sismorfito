@@ -49,7 +49,7 @@ public class alteraAlunoManagedBean {
     public void init() {
         LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
         Usuario resp = lg.getUsuario();
-        cadastraAlunoManagedBean cad = (cadastraAlunoManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cadastraAlunoManagedBean");
+        gerenciaAlunoManagedBean cad = (gerenciaAlunoManagedBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("cadastraAlunoManagedBean");
         aluno = cad.getAlunoSelect();
     }
 
