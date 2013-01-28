@@ -39,9 +39,9 @@ root {
 }*/
 
 .corpo {
-    min-height: 460px;
+    min-height: 200px;
     height: auto !important;
-    height: 460px;    
+    /*height: 460px;  */  
     text-align: center !important;
     padding-left: 20% !important;
     padding-right: 20% !important;
@@ -52,7 +52,7 @@ root {
 
 .conteudo {
     /*background-color: #F4F0EC !important;*/
-    height: auto !important;
+    /*height: auto !important;*/
 }
 
 /*.rodape {
@@ -112,7 +112,7 @@ root {
 .menuProfessor {
     margin-top: -3.5% !important;
     font-size: 12px !important;
-    width: 380px !important;    
+    width: 319px !important;    
 }
 
 .cadprof {

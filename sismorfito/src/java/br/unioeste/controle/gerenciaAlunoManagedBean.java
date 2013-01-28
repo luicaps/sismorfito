@@ -5,78 +5,93 @@
 package br.unioeste.controle;
 
 import br.unioeste.modelo.AeSimpleSHA1;
-import br.unioeste.modelo.Tusu;
 import br.unioeste.modelo.Usuario;
 import br.unioeste.persistencia.TusuFacade;
 import br.unioeste.persistencia.UsuarioFacade;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 /**
  *
- * @author Caps
+ * @author Richetti
  */
-@Named(value = "gerenciaProfessorManagedBean")
+@ManagedBean
 @SessionScoped
-public class GerenciaProfessorManagedBean implements Serializable {
+public class gerenciaAlunoManagedBean implements Serializable {
 
-    //Cadastra
-    String email;
+    int idusuario;
     String senha;
     String senha2;
     String senha3;
     String nome;
     String sobrenome;
-    Usuario admin;
-    //Gerencia
-    List<Usuario> profes;
-    @EJB
-    TusuFacade ejbTusuFacade;
-    @EJB
-    UsuarioFacade ejbUsuarioFacade;
-    //Edita
+    String email;
     Usuario professor;
+    //GAAAMBIS
+    long id;
+    List<Usuario> listAluno;
+    Usuario alunoSelect;
+    @EJB
+    private UsuarioFacade ejbUsuarioFacade;
+    @EJB
+    private TusuFacade ejbTusuFacade;
+    //Edita
+    Usuario aluno;
 
     /**
-     * Creates a new instance of GerenciaProfessorManagedBean
+     * Creates a new instance of cadastraUsuarioManagedBean
      */
-    public GerenciaProfessorManagedBean() {
+    public gerenciaAlunoManagedBean() {
+	System.out.println("CHAMANDO O CONSTRUTOREE");
     }
 
     @PostConstruct
     public void init() {
 	LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
-	admin = lg.getUsuario();
-	Tusu tusu = ejbTusuFacade.findTusuByName("Professor");
-	profes = tusu.getUsuarioList();
+	professor = lg.getUsuario();
+	listAluno = ejbUsuarioFacade.findAlunoFromProfessor(professor);
     }
 
-    public Usuario getAdmin() {
-	return admin;
+    public Usuario getAlunoSelect() {
+	return alunoSelect;
     }
 
-    public void setAdmin(Usuario admin) {
-	this.admin = admin;
+    public void setAlunoSelect(Usuario alunoSelect) {
+	this.alunoSelect = alunoSelect;
     }
 
-    //Cadastrar
-    public String getEmail() {
-	return email;
+    public List<Usuario> getListAluno() {
+	return listAluno;
     }
 
-    public void setEmail(String email) {
-	this.email = email;
+    public void setListAluno(List<Usuario> listAluno) {
+	this.listAluno = listAluno;
+    }
+
+    public int getIdusuario() {
+	return idusuario;
+    }
+
+    public void setIdusuario(int idusuario) {
+	this.idusuario = idusuario;
+    }
+
+    public String getNome() {
+	return nome;
+    }
+
+    public void setNome(String nome) {
+	this.nome = nome;
     }
 
     public String getSenha() {
@@ -91,6 +106,22 @@ public class GerenciaProfessorManagedBean implements Serializable {
 	} catch (UnsupportedEncodingException ex) {
 	    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
 	}
+    }
+
+    public String getEmail() {
+	return email;
+    }
+
+    public void setEmail(String email) {
+	this.email = email;
+    }
+
+    public String getSobrenome() {
+	return sobrenome;
+    }
+
+    public void setSobrenome(String sobrenome) {
+	this.sobrenome = sobrenome;
     }
 
     public String getSenha2() {
@@ -121,26 +152,32 @@ public class GerenciaProfessorManagedBean implements Serializable {
 	}
     }
 
-    public String getNome() {
-	return nome;
+    public Usuario getProfessor() {
+	return professor;
     }
 
-    public void setNome(String nome) {
-	this.nome = nome;
+    public void setProfessor(Usuario professor) {
+	this.professor = professor;
     }
 
-    public String getSobrenome() {
-	return sobrenome;
+    public boolean isAtivo(Usuario usuario) {
+	if (usuario.getSenha().equals("")) {
+	    return false;
+	}
+	return true;
     }
 
-    public void setSobrenome(String sobrenome) {
-	this.sobrenome = sobrenome;
+    public Usuario getAluno() {
+	return aluno;
+    }
+
+    public void setAluno(Usuario aluno) {
+	this.aluno = aluno;
     }
 
     public String cadastrar() {
-
 	if (!senha.equals(senha2)) {
-	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar: ", "As senhas estão incorretas."));
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar: ", "As senhas não conferem."));
 	    return "";
 	}
 
@@ -155,55 +192,26 @@ public class GerenciaProfessorManagedBean implements Serializable {
 	us.setSobrenome(sobrenome);
 	us.setEmail(email);
 	us.setSenha(senha);
-	us.setFkIdUsuSup(admin);
-	us.setFkIdTusu(ejbTusuFacade.findTusuByName("Professor"));
+	us.setFkIdUsuSup(professor);
+	us.setFkIdTusu(ejbTusuFacade.findTusuByName("Aluno"));
 	if (ejbUsuarioFacade.findLogin(us) == null) {
 	    ejbUsuarioFacade.create(us);
-	    profes.add(us);
+	    listAluno.add(us);
 	    nome = new String();
 	    sobrenome = new String();
 	    email = new String();
 	    senha = new String();
 	    senha2 = new String();
-	    return "sobre-admin";
+	    return "../conteudo-professor/sobre-professor.xhtml?faces-redirect=true";
 	} else {
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao Cadastrar: ", "e-mail não disponível."));
 	    return "";
 	}
     }
 
-    //Gerenciar
-    public boolean isAtivo(Usuario usuario) {
-	if (usuario.getSenha().equals("")) {
-	    return false;
-	}
-	return true;
-    }
-
-    public List<Usuario> getProfes() {
-	return profes;
-    }
-
-    public void setProfes(List<Usuario> profes) {
-	this.profes = profes;
-    }
-
-    public String remover(Usuario usuario) {
-	usuario.setSenha("");
-	ejbUsuarioFacade.edit(usuario);
-	return "../conteudo-admin/gerenciar-professor.xhtml?faces-redirect=true";
-    }
-
-    //Editar
-    public Usuario getProfessor() {
-	return professor;
-    }
-
-    public void setProfessor(Usuario professor) {
-	this.professor = professor;
-    }
-
     public String alterar() {
+
+	System.out.println("poi");
 
 	if (!senha.equals(senha2)) {
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao alterar: ", "As senhas não conferem."));
@@ -212,14 +220,14 @@ public class GerenciaProfessorManagedBean implements Serializable {
 
 	if (senha.equals("") || senha == null) {
 	} else {
-	    professor.setSenha(senha);
+	    aluno.setSenha(senha);
 	}
 
-	ejbUsuarioFacade.edit(professor);
-	for (int i = 0; i < profes.size(); i++) {
-	    if (profes.get(i).getIdUsuario() == professor.getIdUsuario()) {
-		profes.remove(i);
-		profes.add(i, professor);
+	ejbUsuarioFacade.edit(aluno);
+	for (int i = 0; i < listAluno.size(); i++) {
+	    if (listAluno.get(i).getIdUsuario() == aluno.getIdUsuario()) {
+		listAluno.remove(i);
+		listAluno.add(i, aluno);
 		break;
 	    }
 	}
@@ -227,12 +235,19 @@ public class GerenciaProfessorManagedBean implements Serializable {
 	senha = new String();
 	senha2 = new String();
 	senha3 = new String();
-	return "../conteudo-admin/sobre-admin.xhtml?faces-redirect=true";
+	return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
     }
 
-    public String alterarAdmin() {
+    public String remover(Usuario usuario) {
+	usuario.setSenha("");
+	ejbUsuarioFacade.edit(usuario);
+	return "../conteudo-professor/gerenciar-aluno.xhtml?faces-redirect=true";
 
-	if (!senha3.equals(admin.getSenha())) {
+    }
+
+    public String alterarProfessor() {
+
+	if (!senha3.equals(professor.getSenha())) {
 	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Erro ao alterar: ", "A senha atual esta incorreta."));
 	    return "";
 	}
@@ -244,12 +259,31 @@ public class GerenciaProfessorManagedBean implements Serializable {
 
 	if (senha.equals("") || senha == null) {
 	} else {
-	    admin.setSenha(senha);
-	    ejbUsuarioFacade.edit(admin);
+	    professor.setSenha(senha);
+	    ejbUsuarioFacade.edit(professor);
 	}
 	senha = new String();
 	senha2 = new String();
 	senha3 = new String();
-	return "../conteudo-admin/sobre-admin.xhtml?faces-redirect=true";
+	return "../conteudo-professor/sobre-professor.xhtml?faces-redirect=true";
+    }
+
+    public String ganbis(Usuario us) {
+	alunoSelect = us;
+	id = us.getIdUsuario();
+	nome = us.getNome();
+	sobrenome = us.getSobrenome();
+	email = us.getEmail();
+	senha = new String();
+	senha2 = new String();
+
+	System.out.println("Nome: " + nome);
+	System.out.println("Id: " + id);
+
+	return "altera-aluno";
+    }
+    
+    public void teste() {
+	System.out.println("foi");
     }
 }

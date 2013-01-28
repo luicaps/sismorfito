@@ -7,32 +7,32 @@
 
     <ui:define name="corpo">
         <h:form>
-            <div style="margin-left: 30%; width: 500p !important;">
-                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 12px !important;">
+            <div >
+                <p:panel style=" vertical-align: middle; font-size: 13px !important;">
                     <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
-                    <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
+                    <div style="display: table-cell;">
+			<h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
 
-                        <h:outputText value="E-Mail: "/>
-                        <p:inputText id="EMail" value="#{gerenciaProfessorManagedBean.email}" required="true"/>
+			    <h:outputText value="E-Mail: "/>
+			    <p:inputText id="EMail" value="#{gerenciaProfessorManagedBean.email}" required="true"/>
 
-                        <h:outputText value="Senha: "/>
-                        <p:password id="Password" value="#{gerenciaProfessorManagedBean.senha}" feedback="true" required="true"
-                                    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
-                                    match="Password2"/>
+			    <h:outputText value="Nome: "/>
+			    <p:inputText id="Nome" value="#{gerenciaProfessorManagedBean.nome}" required="true"/>
 
-                        <h:outputText value="Senha Novamente: "/>
-                        <p:password id="Password2" value="#{gerenciaProfessorManagedBean.senha2}" feedback="true" required="true"
-                                    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+			    <h:outputText value="Sobrenome: "/>
+			    <p:inputText id="Sobrenome" value="#{gerenciaProfessorManagedBean.sobrenome}" required="true"/>
 
+			    <h:outputText value="Senha: "/>
+			    <p:password id="Password" value="#{gerenciaProfessorManagedBean.senha}" feedback="true" required="true"
+					promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
+					match="Password2"/>
 
-                        <h:outputText value="Nome: "/>
-                        <p:inputText id="Nome" value="#{gerenciaProfessorManagedBean.nome}" required="true"/>
+			    <h:outputText value="Senha Novamente: "/>
+			    <p:password id="Password2" value="#{gerenciaProfessorManagedBean.senha2}" feedback="true" required="true"
+					promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
 
-                        <h:outputText value="Sobrenome: "/>
-                        <p:inputText id="Sobrenome" value="#{gerenciaProfessorManagedBean.sobrenome}" required="true"/>
-
-
-                    </h:panelGrid>
+			</h:panelGrid>
+		    </div>
                     <p:separator />
 
                     <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{gerenciaProfessorManagedBean.cadastrar}" ajax="false"/>

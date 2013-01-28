@@ -14,9 +14,9 @@
             Ops! Acho que você não deveria estar aqui.
             Que tal voltar <p:commandLink onclick="retorna()">aqui</p:commandLink>?
             <script type="text/javascript" language="javascript">
-                function retorna() {
-                    window.location.href='../index.xhtml';
-                }
+		function retorna() {
+		    window.location.href = '../index.xhtml';
+		}
             </script>
         </p:panel>
     </h:form>
@@ -25,13 +25,12 @@
         <div class="screen">
             <div Class="cabecalho">
                 <div style="float: right !important; position: relative !important; text-align: center !important;">
-					<img src="../img/logo2.png" height="80" /><br/>
-					<h:outputText value="Beta 0.1.43" style="padding: 10px 0px 0px 0px !important;"/><br/>
-				</div>
-					<h:form id="loga" style="padding: 0px 33px 0px 33px !important;">
-						<p style="text-align: right !important; margin-top: 110px !important;"><h:outputText value="#{loginBean.usuario.nome}" id="usu"/>, <p:commandLink value="sair" action="#{loginBean.logout}"/></p>
-						<!--<p:commandButton value="Login" styleClass="loginBotao" onclick="login.show()" id="Logar" widgetVar="Logar"/>-->
-					</h:form>
+		    <img src="../img/logo2.png" height="80" /><br/>
+		    <h:outputText value="Beta 0.1.43" style="padding: 10px 0px 0px 0px !important;"/><br/>
+		</div>
+		<h:form id="loga" style="padding: 0px 33px 0px 33px !important;">
+		    <p style="text-align: right !important; margin-top: 110px !important;"><h:outputText value="#{loginBean.usuario.nome}" id="usu"/>, <p:commandLink value="Meus dados" action="/conteudo-professor/editar-professor.xhtml"/>, <p:commandLink value="sair" action="#{loginBean.logout}"/></p>
+		</h:form>
                 <h:form>
 
                     <p:growl id="messages"/>
@@ -39,21 +38,21 @@
                     <p:menubar styleClass="menuProfessor" autoDisplay="false">
 
                         <p:submenu label="Banco de Dados" icon="ui-icon-note">
-                            <p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>
+                            <!--<p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>-->
                             <p:submenu label="Gerenciar">
                                 <p:menuitem value="Fitólito de Planta" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-fitop.xhtml" ajax="false"/>
                                 <p:menuitem value="Fitólito de Solo" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-fitos.xhtml" ajax="false"/>
                             </p:submenu>
-                            <p:menuitem value="Alterar" icon="ui-icon-pencil" action="/conteudo-professor/altera-fitop.xhtml" ajax="false"/>
+                            <!--<p:menuitem value="Alterar" icon="ui-icon-pencil" action="/conteudo-professor/altera-fitop.xhtml" ajax="false"/>-->
                         </p:submenu>
 
-                        <p:submenu label="Pesquisador" icon="ui-icon-person">
-                            <p:menuitem value="Gerenciar Aluno" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-aluno.xhtml" ajax="false" />
-                            <p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-professor/cadastra-aluno.xhtml" ajax="false" />
-                            <p:menuitem value="Alterar Aluno" icon="ui-icon-note" action="/conteudo-professor/altera-aluno-lista.xhtml" ajax="false" />
+                            <p:menuitem value="Aluno" icon="ui-icon-person" action="/conteudo-professor/gerenciar-aluno.xhtml" ajax="false" />
+                        <!--<p:submenu label="Pesquisador" icon="ui-icon-person">-->
+                            <!--<p:menuitem value="Cadastrar Aluno" icon="ui-icon-pencil" action="/conteudo-professor/cadastra-aluno.xhtml" ajax="false" />-->
+                            <!--<p:menuitem value="Alterar Aluno" icon="ui-icon-note" action="/conteudo-professor/altera-aluno-lista.xhtml" ajax="false" />
                             <p:menuitem value="Consultar Professor" icon="ui-icon-search" ajax="false"  styleClass="cadprof" />
-                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" ajax="false" />
-                        </p:submenu>
+                            <p:menuitem value="Consultar Aluno" icon="ui-icon-search" ajax="false" />-->
+                        <!--</p:submenu>-->
 
                         <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-professor/ajuda-professor.xhtml" ajax="false" />
 

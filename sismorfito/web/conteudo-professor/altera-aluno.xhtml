@@ -7,25 +7,27 @@
 
     <ui:define name="corpo">
         <h:form id="a">
-
-            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
+            <div style="padding-bottom: 5% !important;">
                 <p:panel style="font-size: 12px !important;">
-                    <p:panelGrid columns="2">
-                        <h:outputText value="E-mail"/>
-                        <p:inputText value="#{cadastraAlunoManagedBean.email}"/>
-                        <h:outputText value="Nome"/>
-                        <p:inputText value="#{cadastraAlunoManagedBean.nome}"/>
-                        <h:outputText value="Sobrenome"/>
-                        <p:inputText value="#{cadastraAlunoManagedBean.sobrenome}"/>
-                        <h:outputText value="Senha"/>
-                        <p:password value="#{cadastraAlunoManagedBean.senha}" />
-                        <h:outputText value="Senha Novamente"/>
-                        <p:password value="#{cadastraAlunoManagedBean.senha2}" />
-                    </p:panelGrid>
+		    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
+                    <h:panelGrid columns="2" cellpadding="5">
+<!--                        <h:outputText value="E-mail:"/>
+                        <p:inputText value="#{gerenciaAlunoManagedBean.aluno.email}"/>
+                        <h:outputText value="Nome:"/>
+                        <p:inputText value="#{gerenciaAlunoManagedBean.aluno.nome}"/>-->
+                        <h:outputText value="Sobrenome:"/>
+                        <p:inputText value="#{gerenciaAlunoManagedBean.aluno.sobrenome}"/>
+                        <h:outputText value="Senha:"/>
+                        <p:password value="#{gerenciaAlunoManagedBean.senha}"  feedback="true"
+				    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+                        <h:outputText value="Senha Novamente:"/>
+                        <p:password value="#{gerenciaAlunoManagedBean.senha2}"  feedback="true"
+				    promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
+                    </h:panelGrid>
 
                     <p:separator />
 
-                    <p:commandButton value="Concluir" action="#{cadastraAlunoManagedBean.changeAluno()}"/>
+                    <h:commandButton value="Concluir" action="#{gerenciaAlunoManagedBean.teste}"/>
                     <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Cancelar" id="cancela" 
                                      action="../conteudo-professor/sobre-professor.xhtml?faces-redirect=true"/>
                 </p:panel>
