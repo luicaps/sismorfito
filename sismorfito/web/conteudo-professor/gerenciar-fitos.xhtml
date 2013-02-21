@@ -10,14 +10,12 @@
             Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
         </p:panel>-->
         <h:form id="pa">
-            <p:growl id="message" showDetail="true" life="5000"/>
-            
-            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
-                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
-
+            <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+                <p:panel style="">
+                    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
                     <p:dataTable id="Fitos" var="fitos" value="#{cadastraFitoSManagedBean.listFitos}" widgetVar="plantTable"
                                  emptyMessage="Não foram encontradas fitólitos de solo" paginator="true" rows="10">
-                        
+
                         <p:column id="ativo" headerText="Disponível">
                             <p:commandButton value="Ativo" action="#{cadastraFitoSManagedBean.changeDisponivelState(fitos)}" rendered="#{cadastraFitoSManagedBean.isAtivo(fitos)}"/>
                             <p:commandButton value="Inativo" action="#{cadastraFitoSManagedBean.changeDisponivelState(fitos)}" rendered="#{not cadastraFitoSManagedBean.isAtivo(fitos)}"/>
@@ -26,19 +24,19 @@
                         <p:column id="retirada" headerText="Retirada">
                             <h:outputText value="#{fitos.retirada}"/>
                         </p:column>
-                        
+
                         <p:column id="latitude" headerText="Latitude">
                             <h:outputText value="#{fitos.fkIdPos.latitude}"/>
                         </p:column>
-                        
+
                         <p:column id="longitude" headerText="Longitude">
                             <h:outputText value="#{fitos.fkIdPos.longitde}"/>
                         </p:column>
-                        
+
                         <p:column id="sibcs" headerText="Sibcs">
                             <h:outputText value="#{fitos.fkIdPos.fkIdCsolo.sibcs}"/>
                         </p:column>
-                        
+
                         <p:column id="Seleção">
                             <p:commandButton icon="ui-icon-pencil" action="altera-fitos">
                                 <f:setPropertyActionListener value="#{fitos}" target="#{cadastraFitoSManagedBean.fitos}"/>

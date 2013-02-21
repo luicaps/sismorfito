@@ -7,25 +7,25 @@
 
     <ui:define name="corpo">
         <h:form id="pa">
-            <p:growl id="message" showDetail="true" life="5000"/>
-
-            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
-                <p:panel style="font-size: 12px !important;">
-                    <p:panelGrid columns="2">
+	    <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+		<p:panel style="">
+		    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
+                    
+                    <h:panelGrid columns="2" style="margin-bottom: 5px !important;">
                         <h:outputText value="Retirada: "/>
                         <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999"/> 
                         <h:outputText value="Disponivel para busca?"/>
                         <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.disponivel}"/>
-                    </p:panelGrid>
+                    </h:panelGrid>
                     
-                    <p:selectOneMenu id="Estado" value="#{cadastraFitoSManagedBean.estado}" height="150">
+                    <p:selectOneMenu id="Estado" value="#{cadastraFitoSManagedBean.estado}" height="150" style="margin-bottom: 5px !important;">
                         <f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
                         <f:selectItems value="#{cadastraFitoSManagedBean.listEstado}"/>
                         <p:ajax update="Cidade Pos"
                                 listener="#{cadastraFitoSManagedBean.fetchAllCidade()}" />
                     </p:selectOneMenu>
                     <br/>
-                    <p:selectOneMenu id="Cidade" value="#{cadastraFitoSManagedBean.cidade}" height="150">
+                    <p:selectOneMenu id="Cidade" value="#{cadastraFitoSManagedBean.cidade}" height="150" style="margin-bottom: 5px !important;">
                         <f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
                         <f:selectItems value="#{cadastraFitoSManagedBean.listCidade}" />
                         <p:ajax update="Pos"

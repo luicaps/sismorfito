@@ -13,27 +13,27 @@
                     <h:panelGrid columns="2" cellpadding="5" id="DadosCadastrais">
 
                         <h:outputText value="E-Mail: "/>
-                        <p:inputText id="EMail" value="#{gerenciaAlunoManagedBean.email}" required="true"/>
+                        <p:inputText id="EMail" value="#{gerenciaAluno.email}" required="true"/>
 
                         <h:outputText value="Nome: "/>
-                        <p:inputText id="Nome" value="#{gerenciaAlunoManagedBean.nome}" required="true"/>
+                        <p:inputText id="Nome" value="#{gerenciaAluno.nome}" required="true"/>
 			
                         <h:outputText value="Sobrenome: "/>
-                        <p:inputText id="Sobrenome" value="#{gerenciaAlunoManagedBean.sobrenome}" required="true"/>
+                        <p:inputText id="Sobrenome" value="#{gerenciaAluno.sobrenome}" required="true"/>
                         
 			<h:outputText value="Senha: "/>
-                        <p:password id="Password" value="#{gerenciaAlunoManagedBean.senha}" feedback="true" required="true"
+                        <p:password id="Password" value="#{gerenciaAluno.senha}" feedback="true" required="true"
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"
                                     match="Password2"/>
 
                         <h:outputText value="Senha Novamente: "/>
-                        <p:password id="Password2" value="#{gerenciaAlunoManagedBean.senha2}" feedback="true" required="true"
+                        <p:password id="Password2" value="#{gerenciaAluno.senha2}" feedback="true" required="true"
                                     promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Média" strongLabel="Forte"/>
 
                     </h:panelGrid>
                     <p:separator />
 
-                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{gerenciaAlunoManagedBean.cadastrar}" />
+                    <p:commandButton value="Cadastrar" id="Cadastrar" update="DadosCadastrais" action="#{gerenciaAluno.cadastrar}" />
 
                 </p:panel>
             </div>

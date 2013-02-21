@@ -10,9 +10,9 @@
             Inserção dos dados -> <h:outputText style="color: #999999 !important;" value="Upload das fotos"/>
         </p:panel>-->
         <h:form id="pa">
-            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
-                <p:panel style="margin-bottom:10px; display: table-cell; vertical-align: middle; font-size: 13px !important; background-color: #90b4bd">
-
+            <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+		<p:panel style="">
+		    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
                     <p:selectOneMenu id="filo" value="#{cadastraFitoManagedBean.filo}" height="150" style="margin-bottom: 5px !important; width: 120px !important;">
                         <f:selectItem itemLabel="Filo" itemValue="" itemDisabled="true"/>
                         <f:selectItems value="#{cadastraFitoManagedBean.listFilo}"/>

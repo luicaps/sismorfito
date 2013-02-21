@@ -26,7 +26,7 @@
             <div Class="cabecalho">
                 <div style="float: right !important; position: relative !important; text-align: center !important;">
 		    <img src="../img/logo2.png" height="80" /><br/>
-		    <h:outputText value="Beta 0.1.43" style="padding: 10px 0px 0px 0px !important;"/><br/>
+		    <h:outputText value="#{bundle.Version}" style="padding: 10px 0px 0px 0px !important;"/><br/>
 		</div>
 		<h:form id="loga" style="padding: 0px 33px 0px 33px !important;">
 		    <p style="text-align: right !important; margin-top: 110px !important;"><h:outputText value="#{loginBean.usuario.nome}" id="usu"/>, <p:commandLink value="Meus dados" action="/conteudo-professor/editar-professor.xhtml"/>, <p:commandLink value="sair" action="#{loginBean.logout}"/></p>
@@ -39,10 +39,10 @@
 
                         <p:submenu label="Banco de Dados" icon="ui-icon-note">
                             <!--<p:menuitem value="Pesquisar" icon="ui-icon-search" action="/conteudo-professor/pesquisar-fito.xhtml" ajax="false"/>-->
-                            <p:submenu label="Gerenciar">
+                            <!--<p:submenu label="Gerenciar">-->
                                 <p:menuitem value="Fitólito de Planta" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-fitop.xhtml" ajax="false"/>
                                 <p:menuitem value="Fitólito de Solo" icon="ui-icon-pencil" action="/conteudo-professor/gerenciar-fitos.xhtml" ajax="false"/>
-                            </p:submenu>
+                            <!--</p:submenu>-->
                             <!--<p:menuitem value="Alterar" icon="ui-icon-pencil" action="/conteudo-professor/altera-fitop.xhtml" ajax="false"/>-->
                         </p:submenu>
 
@@ -56,7 +56,7 @@
 
                         <p:menuitem value="Ajuda" icon="ui-icon-help" action="/conteudo-professor/ajuda-professor.xhtml" ajax="false" />
 
-                        <p:menuitem value="Sair" icon="ui-icon-close" action="#{loginBean.logout}" ajax="false"/>
+                        <!--<p:menuitem value="Sair" icon="ui-icon-close" action="#{loginBean.logout}" ajax="false"/>-->
                     </p:menubar>
 
                 </h:form>
