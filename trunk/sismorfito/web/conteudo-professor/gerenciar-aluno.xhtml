@@ -10,7 +10,7 @@
             <p:growl id="message" showDetail="true" life="5000"/>
 
             <div style="font-size: 13px; padding-bottom: 5% !important;">
-		<p:dataTable id="Alunos" var="aluno" value="#{gerenciaAlunoManagedBean.listAluno}" widgetVar="alunoTable"
+		<p:dataTable id="Alunos" var="aluno" value="#{gerenciaAluno.alunos}" widgetVar="alunoTable"
 			     emptyMessage="Não há alunos disponíveis" paginator="true" rows="10">
 
 		    <p:column id="ativo" headerText="Ativo">
@@ -18,8 +18,8 @@
 								    value="../img/yes.png"/>
 						    <p:graphicImage rendered="{not cadastraAlunoManagedBean.isAtivo(aluno)}"
 								    value="../img/no.jpg"/>-->
-			<h:outputText value="Sim" rendered="#{gerenciaAlunoManagedBean.isAtivo(aluno)}"/>
-			<h:outputText value="Não" rendered="#{not gerenciaAlunoManagedBean.isAtivo(aluno)}"/>
+			<h:outputText value="Sim" rendered="#{gerenciaAluno.isAtivo(aluno)}"/>
+			<h:outputText value="Não" rendered="#{not gerenciaAluno.isAtivo(aluno)}"/>
 		    </p:column>
 
 		    <p:column id="email" headerText="e-mail">
@@ -36,10 +36,10 @@
 
 		    <p:column id="Seleção">
 			<p:commandButton icon="ui-icon-pencil" action="altera-aluno">
-                            <f:setPropertyActionListener value="#{aluno}" target="#{gerenciaAlunoManagedBean.aluno}" />
+                            <f:setPropertyActionListener value="#{aluno}" target="#{gerenciaAluno.aluno}" />
                         </p:commandButton>
-			<p:commandButton icon="ui-icon-trash" update="ativo" action="#{gerenciaAlunoManagedBean.remover(aluno)}"
-					 rendered="#{gerenciaAlunoManagedBean.isAtivo(aluno)}"/>
+			<p:commandButton icon="ui-icon-trash" update="ativo" action="#{gerenciaAluno.remover(aluno)}"
+					 rendered="#{gerenciaAluno.isAtivo(aluno)}"/>
 		    </p:column>
 
 		</p:dataTable>
