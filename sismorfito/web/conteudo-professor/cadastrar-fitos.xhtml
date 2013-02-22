@@ -7,36 +7,68 @@
 
     <ui:define name="corpo">
         <h:form id="pa">
-	    <div style="font-size: 13px !important; padding-bottom: 5% !important;">
-		<p:panel style="">
-		    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
-                    
-                    <h:panelGrid columns="2" style="margin-bottom: 5px !important;">
-                        <h:outputText value="Retirada: "/>
-                        <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999"/> 
-                        <h:outputText value="Disponivel para busca?"/>
-                        <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.disponivel}"/>
-                    </h:panelGrid>
-                    
-                    <p:selectOneMenu id="Estado" value="#{cadastraFitoSManagedBean.estado}" height="150" style="margin-bottom: 5px !important;">
-                        <f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
-                        <f:selectItems value="#{cadastraFitoSManagedBean.listEstado}"/>
-                        <p:ajax update="Cidade Pos"
-                                listener="#{cadastraFitoSManagedBean.fetchAllCidade()}" />
-                    </p:selectOneMenu>
-                    <br/>
-                    <p:selectOneMenu id="Cidade" value="#{cadastraFitoSManagedBean.cidade}" height="150" style="margin-bottom: 5px !important;">
-                        <f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
-                        <f:selectItems value="#{cadastraFitoSManagedBean.listCidade}" />
-                        <p:ajax update="Pos"
-                                listener="#{cadastraFitoSManagedBean.fetchAllPos()}" />
-                    </p:selectOneMenu>
-                    <br/>
-                    <p:selectOneMenu id="Pos" value="#{cadastraFitoSManagedBean.pos}" height="150">
-                        <f:selectItem itemLabel="Lat, Long" itemValue="" itemDisabled="true"/>
-                        <f:selectItems value="#{cadastraFitoSManagedBean.listPos}" />
-                    </p:selectOneMenu>
-                    
+            <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+                <p:panel style="">
+                    <p:messages autoUpdate="true" id="mensagem" showDetail="true" />
+
+                    <table style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td> <h:outputText value="Retirada: "/> </td>
+                            <td> <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999"/> </td>
+                        </tr>
+                        <tr>
+                            <td> <h:outputText value="Disponivel para busca?"/> </td>
+                            <td> <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.disponivel}"/> </td>
+                        </tr>
+                    </table>
+                    <p:separator/>
+                    <table style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td>
+                                <p:selectOneMenu id="Estado" value="#{cadastraFitoSManagedBean.estado}" height="150" style="margin-bottom: 5px !important;">
+                                    <f:selectItem itemLabel="Estado" itemValue="" itemDisabled="true"/>
+                                    <f:selectItems value="#{cadastraFitoSManagedBean.listEstado}"/>
+                                    <p:ajax update="Cidade Pos"
+                                            listener="#{cadastraFitoSManagedBean.fetchAllCidade()}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:selectOneMenu id="Cidade" value="#{cadastraFitoSManagedBean.cidade}" height="150" style="margin-bottom: 5px !important;">
+                                    <f:selectItem itemLabel="Cidade" itemValue="" itemDisabled="true"/>
+                                    <f:selectItems value="#{cadastraFitoSManagedBean.listCidade}" />
+                                    <p:ajax update="Pos"
+                                            listener="#{cadastraFitoSManagedBean.fetchAllPos()}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:selectOneMenu id="Csolo" value="#{cadastraFitoSManagedBean.csolo}" height="150">
+                                    <f:selectItem itemLabel="Classe do Solo" itemValue="" itemDisabled="true"/>
+                                    <f:selectItems value="#{cadastraFitoSManagedBean.listCsolo}" />
+                                </p:selectOneMenu>
+                            </td>
+                            <td> <p:commandButton icon="ui-icon-plus" onclick="NewCsolo.show()"/> </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table style="margin-right: auto; margin-left: auto;">
+                                    <tr>
+                                        <td>
+                                            <p:selectOneMenu id="Pos" value="#{cadastraFitoSManagedBean.pos}" height="150">
+                                                <f:selectItem itemLabel="Lat, Long" itemValue="" itemDisabled="true"/>
+                                                <f:selectItems value="#{cadastraFitoSManagedBean.listPos}" />
+                                            </p:selectOneMenu>
+                                        </td>
+                                        <td> <p:commandButton icon="ui-icon-plus" onclick="NewPos.show()"/> </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
                     <p:separator />
 
                     <p:commandButton value="Concluir" action="#{cadastraFitoSManagedBean.createFitos()}"/>
@@ -45,6 +77,33 @@
 
                 </p:panel>
             </div>
+
+            <p:dialog widgetVar="NewPos" header="Nova Posição" resizable="false" style="font-size: 13px !important;">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Latitude:" />
+                    <p:inputText value="#{cadastraFitoSManagedBean.latitude}" />
+
+                    <h:outputLabel value="Longitude" />
+                    <p:inputText value="#{cadastraFitoSManagedBean.longitude}" />
+
+                    <h:outputLabel value="Comentário:" />
+                    <p:inputTextarea rows="6" cols="20" value="#{cadastraFitoSManagedBean.comentario}" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Cadastrar" action="#{cadastraFitoSManagedBean.newPos}" oncomplete="NewPos.hide()" update="Pos" />
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
+
+            <p:dialog widgetVar="NewCsolo" header="Nova Classe de Solo" resizable="false" style="font-size: 13px !important;">
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel value="Sibcs:" />
+                    <p:inputText value="#{cadastraFitoSManagedBean.novoCsolo}" />
+                    <f:facet name="footer">
+                        <p:commandButton value="Cadastrar" action="#{cadastraFitoSManagedBean.newCsolo}" oncomplete="NewCsolo.hide()" update="Csolo" />
+                    </f:facet>
+                </h:panelGrid>
+            </p:dialog>
 
         </h:form>
     </ui:define>
