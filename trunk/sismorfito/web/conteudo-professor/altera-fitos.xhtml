@@ -9,17 +9,21 @@
         <h:form id="pa">
             <p:growl id="message" showDetail="true" life="5000"/>
 
-            <div style="margin-left: 30%; width: 500px !important; padding-bottom: 5% !important;">
-                <p:panel style="font-size: 12px !important;">
-                    <p:panelGrid columns="2">
-                        <h:outputText value="Retirada: "/>
-                        <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999"/>
-                        <h:outputText value="Disponivel para busca?"/>
-                        <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.fitos.disponivel}"/>
-                    </p:panelGrid>
+            <div style="font-size: 13px !important; padding-bottom: 5% !important;">
+                <p:panel>
+                    <table style="margin-left: auto; margin-right: auto;">
+                        <tr>
+                            <td style="text-align: left;" > <h:outputText value="Retirada: "/> </td>
+                            <td style="text-align: center;"> <p:inputMask id="Retirada" value="#{cadastraFitoSManagedBean.retirada}" mask="99/99/9999" disabled="true" /> </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left;"> <h:outputText value="Disponivel para busca?"/> </td>
+                            <td style="text-align: center;"> <p:selectBooleanCheckbox value="#{cadastraFitoSManagedBean.fitos.disponivel}"/> </td>
+                        </tr>
+                    </table>
 
                     <p:separator />
-                    
+
                     <p:dataTable id="FSF" var="fsfoto" value="#{cadastraFitoSManagedBean.fitos.fsfotoList}" widgetVar="fsfTable"
                                  emptyMessage="Não foram encontradas fotos" paginator="true" rows="10">
 
@@ -32,7 +36,7 @@
                         </p:column>
 
                     </p:dataTable>
-                    
+
                     <p:panel>
                         <h:outputText value="Clique no botão enviar antes de finalizar para realizar o cadastro das imagens!" style="color: #e33b06;"/>
                     </p:panel>
@@ -50,7 +54,7 @@
                                   cancelLabel="Cancelar">
                     </p:fileUpload>
 
-                    <p:commandButton value="Concluir" action="#{cadastraFitoSManagedBean.changeFitos()}"/>
+                    <p:commandButton value="Concluir" action="#{cadastraFitoSManagedBean.changeFitos}"/>
                     <p:commandButton style="margin-bottom: 35px !important; margin-top: 20px !important;" value="Cancelar" id="Submit" 
                                      action="../conteudo-professor/gerenciar-list-fitop.xhtml?faces-redirect=true"/>
 

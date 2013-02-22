@@ -22,7 +22,9 @@
                         </p:column>
 
                         <p:column id="retirada" headerText="Retirada">
-                            <h:outputText value="#{fitos.retirada}"/>
+                            <h:outputText value="#{fitos.retirada}">
+                                <f:convertDateTime pattern="dd/MM/YYYY"/>
+                            </h:outputText>
                         </p:column>
 
                         <p:column id="latitude" headerText="Latitude">

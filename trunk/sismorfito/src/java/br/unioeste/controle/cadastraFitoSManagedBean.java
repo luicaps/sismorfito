@@ -6,6 +6,7 @@ package br.unioeste.controle;
 
 import br.unioeste.modelo.*;
 import br.unioeste.persistencia.CidadeFacade;
+import br.unioeste.persistencia.CsoloFacade;
 import br.unioeste.persistencia.EstadoFacade;
 import br.unioeste.persistencia.FitosFacade;
 import br.unioeste.persistencia.FsfotoFacade;
@@ -47,14 +48,20 @@ public class cadastraFitoSManagedBean implements Serializable {
     List<String> listCidade;
     List<String> listEstado;
     List<String> listPos;
+    List<String> listCsolo;
     //Select
     String cidade;
     String estado;
     String pos;
+    String csolo;
     Fitos fitos;
     //Cads
     String retirada;
     boolean disponivel;
+    String latitude;
+    String longitude;
+    String comentario;
+    String NovoCsolo;
     @EJB
     private FitosFacade ejbFitosFacade;
     @EJB
@@ -65,6 +72,8 @@ public class cadastraFitoSManagedBean implements Serializable {
     private PosFacade ejbPosFacade;
     @EJB
     private FsfotoFacade ejbFsfotoFacade;
+    @EJB
+    private CsoloFacade ejbCsoloFacade;
 
     /**
      * Creates a new instance of cadastraFitoManagedBean
@@ -76,8 +85,17 @@ public class cadastraFitoSManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         fetchAllFitos();
+        fetchAllCsolo();
         LoginBean lg = (LoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("loginBean");
         responsavel = lg.getUsuario();
+    }
+    
+    public void fetchAllCsolo() {
+        List<Csolo> list = ejbCsoloFacade.findAll();
+        listCsolo = new ArrayList<String>();
+        for (Csolo csolo : list) {
+            listCsolo.add(csolo.getSibcs());
+        }
     }
 
     public void fetchAllFitos() {
@@ -110,8 +128,8 @@ public class cadastraFitoSManagedBean implements Serializable {
             listPos.add(pos1.getLatitude() + ", " + pos1.getLongitde());
         }
     }
-    
-        public boolean isAtivo(Fitos fitos) {
+
+    public boolean isAtivo(Fitos fitos) {
         if (!fitos.getDisponivel()) {
             return false;
         }
@@ -120,7 +138,7 @@ public class cadastraFitoSManagedBean implements Serializable {
 
     public String changeDisponivelState(Fitos fitos) {
         System.out.println("VAMOS MUDAR O ESTADO");
-        if(fitos.getDisponivel()){
+        if (fitos.getDisponivel()) {
             fitos.setDisponivel(false);
         } else {
             fitos.setDisponivel(true);
@@ -154,13 +172,14 @@ public class cadastraFitoSManagedBean implements Serializable {
 
     public String changeFitos() {
         System.out.println("foifoifoifoifoifoifoifoifoifoi");
-        fitos.setRetirada(new Date(retirada));
-        fitos.setDisponivel(disponivel);
+//        fitos.setRetirada(new Date(retirada));
+//        fitos.setDisponivel(disponivel);
         ejbFitosFacade.edit(fitos);
         return "../conteudo-professor/gerenciar-fitos.xhtml?faces-redirect=true";
     }
 
     public void handleFileUploadFSFoto(FileUploadEvent event) {
+        System.out.println("HELLO!");
         long fNome = ejbFsfotoFacade.nextId();
         String ext = event.getFile().getFileName().substring((event.getFile().getFileName().length() - 4), (event.getFile().getFileName().length()));
 
@@ -195,8 +214,8 @@ public class cadastraFitoSManagedBean implements Serializable {
 
             Fsfoto fsfoto = new Fsfoto(fNome);
             fsfoto.setFkIdFitos(fitos);
-            ejbFsfotoFacade.create(fsfoto);
-            fitos.getFsfotoList().add(fsfoto);
+//            ejbFsfotoFacade.create(fsfoto);
+//            fitos.getFsfotoList().add(fsfoto);
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -204,6 +223,27 @@ public class cadastraFitoSManagedBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         }
+    }
+
+    public void newPos() {
+        Pos p = new Pos(ejbPosFacade.nextId());
+        p.setLatitude(latitude);
+        p.setLongitde(longitude);
+        p.setComentario(comentario);
+        p.setFkIdCidade(ejbCidadeFacade.findCidadeFromName(cidade));
+        p.setFkIdCsolo(ejbCsoloFacade.findCsoloFromName(csolo));
+        ejbPosFacade.create(p);
+        listPos.add(p.getLatitude() + ", " + p.getLongitde());
+        latitude = new String();
+        longitude = new String();
+    }
+    
+    public void newCsolo() {
+        Csolo c = new Csolo(ejbCsoloFacade.nextId());
+        c.setSibcs(NovoCsolo);
+        ejbCsoloFacade.create(c);
+        listCsolo.add(NovoCsolo);
+        NovoCsolo = new String();
     }
 
     public Fitos getFitos() {
@@ -293,4 +333,53 @@ public class cadastraFitoSManagedBean implements Serializable {
     public void setDisponivel(boolean disponivel) {
         this.disponivel = disponivel;
     }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getCsolo() {
+        return csolo;
+    }
+
+    public void setCsolo(String csolo) {
+        this.csolo = csolo;
+    }
+
+    public List<String> getListCsolo() {
+        return listCsolo;
+    }
+
+    public void setListCsolo(List<String> listCsolo) {
+        this.listCsolo = listCsolo;
+    }
+
+    public String getNovoCsolo() {
+        return NovoCsolo;
+    }
+
+    public void setNovoCsolo(String NovoCsolo) {
+        this.NovoCsolo = NovoCsolo;
+    }
+   
 }
